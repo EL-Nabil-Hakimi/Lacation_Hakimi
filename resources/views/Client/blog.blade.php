@@ -1,312 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
   <head>
-    <title>Car Rent &mdash; Free Website Template by Hakimi</title>
+    <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/client/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="assets/client/css/animate.css">
+    
+    <link rel="stylesheet" href="assets/client/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/client/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/client/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="assets/Client/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="assets/client/css/aos.css">
 
-    <link rel="stylesheet" href="assets/Client/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/Client/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="assets/Client/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="assets/Client/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/Client/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/Client/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="assets/Client/css/aos.css">
+    <link rel="stylesheet" href="assets/client/css/ionicons.min.css">
 
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="assets/Client/css/style.css">
+    <link rel="stylesheet" href="assets/client/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="assets/client/css/jquery.timepicker.css">
 
+    
+    <link rel="stylesheet" href="assets/client/css/flaticon.css">
+    <link rel="stylesheet" href="assets/client/css/icomoon.css">
+    <link rel="stylesheet" href="assets/client/css/style.css">
   </head>
+  <body>
+    
+    @include('Client.layout.nav')
 
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+    <!-- END nav -->
+    
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('assets/client/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+          <div class="col-md-9 ftco-animate pb-5">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-3 bread">Our Blog</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 text-center d-flex ftco-animate">
+          	<div class="blog-entry justify-content-end mb-md-5">
+              <a href="blog-single.html" class="block-20 img" style="background-image: url('assets/client/images/image_1.jpg');">
+              </a>
+              <div class="text px-md-5 pt-4">
+              	<div class="meta mb-3">
+                  <div><a href="#">Oct. 29, 2019</a></div>
+                  <div><a href="#">Admin</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                </div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 text-center d-flex ftco-animate">
+          	<div class="blog-entry justify-content-end mb-md-5">
+              <a href="blog-single.html" class="block-20 img" style="background-image: url('assets/client/images/image_2.jpg');">
+              </a>
+              <div class="text px-md-5 pt-4">
+              	<div class="meta mb-3">
+                  <div><a href="#">Oct. 29, 2019</a></div>
+                  <div><a href="#">Admin</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                </div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 text-center d-flex ftco-animate">
+          	<div class="blog-entry">
+              <a href="blog-single.html" class="block-20 img" style="background-image: url('assets/client/images/image_3.jpg');">
+              </a>
+              <div class="text px-md-5 pt-4">
+              	<div class="meta mb-3">
+                  <div><a href="#">Oct. 29, 2019</a></div>
+                  <div><a href="#">Admin</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                </div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 text-center d-flex ftco-animate">
+          	<div class="blog-entry justify-content-end mb-md-5">
+              <a href="blog-single.html" class="block-20 img" style="background-image: url('assets/client/images/image_4.jpg');">
+              </a>
+              <div class="text px-md-5 pt-4">
+              	<div class="meta mb-3">
+                  <div><a href="#">Oct. 29, 2019</a></div>
+                  <div><a href="#">Admin</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                </div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 text-center d-flex ftco-animate">
+          	<div class="blog-entry justify-content-end mb-md-5">
+              <a href="blog-single.html" class="block-20 img" style="background-image: url('assets/client/images/image_5.jpg');">
+              </a>
+              <div class="text px-md-5 pt-4">
+              	<div class="meta mb-3">
+                  <div><a href="#">Oct. 29, 2019</a></div>
+                  <div><a href="#">Admin</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                </div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 text-center d-flex ftco-animate">
+          	<div class="blog-entry">
+              <a href="blog-single.html" class="block-20 img" style="background-image: url('assets/client/images/image_6.jpg');">
+              </a>
+              <div class="text px-md-5 pt-4">
+              	<div class="meta mb-3">
+                  <div><a href="#">Oct. 29, 2019</a></div>
+                  <div><a href="#">Admin</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                </div>
+                <h3 class="heading mt-2"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                <p><a href="blog-single.html" class="btn btn-primary">Continue <span class="icon-long-arrow-right"></span></a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col text-center">
+            <div class="block-27">
+              <ul>
+                <li><a href="#">&lt;</a></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&gt;</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    @include('Client.layout.footer')
 
     
-    <div class="site-wrap" id="home-section">
+  
 
-      <div class="site-mobile-menu site-navbar-target">
-        <div class="site-mobile-menu-header">
-          <div class="site-mobile-menu-close mt-3">
-            <span class="icon-close2 js-menu-toggle"></span>
-          </div>
-        </div>
-        <div class="site-mobile-menu-body"></div>
-      </div>
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-
-      <header class="site-navbar site-navbar-target" role="banner">
-
-        <div class="container">
-          <div class="row align-items-center position-relative">
-
-            <div class="col-3 ">
-              <div class="site-logo">
-                <a href="index.html">Location.Hakimi</a>
-              </div>
-            </div>
-
-            <div class="col-9  text-right">
-              
-
-              <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
-
-              
-
-              <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
-                <ul class="site-menu main-menu js-clone-nav ml-auto ">
-                  <li ><a href="{{ route('Client.index') }}" class="nav-link">Home</a></li>
-                  <li><a href="{{ route('Client.services') }}" class="nav-link">Services</a></li>
-                  <li><a href="{{ route('Client.cars') }}" class="nav-link">Cars</a></li>
-                  <li><a href="{{ route('Client.about') }}" class="nav-link">About</a></li>
-                  <li class="active"><a href="{{ route('Client.blog') }}" class="nav-link">Blog</a></li>
-                  <li><a href="{{ route('Client.contact') }}" class="nav-link">Contact</a></li>
-                </ul>
-              </nav>
-            </div>
-
-            
-          </div>
-        </div>
-
-      </header>
-
-    <div class="ftco-blocks-cover-1">
-      <div class="ftco-cover-1 overlay innerpage" style="background-image: url('assets/Client/images/hero_2.jpg')">
-        <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-lg-6 text-center">
-              <h1>Car Articles</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="site-section bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="assets/Client/images/post_1.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">The best car rent in the entire planet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="assets/Client/images/img_2.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">The best car rent in the entire planet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="assets/Client/images/img_3.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">The best car rent in the entire planet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="assets/Client/images/post_1.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">The best car rent in the entire planet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="assets/Client/images/img_2.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">The best car rent in the entire planet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="post-entry-1 h-100">
-              <a href="single.html">
-                <img src="assets/Client/images/img_3.jpg" alt="Image"
-                 class="img-fluid">
-              </a>
-              <div class="post-entry-1-contents">
-                
-                <h2><a href="single.html">The best car rent in the entire planet</a></h2>
-                <span class="meta d-inline-block mb-3">July 17, 2019 <span class="mx-2">by</span> <a href="#">Admin</a></span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores eos soluta, dolore harum molestias consectetur.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12">
-            <span class="p-3">1</span>
-            <a href="#" class="p-3">2</a>
-            <a href="#" class="p-3">3</a>
-            <a href="#" class="p-3">4</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container site-section mb-5">
-      <div class="row justify-content-center text-center">
-        <div class="col-7 text-center mb-5">
-          <h2>How it works</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo assumenda, dolorum necessitatibus eius earum voluptates sed!</p>
-        </div>
-      </div>
-      <div class="how-it-works d-flex">
-        <div class="step">
-          <span class="number"><span>01</span></span>
-          <span class="caption">Time &amp; Place</span>
-        </div>
-        <div class="step">
-          <span class="number"><span>02</span></span>
-          <span class="caption">Car</span>
-        </div>
-        <div class="step">
-          <span class="number"><span>03</span></span>
-          <span class="caption">Details</span>
-        </div>
-        <div class="step">
-          <span class="number"><span>04</span></span>
-          <span class="caption">Checkout</span>
-        </div>
-        <div class="step">
-          <span class="number"><span>05</span></span>
-          <span class="caption">Done</span>
-        </div>
-
-      </div>
-    </div>
-
+  <script src="assets/client/js/jquery.min.js"></script>
+  <script src="assets/client/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="assets/client/js/popper.min.js"></script>
+  <script src="assets/client/js/bootstrap.min.js"></script>
+  <script src="assets/client/js/jquery.easing.1.3.js"></script>
+  <script src="assets/client/js/jquery.waypoints.min.js"></script>
+  <script src="assets/client/js/jquery.stellar.min.js"></script>
+  <script src="assets/client/js/owl.carousel.min.js"></script>
+  <script src="assets/client/js/jquery.magnific-popup.min.js"></script>
+  <script src="assets/client/js/aos.js"></script>
+  <script src="assets/client/js/jquery.animateNumber.min.js"></script>
+  <script src="assets/client/js/bootstrap-datepicker.js"></script>
+  <script src="assets/client/js/jquery.timepicker.min.js"></script>
+  <script src="assets/client/js/scrollax.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="assets/client/js/google-map.js"></script>
+  <script src="assets/client/js/main.js"></script>
     
-
-    <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3">
-            <h2 class="footer-heading mb-4">About Us</h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-          <div class="col-lg-8 ml-auto">
-            <div class="row">
-              <div class="col-lg-3">
-                <h2 class="footer-heading mb-4">Quick Links</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li><a href="#">Terms of Service</a></li>
-                  <li><a href="#">Privacy</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-3">
-                <h2 class="footer-heading mb-4">Quick Links</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li><a href="#">Terms of Service</a></li>
-                  <li><a href="#">Privacy</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-3">
-                <h2 class="footer-heading mb-4">Quick Links</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li><a href="#">Terms of Service</a></li>
-                  <li><a href="#">Privacy</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-3">
-                <h2 class="footer-heading mb-4">Quick Links</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Testimonials</a></li>
-                  <li><a href="#">Terms of Service</a></li>
-                  <li><a href="#">Privacy</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-              <p>
-            <!-- Link back to Hakimi can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://Hakimi.com" target="_blank" >Hakimi</a>
-            <!-- Link back to Hakimi can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </footer>
-
-    </div>
-
-    <script src="assets/Client/js/jquery-3.3.1.min.js"></script>
-    <script src="assets/Client/js/popper.min.js"></script>
-    <script src="assets/Client/js/bootstrap.min.js"></script>
-    <script src="assets/Client/js/owl.carousel.min.js"></script>
-    <script src="assets/Client/js/jquery.sticky.js"></script>
-    <script src="assets/Client/js/jquery.waypoints.min.js"></script>
-    <script src="assets/Client/js/jquery.animateNumber.min.js"></script>
-    <script src="assets/Client/js/jquery.fancybox.min.js"></script>
-    <script src="assets/Client/js/jquery.easing.1.3.js"></script>
-    <script src="assets/Client/js/bootstrap-datepicker.min.js"></script>
-    <script src="assets/Client/js/aos.js"></script>
-
-    <script src="assets/Client/js/main.js"></script>
-
   </body>
-
 </html>
-

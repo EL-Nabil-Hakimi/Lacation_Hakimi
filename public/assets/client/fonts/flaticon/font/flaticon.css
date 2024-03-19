@@ -1,6 +1,6 @@
 	/*
   	Flaticon icon font: Flaticon
-  	Creation date: 18/07/2019 07:36
+  	Creation date: 29/10/2019 06:11
   	*/
 
 @font-face {
@@ -25,19 +25,20 @@
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before,
 [class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
   font-family: Flaticon;
-        font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
 }
 
-.flaticon-car:before { content: "\f100"; }
-.flaticon-car-1:before { content: "\f101"; }
-.flaticon-valet:before { content: "\f102"; }
-.flaticon-valet-1:before { content: "\f103"; }
-.flaticon-traffic:before { content: "\f104"; }
-.flaticon-key:before { content: "\f105"; }
+.flaticon-wedding-car:before { content: "\f100"; }
+.flaticon-car:before { content: "\f101"; }
+.flaticon-suv:before { content: "\f102"; }
+.flaticon-transportation:before { content: "\f103"; }
+.flaticon-route:before { content: "\f104"; }
+.flaticon-handshake:before { content: "\f105"; }
+.flaticon-rent:before { content: "\f106"; }
+.flaticon-dashboard:before { content: "\f107"; }
+.flaticon-pistons:before { content: "\f108"; }
+.flaticon-car-seat:before { content: "\f109"; }
+.flaticon-backpack:before { content: "\f10a"; }
+.flaticon-diesel:before { content: "\f10b"; }
