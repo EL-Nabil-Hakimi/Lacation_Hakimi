@@ -9,7 +9,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
-<body style="background-color: rgb(38, 130, 204)">
+
+
+   <style>
+	body {
+	font-family: Arial, sans-serif;
+	padding: 20px;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/client/images/bg_2.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+		
+}
+
+
+
+</style>
+   
+   <body>
+
+
+
 
   <div class="container">
 
@@ -68,69 +89,64 @@
 			<form action="signin" method="post">
 				@csrf
 				<div class="input-boxes">
-				<div class="input-box">
-					<i class="fas fa-envelope"></i>
-					<input type="text" name="name"  placeholder="Enter your username"  required 
-							@if(old('name'))
-								value="{{ old('name') }}"
-							@endif>
-						
-				</div>
-
-				<div class="input-box">
-					<i class="fas fa-lock"></i>
-					<input type="password" name="password" placeholder="Enter your password" required>
-				</div>
-
-
-				
-				<div class="text" data-toggle="modal" data-target="#emailModal"><a href="#" >Forgot password or username?</a></div>
-				<div class="button input-box">
-					<input type="submit" value="Sumbit">
-				</div>
-				<div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div>
+					<div class="input-box">
+						<i class="fas fa-envelope"></i>
+						<input type="text" name="name"  placeholder="Entrez votre nom d'utilisateur"  required 
+								@if(old('name'))
+									value="{{ old('name') }}"
+								@endif>
+					</div>
+		
+					<div class="input-box">
+						<i class="fas fa-lock"></i>
+						<input type="password" name="password" placeholder="Entrez votre mot de passe" required>
+					</div>
+					
+					<div class="text" data-toggle="modal" data-target="#emailModal"><a href="#" >Mot de passe oublié ou nom d'utilisateur ?</a></div>
+					<div class="button input-box">
+						<input type="submit" value="Soumettre">
+					</div>
+					<div class="text sign-up-text">Vous n'avez pas de compte ? <label for="flip">Inscrivez-vous maintenant</label></div>
 				</div>
 			</form>
       	</div>
 		
-        <div class="signup-form">
+		  <div class="signup-form">
 			<div style="text-align:center"><h2 style="color: blue">Location Hakimi</h2></div>
-
+		
 			<br>
-          <div class="title">Signup</div>
-		  <br>
-		  <div id="error-messages" style="color: red"></div>
-
-				<form id="signup-form">
-					@csrf
-					<div class="input-boxes">	
+			<div class="title">Inscription</div>
+			<br>
+			<div id="error-messages" style="color: red"></div>
+		
+			<form id="signup-form">
+				@csrf
+				<div class="input-boxes"> 
 					<div class="input-box" >
 						<i class="fas fa-user"></i>
-						<input type="text" id="name"	 name="name" placeholder="Enter your username : John.Loqman" required
-						
-						>
+						<input type="text" id="name"  name="name" placeholder="Entrez votre nom d'utilisateur : John.Loqman" required>
 					</div>
-						<div class="input-box">
+					<div class="input-box">
 						<i class="fas fa-envelope"></i>
-						<input type="email" name="email" placeholder="Enter your email" required >
+						<input type="email" name="email" placeholder="Entrez votre email" required>
 					</div>
 					<div class="input-box">
 						<i class="fas fa-lock"></i>
-						<input type="password" name="password" placeholder="Enter your password" required>
+						<input type="password" name="password" placeholder="Entrez votre mot de passe" required>
 					</div>
 					<div class="input-box">
 						<i class="fas fa-lock"></i>
-						<input type="password" name="c_password" placeholder="Confirm your password" required>
+						<input type="password" name="c_password" placeholder="Confirmez votre mot de passe" required>
 					</div>
 					<div class="button input-box">
-						<input type="submit" value="Sumbit">
+						<input type="submit" value="Soumettre">
 					</div>
 					
-					<div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
-					</div>
+					<div class="text sign-up-text">Vous avez déjà un compte ? <label for="flip">Connectez-vous maintenant</label></div>
+				</div>
 			</form>
-    	</div>
-
+		</div>
+		
 		
     </div>
     </div>
