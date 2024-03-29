@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('ban')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
-
-            $table->foreignId('role_id')->constrained('users');
-            
+            $table->foreignId('role_id')->constrained('roles');
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

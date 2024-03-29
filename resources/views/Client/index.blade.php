@@ -62,11 +62,11 @@
 	  						<form action="#" class="request-form ftco-animate bg-primary">
 		          		<h2>Make your trip</h2>
 			    				<div class="form-group">
-			    					<label for="" class="label">Pick-up location</label>
+			    					<label for="" class="label">Pick-up My</label>
 			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
 			    				</div>
 			    				<div class="form-group">
-			    					<label for="" class="label">Drop-off location</label>
+			    					<label for="" class="label">Drop-off My</label>
 			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
 			    				</div>
 			    				<div class="d-flex">
@@ -96,7 +96,7 @@
 					            <div class="services w-100 text-center">
 				              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
 				              	<div class="text w-100">
-					                <h3 class="heading mb-2">Choose Your Pickup Location</h3>
+					                <h3 class="heading mb-2">Choose Your Pickup My</h3>
 				                </div>
 					            </div>      
 					          </div>

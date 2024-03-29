@@ -45,7 +45,7 @@
 
         <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
 
-        <p>Merci,<br>Location Hakimi</p>
+        <p>Merci,<br>My Car</p>
     </div>
 </body>
 </html>

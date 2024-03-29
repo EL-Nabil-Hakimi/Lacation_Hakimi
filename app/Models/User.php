@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function manager(){
+        return $this->hasOne(manager::class);
+    }
+    public function role(){
+        return $this->belongsTo(Roles::class);
+    }
+
 }

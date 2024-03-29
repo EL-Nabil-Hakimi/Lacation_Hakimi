@@ -56,7 +56,7 @@
     <div class="forms">
         <div class="form-content">
           <div class="login-form">
-			  <div style="text-align:center"><h2 style="color: blue">Location Hakimi</h2></div>
+			<div style="text-align:center"><a href="/index"><h2 style="color: blue">My Car</h2></a></div>
 			  <br>
             <div class="title">Login</div>
 			<br>
@@ -112,7 +112,7 @@
       	</div>
 		
 		  <div class="signup-form">
-			<div style="text-align:center"><h2 style="color: blue">Location Hakimi</h2></div>
+			<div style="text-align:center"><a href="/index"><h2 style="color: blue">My Car</h2></a></div>
 		
 			<br>
 			<div class="title">Inscription</div>

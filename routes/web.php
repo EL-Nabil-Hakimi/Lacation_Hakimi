@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ManagerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,10 +35,11 @@ Route::group([], function () {
 
 
 // Authontification _______________________________________________________________________
+
 Route::group([], function () {
-    Route::controller(AuthController::class, '')->group(function () {
+    Route::controller(AuthController::class)->group(function () {
+
         Route::get('/login', 'login')->name('Auth.login');
-        Route::get('/register', 'register')->name('Auth.register');
 
         Route::post('/signup', 'signUp');
         Route::post('/signin', 'signIn');
@@ -49,6 +52,20 @@ Route::group([], function () {
         Route::post('/changepass/{token}', 'resetPass');
     });
 });
-// Admin************************************************************************************
+
+// Admin____________________________________________________________________________________
 
 
+Route::resources(['admin' => AdminController::class]);
+
+Route::get('/admin', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/managers', [ManagerController::class, 'index'])->name('managers');
+Route::get('/clients', [AdminController::class, 'clients'])->name('clients');
+Route::get('/voitures', [AdminController::class, 'voitures'])->name('voitures');
+Route::get('/modules', [AdminController::class, 'modules'])->name('modules');
+
+Route::post('/createmanager' , [ManagerController::class, 'create']);
+Route::post('/updatemanager' , [ManagerController::class, 'update']);
+
+Route::get('/banmanager/{id}' , [ManagerController::class, 'ban']);
+Route::get('/restoremanager/{id}' , [ManagerController::class, 'restore']);

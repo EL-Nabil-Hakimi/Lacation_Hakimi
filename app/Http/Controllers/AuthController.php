@@ -55,12 +55,12 @@ public function SignUp(Request $request)
     $password = $request->password;
     $c_password = $request->c_password;
     if($c_password == $password){
-        $role = 2 ;                        
+        $role = 2 ; 
         $user = $this->user;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role_id = $role;    
+        $user->role_id = $role;
         $user->save();
     }
      return response()->json(['success' => true], 200);
@@ -68,17 +68,17 @@ public function SignUp(Request $request)
 
 
     public function SignIn(Request $request)
-    {
+    {   
+
         
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'exists:Users,name', 'regex:/^[a-zA-Z]+\.[a-zA-Z]+$/'],
-            'password' => 'required|string|min:8',
+            'password' => 'required|string',
         ], [
             'name.required' => 'Le champ nom d\'utilisateur est obligatoire.',
             'name.exists' => 'Le nom d\'utilisateur n\'existe pas.',
             'name.regex' => 'Le champ nom d\'utilisateur doit être au format "Prénom.Nom" et ne doit pas contenir d\'espace.',
             'password.required' => 'Le champ mot de passe est important.',
-            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
         ]);
         
         
@@ -94,6 +94,9 @@ public function SignUp(Request $request)
         $password = $request->password;
         $user = $this->user;
         $user = $user->where('name', $name)->first();
+        if($user->ban != null){
+            return back()->with('msg', 'Vous êtes banni. Vous ne pouvez pas vous connecter.');
+        }
         if ($user != null && Hash::check($password , $user->password)) 
         {
 
