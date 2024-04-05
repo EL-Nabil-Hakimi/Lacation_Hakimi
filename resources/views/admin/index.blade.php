@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="utf-8">
     <title>My Car</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -10,10 +11,10 @@
     
 
     <!-- Favicon -->
-    <link href="assets/admin/img/favicon.ico" rel="icon">
+    <link href="{{asset('assets/admin/img/favicon.ico')}}" rel="icon">
 
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,18 +22,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="{{asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css')}}" rel="stylesheet">
+    <link href="{{asset('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css')}}" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="assets/admin/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="assets/admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="{{asset('assets/admin/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')}}" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{asset('assets/admin/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="assets/admin/css/style.css" rel="stylesheet">
+    <link href="{{asset('assets/admin/css/style.css')}}" rel="stylesheet">
+    
 </head>
 
 <body >
@@ -55,7 +57,7 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="assets/admin/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="{{asset('assets/admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -67,7 +69,7 @@
                     
                     <a href="{{ route('dashboard') }}" class="nav-item nav-link{{ request()->routeIs('dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
                     <a href="{{ route('managers') }}" class="nav-item nav-link{{ request()->routeIs('managers') ? ' active' : '' }}"><i class="fas fa-users me-2"></i>Managers</a>
-                    <a href="{{ route('clients') }}" class="nav-item nav-link{{ request()->routeIs('clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
+                    <a href="{{ route('admin.clients') }}" class="nav-item nav-link{{ request()->routeIs('clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
                     <a href="{{ route('voitures') }}" class="nav-item nav-link{{ request()->routeIs('voitures') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
                     <a href="{{ route('modules') }}" class="nav-item nav-link{{ request()->routeIs('modules') ? ' active' : '' }}"><i class="fas fa-cube me-2"></i>Modules</a>
                                   
@@ -103,7 +105,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="assets/admin/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="{{asset('assets/admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -113,7 +115,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="assets/admin/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="{{asset('assets/admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -123,7 +125,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="assets/admin/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                                    <img class="rounded-circle" src="{{asset('assets/admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                                         <small>15 minutes ago</small>
@@ -160,7 +162,7 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="assets/admin/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="{{asset('assets/admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -440,18 +442,18 @@
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="assets/admin/lib/easing/easing.min.js"></script>
-    <script src="assets/admin/lib/waypoints/waypoints.min.js"></script>
-    <script src="assets/admin/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="assets/admin/lib/tempusdominus/js/moment.min.js"></script>
-    <script src="assets/admin/lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="assets/admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('lib/chart/chart.min.js')}}"></script>
+    <script src="{{asset('assets/admin/lib/easing/easing.min.js')}}"></script>
+    <script src="{{asset('assets/admin/lib/waypoints/waypoints.min.js')}}"></script>
+    <script src="{{asset('assets/admin/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="{{asset('assets/admin/lib/tempusdominus/js/moment.min.js')}}"></script>
+    <script src="{{asset('assets/admin/lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
+    <script src="{{asset('assets/admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 
     <!-- Template Javascript -->
-    <script src="assets/admin/js/main.js"></script>
+    <script src="{{asset('assets/admin/js/main.js')}}"></script>
 </body>
 
 </html>

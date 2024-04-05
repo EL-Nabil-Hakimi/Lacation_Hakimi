@@ -55,13 +55,13 @@
             <td>
               <div class="d-flex align-items-center">
                 <img
-                    src="images/{{$manager->manager-> image}}"
+                    src="{{$manager->manager->image}}"
                     alt=""
                     style="width: 45px; height: 45px"
                     class="rounded-circle"
                     />
                 <div class="ms-3">
-                  <p class="fw-bold mb-1">{{$manager->name}}</p>
+                  <a href="/profileshow?user={{$manager->id}}"><p class="fw-bold mb-1">{{$manager->name}}</p> </a>
                   <p class="text-muted mb-0">{{$manager->email}}</p>
                 </div>
               </div>
@@ -88,7 +88,7 @@
             </td>
            
             <td>
-              <button onclick="openUpdateModal({{ $manager->id }}, '{{ $manager->manager->nom }}', '{{ $manager->manager->prenom }}', '{{ $manager->manager->cin }}', '{{ $manager->manager->phone }}', '{{ $manager->email }}', '{{ $manager->role_id }}')" type="button" class="btn btn-link btn-sm btn-rounded">
+              <button onclick="openUpdateModal({{ $manager->id }}, '{{ $manager->manager->nom }}', '{{ $manager->manager->prenom }}', '{{ $manager->manager->cin }}', '{{ $manager->manager->phone }}', '{{ $manager->email }}', '{{ $manager->role_id }}' , '{{ $manager->manager->adresse }}')" type="button" class="btn btn-link btn-sm btn-rounded">
                   Edit
               </button>
               @if ($manager->ban == 1)
@@ -144,6 +144,10 @@
             <input type="text" name="phone" class="form-control" id="phone">
           </div>
           <div class="mb-3">
+            <label for="exampleInputName" class="form-label">Adresse</label>
+            <input type="text" name="adresse" class="form-control" id="Adresse">
+          </div>
+          <div class="mb-3">
             <label for="exampleInputName" class="form-label">Email</label>
             <input type="text" name="email" class="form-control" id="email">
           </div>
@@ -151,9 +155,10 @@
             <label for="exampleInputName" class="form-label">Role</label>
             <select name="role_id" class="form-control" id="role_id">
               <option value="0" disabled>Selectionner le Role</option>
+             
               @foreach ($roles as $role)
                 @if ($role->id != 1 && $role->id != 3)
-                  @if ($manager->role_id == $role->id)
+                  @if (!empty($mangers) && $manager->role_id == $role->id)
                   <option value="{{$role->id}}" selected>{{$role->name}}</option>
                   @else    
                   <option value="{{$role->id}}">{{$role->name}}</option>
@@ -202,6 +207,12 @@
             <input type="text" name="email"  class="form-control" id="exampleInputName">
           </div>
           <div class="mb-3">
+
+            <label for="exampleInputName" class="form-label">Adresse</label>
+            <input type="text" name="adresse" class="form-control" id="adresse">
+          </div>
+
+          <div class="mb-3">
             <label for="exampleInputName" class="form-label">Role</label>
             <select name="role_id" class="form-control" id="exampleInputName">
               <option selected>Selectionner le Role</ option>
@@ -240,7 +251,7 @@
         cancelButtonText: "Fermer",
     }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "/banmanager/" + id;
+          window.location.href = "/banuser/" + id;
         }
     });
  }
@@ -255,12 +266,13 @@
         cancelButtonText: "Fermer",
     }).then((result) => {
         if (result.isConfirmed) {
-          window.location.href = "/restoremanager/" + id;
+          window.location.href = "/restoruser/" + id;
         }
     });
  }
 
- function openUpdateModal(id, nom, prenom, cin, phone, email, role_id) {
+ function openUpdateModal(id, nom, prenom, cin, phone, email, role_id , adresse) {
+    console.log(adresse)
     document.getElementById('manager_id').value = id;
     document.getElementById('nom').value = nom;
     document.getElementById('prenom').value = prenom;
@@ -268,6 +280,7 @@
     document.getElementById('phone').value = phone;
     document.getElementById('email').value = email;
     document.getElementById('role_id').value = role_id;
+    document.getElementById('Adresse').value = adresse;
     
     var myModal = new bootstrap.Modal(document.getElementById('myModal'));
     myModal.show();

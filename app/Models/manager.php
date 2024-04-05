@@ -10,7 +10,7 @@ class manager extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['cin', 'image', 'nom', 'prenom', 'phone', 'user_id'];
+    protected $fillable = ['cin', 'image', 'nom', 'prenom', 'phone','adresse', 'user_id'];
 
     public function role(){
         return $this->belongsTo(Roles::class);

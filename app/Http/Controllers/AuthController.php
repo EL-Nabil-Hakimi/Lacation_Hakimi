@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ForgotPassMail;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -26,45 +27,52 @@ class AuthController extends Controller
     }
 
    
-public function SignUp(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-
-        'name' => ['required', 'unique:Users,name', 'regex:/^([a-zA-Z]+\.[a-zA-Z]+)|([a-zA-Z]+\.[a-zA-Z]+\.[0-9]+)$/'],
-        'email' => 'required|email|unique:Users,email',
-        'password' => 'required|string|min:8',
-        'c_password' => 'required|same:password',
-        ],[
-            'name.unique' => 'user name est déjà pris',
-
+    public function signUp(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'unique:users,name', 'regex:/^[a-zA-Z]+\.[a-zA-Z]+|[a-zA-Z]+\.[a-zA-Z]$/'],
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
+            'c_password' => 'required|same:password',
+        ], [
+            'name.unique' => 'Le nom d\'utilisateur est déjà pris.',
             'name.required' => 'Le champ nom d\'utilisateur est obligatoire.',
             'name.regex' => 'Le champ nom d\'utilisateur doit être au format "Prénom.Nom" et ne doit pas contenir d\'espace.',
-            'email.required' => 'Le champ email est important',
-            'email.email' => 'Veuillez entrer une adresse email valide',
-            'email.unique' => 'L\'email est déjà pris',
-            'password.required' => 'Le champ mot de passe est important',
-            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères',
-            'c_password.required' => 'Le champ de confirmation du mot de passe est important',
-            'c_password.same' => 'La confirmation du mot de passe ne correspond pas au mot de passe',
+            'email.required' => 'Le champ email est obligatoire.',
+            'email.email' => 'Veuillez entrer une adresse email valide.',
+            'email.unique' => 'L\'adresse email est déjà utilisée.',
+            'password.required' => 'Le champ mot de passe est obligatoire.',
+            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères.',
+            'c_password.required' => 'Le champ de confirmation du mot de passe est obligatoire.',
+            'c_password.same' => 'La confirmation du mot de passe ne correspond pas au mot de passe.',
         ]);
-
-    if ($validator->fails()) {
-        return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
-    }
-
-    $password = $request->password;
-    $c_password = $request->c_password;
-    if($c_password == $password){
-        $role = 2 ; 
-        $user = $this->user;
-        $user->name = $request->name;
+    
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+        }
+    
+        $user = new User();
+        $user->name = $request->name. '.' . mt_rand(1000, 9999);
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role_id = $role;
+        $user->role_id = 3; 
         $user->save();
+        try{
+            $client = new Client();
+            $client->user_id = $user->id;
+            $client->image = 'images/profile_default.png';
+            $client->save(); 
+                
+            return response()->json(['success' => true], 200);
+        }       
+   
+        catch(\Exception $e){
+            $user->delete();
+            return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
+
+        }
+       
     }
-     return response()->json(['success' => true], 200);
-} 
 
 
     public function SignIn(Request $request)
@@ -72,12 +80,11 @@ public function SignUp(Request $request)
 
         
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'exists:Users,name', 'regex:/^[a-zA-Z]+\.[a-zA-Z]+$/'],
-            'password' => 'required|string',
+            'name' => ['required',  'regex:/^([a-zA-Z]+\.[a-zA-Z]+)|([a-zA-Z]+\.[a-zA-Z]+\.[0-9]+)$/'],            'password' => 'required|string',
         ], [
             'name.required' => 'Le champ nom d\'utilisateur est obligatoire.',
             'name.exists' => 'Le nom d\'utilisateur n\'existe pas.',
-            'name.regex' => 'Le champ nom d\'utilisateur doit être au format "Prénom.Nom" et ne doit pas contenir d\'espace.',
+            'name.regex' => 'Le champ nom d\'utilisateur doit être au format "Prénom.Nom.0000" et ne doit pas contenir d\'espace.',
             'password.required' => 'Le champ mot de passe est important.',
         ]);
         
@@ -178,7 +185,47 @@ public function SignUp(Request $request)
             }
         
     }
+        public function modifiermotdepass(Request $request){
+            $validator = Validator::make($request->all(), [
+                'oldmdp' => 'required|string',
+                'newmdp' => 'required|string|min:8',
+            ], [
+                'oldmdp.required' => 'Le champ ancien mot de passe est requis.',
+                'newmdp.required' => 'Le champ nouveau mot de passe est requis.',
+                'newmdp.min' => 'Le mot de passe doit avoir au moins :min caractères.',
+            ]);
 
+            $user = User::findOrFail($request->id);
+
+            if($user && Hash::check($request->oldmdp, $user->password)){
+                    $user->password = Hash::make($request->newmdp);
+                    $user->update();
+                    return redirect()->back()->with("msgss" , "Le Mot De pass a ete changer avec succes");
+                    
+            }
+
+            else{
+                return redirect()->back()->with("msgss" , "L'ancein Mot de pass incorrect");
+
+            }
+        }
   
+
+
+        public function ban($id)
+        {
+            $user = User::findOrFail($id);
+            $user->ban = 1; 
+            $user->save();
+            return redirect()->back()->with('success', 'Utilisateur bloque avec succès.');
+        }
+        public function restore($id)
+        {
+            $user = User::findOrFail($id);
+            $user->ban = null; 
+            $user->save();
+            return redirect()->back()->with('success', 'Utilisateur debloque avec succès.');
+        }
+    
 
 }

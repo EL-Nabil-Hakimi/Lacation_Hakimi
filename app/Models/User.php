@@ -46,6 +46,9 @@ class User extends Authenticatable
     public function manager(){
         return $this->hasOne(manager::class);
     }
+    public function client(){
+        return $this->hasOne(Client::class);
+    }
     public function role(){
         return $this->belongsTo(Roles::class);
     }

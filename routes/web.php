@@ -53,13 +53,27 @@ Route::group([], function () {
     });
 });
 
-// Admin____________________________________________________________________________________
 
+// client____
+Route::get('/profileusershow/{id}', [ClientController::class, 'profileusershow']);
+Route::get('/profileuser/{id}', [ClientController::class, 'profileuser']);
+Route::get('/clients/admin', [ClientController::class, 'dashboard'])->name('admin.clients');
+Route::post('/changephotouser/{id}', [ClientController::class, 'changephotouser']);
+Route::post('/updateinfo', [ClientController::class, 'updateinfo']);
+
+
+// Admin____________________________________________________________________________________
 
 Route::resources(['admin' => AdminController::class]);
 
 Route::get('/admin', [AdminController::class, 'index'])->name('dashboard');
 Route::get('/managers', [ManagerController::class, 'index'])->name('managers');
+Route::get('/profile', [ManagerController::class, 'profilepage']);
+Route::get('/profileshow', [ManagerController::class, 'profileshow']);
+
+
+
+
 Route::get('/clients', [AdminController::class, 'clients'])->name('clients');
 Route::get('/voitures', [AdminController::class, 'voitures'])->name('voitures');
 Route::get('/modules', [AdminController::class, 'modules'])->name('modules');
@@ -67,5 +81,11 @@ Route::get('/modules', [AdminController::class, 'modules'])->name('modules');
 Route::post('/createmanager' , [ManagerController::class, 'create']);
 Route::post('/updatemanager' , [ManagerController::class, 'update']);
 
-Route::get('/banmanager/{id}' , [ManagerController::class, 'ban']);
-Route::get('/restoremanager/{id}' , [ManagerController::class, 'restore']);
+Route::post('/changephotomanager/{id}' , [ManagerController::class, 'changephoto']);
+Route::post('/modifiermotdepass' , [AuthController::class, 'modifiermotdepass']);
+
+Route::get('/banuser/{id}' , [AuthController::class, 'ban']);
+Route::get('/restoruser/{id}' , [AuthController::class, 'restore']);
+
+
+
