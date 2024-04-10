@@ -25,7 +25,7 @@ class ClientController extends Controller
     }
     public function cars()
     {
-        return view('Client.cars');
+        return view('Client.single-car');
     }
 
     public function blog()
@@ -57,7 +57,8 @@ class ClientController extends Controller
 
     public function profileusershow($id){
             $user = $this->user->with('client')->where('id',$id)->get();
-            return view('admin.layout.profileusershow' , compact('user'));
+            $role_id = 3;
+            return view('admin.layout.profileusershow' , compact('user' , 'role_id'));
     }
 
     public function profileuser($id){

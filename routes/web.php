@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\ModelCarController;
+use App\Models\ModelCar;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,6 +89,20 @@ Route::post('/modifiermotdepass' , [AuthController::class, 'modifiermotdepass'])
 
 Route::get('/banuser/{id}' , [AuthController::class, 'ban']);
 Route::get('/restoruser/{id}' , [AuthController::class, 'restore']);
+
+
+
+// Cars Manager
+
+Route::get('/cars/manager' , [CarController::class, 'ManagerIndex'])->name('voitures');
+Route::get('/cars/desponible/{id}' , [CarController::class, 'desponible']);
+Route::get('/cars/indesponible/{id}' , [CarController::class, 'indesponible']);
+Route::post('/cars/create' , [CarController::class, 'store']);
+Route::post('/cars/update' , [CarController::class, 'update']);
+
+// Model
+Route::get('/cars/searchByMark/{id}' , [ModelCarController::class, 'searchByMark']);
+
 
 
 

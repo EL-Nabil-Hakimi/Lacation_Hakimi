@@ -1,4 +1,7 @@
     <!-- User Profile -->
+    @extends('admin.index') 
+    @section('content')
+
     <!DOCTYPE html>
     <html lang="en">
     
@@ -76,12 +79,11 @@
     
         .user-profile li span {
             font-size: 18px;
-        }
+        } 
     
         .profile-pic {
             border-radius: 50%;
-            height: 150px;
-            width: 150px;
+           
             background-size: cover;
             background-position: center;
             background-blend-mode: multiply;
@@ -91,7 +93,11 @@
             transition: all .3s ease;
             text-decoration: none;
             cursor: pointer;
-        }
+            position: relative;
+            width: 150px; 
+            height: 150px;
+            
+          }
     
         .profile-pic:hover {
             background-color: rgba(0, 0, 0, .5);
@@ -102,6 +108,7 @@
             justify-content: center;
             transition: all .3s ease;
             text-decoration: none;
+
         }
     
         .profile-pic span {
@@ -163,6 +170,64 @@
         .icoco:hover{
               color: blue;
         }
+        .custom-swal-popup {
+           background: transparent !important;
+          width: 80%;
+        }
+
+        .custom-swal-close-button {
+          color: #000; 
+        }
+
+        .custom-swal-close-button::before {
+            color: white !important;
+          }
+
+          #permiImg{
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+
+
+          }
+          #permiImg img{
+            width: 48%
+          }
+
+
+          #headerclientinfo{
+            background-color : rgb(80, 127, 237);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1em;
+            border-radius: 10px 10px 0px 0px;
+            margin-bottom: 10px;
+
+          }
+          #headerclientinfo i{
+            color:white;
+            transition: 0.3s;
+          }
+
+          #headerclientinfo i:hover{
+            transform: rotate(20deg);
+          }
+       
+
+          #verifyimg {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                top:-2px; 
+                left: 0px;
+            }
+
+
+            
+          
+
     </style>
     
 
@@ -174,67 +239,80 @@
       <div class="col-lg-4">
 
         
-        <div class="card shadow-sm">
-          <li class="nav-item d-flex justify-content-end pt-3 " style="width: 100%;">
-            <button class="btn " onclick="openUpdateModalinfo()" title="Modifier les informations">
-                <i class="fas fa-edit icoco" ></i>
-            </button>
-            <button class="btn"  onclick="openUpdateModal()" title="Chnager le mot de pass">
-                <i class="fas fa-key icoco" ></i>
-            </button>
-        </li>
-        <hr>
+        <div class="card shadow-sm ">
+
+            <div id="headerclientinfo">
+              <li class="nav-item d-flex justify-content-end  ">
+
+             </li>
+            <li class="nav-item d-flex justify-content-end p-2" >
+              <button class="btn " onclick="openUpdateModalinfo()" title="Modifier les informations">
+                  <i class="fas fa-edit icoco" ></i>
+              </button>
+              <button class="btn"  onclick="openUpdateModal()" title="Chnager le mot de pass">
+                  <i class="fas fa-key icoco" ></i>
+              </button>
+          </li>
+            </div>
           <div class="card-header bg-transparent text-center">
             <form id="photoForm" method="post" enctype="multipart/form-data" action="/changephotouser/{{$user[0]->client->id}}">
               @csrf
               <label for="fileToUpload">
                   <div class="profile-pic" style="background-image: url('{{asset($user[0]->client->image)}}')">
+                      <img src="{{asset('images/verify.png')}}" id="verifyimg" title="Ce Compte a été vérifié par les responsables">
                       <span class="glyphicon glyphicon-camera"></span>
                       <span><i class="fas fa-image"></i></span>
                   </div>
               </label>
               <input type="file" name="image" id="fileToUpload">
           </form>
+          
           </div>
           <div class="card-body">
            
             <ul class="nav flex-column side-menu">
               <li class="nav-item d-flex">
-                  <span class="me-2" style="width:20% ; height:1.5em;color : rgb(32, 44, 181) ;">Nom </span>
+                  <span class="me-2" style="width:25% ; height:1.5em;color : rgb(32, 44, 181) ;">Nom </span>
                   <span>{{ $user[0]->client->nom }}</span>
               </li>
               <hr>  
               <li class="nav-item d-flex">
-                  <span class="me-2" style="width:20% ; height:1.5em;color : rgb(32, 44, 181) ;">Prenom </span>
+                  <span class="me-2" style="width:25% ; height:1.5em;color : rgb(32, 44, 181) ;">Prenom </span>
                   <span> {{ $user[0]->client->prenom }}</span>
               </li>
               <hr>
               <li class="nav-item d-flex">
-                  <span class="me-2" style="width:20% ; height:1.5em; color : rgb(32, 44, 181) ;">Cin </span>
+                  <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ;">Cin </span>
                   <span>{{ $user[0]->client->cin }}</span>
               </li>
               <hr>
               <li class="nav-item d-flex">
-                  <span class="me-2" style="width:20% ; height:1.5em; color : rgb(32, 44, 181) ;">Tele </span>
+                  <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ;">Tele </span>
                   <span>{{ $user[0]->client->phone }}</span>
               </li>
               <hr>
               <li class="nav-item d-flex">
-                  <span class="me-2" style="width:20% ; height:1.5em; color : rgb(32, 44, 181) ; ">Email </span>
+                  <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ; ">Email </span>
                   <span>{{ $user[0]->email }}</span>
               </li>
               <hr>
               <li class="nav-item d-flex">
-                  <span class="me-2" style="width:20% ; height:1.5em; color : rgb(32, 44, 181) ; ">Adress </span>
-                  <span>{{ $user[0]->client->adresse }}</span>
+                  <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ; ">Adress </span>
+                  <span>{{ $user[0]->client->adresse}}</span>
               </li>
               <hr>
+             
               <li class="nav-item d-flex">
-                  <span class="me-2" style="width:20% ; height:1.5em; color : rgb(32, 44, 181) ; ">Permis  </span>
+                  <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ; ">Permis  </span>
               </li>
-              <li class="nav-item">
-                  <img src="{{asset($user[0]->client->permi)}}" alt="" style="max-width: 100%;">
+              <li class="nav-item" >
+                <div id="permiImg">
+                  <img onclick="openImage('{{ asset($user[0]->client->permi) }}')" src="{{ asset($user[0]->client->permi) }}" alt="" >
+                  <img onclick="openImage('{{ asset($user[0]->client->permi) }}')" src="{{ asset($user[0]->client->permi) }}" alt="" >
+              </div>
+              
               </li>
+              
           </ul>
           
           </div>
@@ -444,10 +522,10 @@
 
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
     <script src="{{asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js')}}"></script>
@@ -458,7 +536,19 @@
 
 
     <script>
-
+      var openImage = function(img){
+            Swal.fire({
+              html: '<img src="'+img+'" alt="" style="width: 80%;">',
+              showCloseButton: true,
+              showCancelButton: false,
+              showConfirmButton: false,
+              background: 'transparent',
+              customClass: {
+                popup: 'custom-swal-popup',
+                closeButton: 'custom-swal-close-button'
+              }
+            });
+    }
 
 
 $(function() {
@@ -497,6 +587,9 @@ $(function() {
        
 
     </script>
+
+
+@endsection
 
 
 
