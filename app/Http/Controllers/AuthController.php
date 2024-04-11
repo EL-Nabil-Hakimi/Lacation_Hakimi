@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ForgotPassMail;
 use App\Models\Client;
+use App\Models\manager;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,11 +23,16 @@ class AuthController extends Controller
         
     }
     public function login(){
-        
+      
         return view('Auth.login');
     }
+    public function logout(){
+      
+        Session::forget('role_id');
+        Session::forget('user_id');
+        return redirect('/login');
+    }
 
-   
     public function signUp(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -100,7 +106,8 @@ class AuthController extends Controller
         $name = $request->name;
         $password = $request->password;
         $user = $this->user;
-        $user = $user->where('name', $name)->first();
+        $user = $user->where('name', $name)->with('role')->first();
+       
 
         // dd($user);
         if($user && $user->ban !== null){
@@ -108,19 +115,36 @@ class AuthController extends Controller
         }
         if ($user != null && Hash::check($password , $user->password)) 
         {
+            if($user->role_id == 1){
+                Session::put('user_name', $user->name);   
+                Session::put('user_image', 'images/profile_default.png');        
+            }
+            elseif($user->role_id == 3){
+                $userInfo = Client::where('user_id', $user->id)->first();
+                Session::put('user_name', $userInfo->nom.' '.$userInfo->prenom);
+                Session::put('user_image', $userInfo->image);
+            }
+
+            else{
+                $userInfo = manager::where('user_id', $user->id)->first();
+                Session::put('user_name', $userInfo->nom.' '.$userInfo->prenom);
+                Session::put('user_image', $userInfo->image);
+
+            }
 
             Session::put('user_id', $user->id);
             session::put('role_id', $user->role_id);
+            session::put('role_name', $user->role->name);
 
             $role_id = $user->role_id ;
             if($role_id == 1){
-                return redirect()->to('/dashboardpage');
+                return redirect()->to('/admin/dashboard');
             }
-            if($role_id == 2){
-                return redirect()->to('/eventpageorg');
+            if($role_id == 3){
+                return redirect()->to('/index');
             }
             else {                
-                return redirect()->to('/index');    
+                return redirect()->to('/manager/dashboard');    
             }
             
         } else {

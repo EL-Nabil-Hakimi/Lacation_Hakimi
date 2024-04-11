@@ -28,6 +28,14 @@
 
     
   }
+
+  #verifyimg{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -.2em;
+    left: -.6em;
+  }
 </style>
 
 
@@ -48,7 +56,11 @@
         @foreach ($clients as $client)            
           <tr>
             <td>
-              <div class="d-flex align-items-center">
+              <div class="d-flex align-items-center" style="position: relative">
+                @if($client->client->accepte == 1)
+                   <img src="{{asset('images/verify.png')}}" id="verifyimg" title="Ce Compte a été vérifié par les responsables">
+                @endif
+
                 <img
                    src="{{ asset($client->client->image) }}"
                     alt=""  

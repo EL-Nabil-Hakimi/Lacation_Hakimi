@@ -49,7 +49,7 @@ class CarCompanyController extends Controller
         return response()->json(['message' => 'Car company updated successfully', 'data' => $carCompany], 200);
     }
 
-    public function destroy($id)
+    public function destroy($id)    
     {
         $carCompany = CarCompany::find($id);
         if (!$carCompany) {

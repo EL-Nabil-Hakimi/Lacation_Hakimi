@@ -16,29 +16,29 @@
     transition: all .3s ease;
     text-decoration: none;
     cursor: pointer;
-}
+    }
 
-.profile-pic:hover {
-    background-color: rgba(0,0,0,.5);
-    z-index: 10000;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;    
-    transition: all .3s ease;
-    text-decoration: none;
-}
+    .profile-pic:hover {
+        background-color: rgba(0,0,0,.5);
+        z-index: 10000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;    
+        transition: all .3s ease;
+        text-decoration: none;
+    }
 
-.profile-pic span {
-    display: inline-block;
-    padding-top: 4.5em;
-    padding-bottom: 4.5em;
-}
+    .profile-pic span {
+        display: inline-block;
+        padding-top: 4.5em;
+        padding-bottom: 4.5em;
+    }
 
-form input[type="file"] {
-          display: none;
-          cursor: pointer;
- }
+    form input[type="file"] {
+              display: none;
+              cursor: pointer;
+    }
 </style>
 <div class="container">
     <div class="main-body mt-3">
@@ -48,10 +48,10 @@ form input[type="file"] {
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
-                    <form id="photoForm" method="post" enctype="multipart/form-data" action="changephotomanager/{{$user[0]->manager->id}}">
+                    <form id="photoForm" method="post" enctype="multipart/form-data" action="/manager/changeimage/{{$user[0]->manager->id}}">
                         @csrf
                         <label for="fileToUpload">
-                            <div class="profile-pic" style="background-image: url('{{$user[0]->manager->image}}')">
+                            <div class="profile-pic" style="background-image: url('{{asset($user[0]->manager->image)}}')">
                                 <span class="glyphicon glyphicon-camera"></span>
                                 <span><i class="fas fa-image"></i></span>
                             </div>
@@ -171,7 +171,7 @@ form input[type="file"] {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="/modifiermotdepass">
+                    <form method="post" action="/manager/changepass">
                         @csrf
                         <input type="hidden" name="id" value="{{$user[0]->id}}">
                         

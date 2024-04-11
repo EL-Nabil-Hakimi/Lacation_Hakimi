@@ -9,6 +9,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class ManagerController extends Controller
@@ -33,6 +34,12 @@ class ManagerController extends Controller
                                     $roles =  $this->role->all();
         // dd($managers[0]->ban);
         return view('admin.layout.managers', compact('managers' , 'roles'));
+    }
+
+
+    public function ManagerDashboard()
+    {
+        return view('admin.layout.dashboard-manager');
     }
 
     public function create(Request $request)
@@ -152,12 +159,14 @@ class ManagerController extends Controller
 
    
     
-    public function profilepage(){
-        $user_id = 14;
+    public function profilepage($user_id)
+    {
         $user = User::with('manager')->where('id' , $user_id)->with('role')->get();
         $roles = Roles::all();
-        return view('admin.layout.profile' , compact('user' , 'roles'));
-        // return response()->json($user);
+        Session::put('user_image', $user[0]->manager->image);
+
+
+        return view('admin.layout.profile-manager' , compact('user' , 'roles'));
     }
 
     public function profileshow(Request $request){

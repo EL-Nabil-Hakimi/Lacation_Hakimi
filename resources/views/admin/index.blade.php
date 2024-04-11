@@ -57,12 +57,13 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="{{asset('assets/admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="{{asset(session()->get('user_image'))}}" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <h6 class="mb-0">{{session()->get('user_name')}}</h6>
+                        
+                        <span>{{session()->get('role_name')}}</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -74,6 +75,8 @@
                     <a href="{{ route('admin.modules') }}" class="nav-item nav-link{{ request()->routeIs('admin.modules') ? ' active' : '' }}"><i class="fas fa-cube me-2"></i>Modules</a>
 
                     @else
+                    <a href="{{ route('manager.dashboard') }}" class="nav-item nav-link{{ request()->routeIs('manager.dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
+                    <a href="{{ route('manager.cars') }}" class="nav-item nav-link{{ request()->routeIs('manager.cars') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
                     {{-- <a href="{{ route('dashboard') }}" class="nav-item nav-link{{ request()->routeIs('dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
                     <a href="{{ route('managers') }}" class="nav-item nav-link{{ request()->routeIs('managers') ? ' active' : '' }}"><i class="fas fa-users me-2"></i>Managers</a>
                     <a href="{{ route('admin.clients') }}" class="nav-item nav-link{{ request()->routeIs('clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
@@ -169,13 +172,14 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="{{asset('assets/admin/img/user.jpg')}}" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <img class="rounded-circle me-lg-2" src="{{asset(session()->get('user_image'))}}" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex">{{session()->get('user_name') ?? ''}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            @if(session()->get('role_id') != 1)
+                            <a href="/manager/myprofile/{{ session()->get('user_id', '') }}" class="dropdown-item">My Profile</a>
+                            @endif
+                            <a href="/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>

@@ -51,6 +51,7 @@ Route::group([], function () {
     Route::controller(AuthController::class)->group(function () {
 
         Route::get('/login', 'login')->name('Auth.login');
+        Route::get('/logout', 'logout')->name('Auth.logout');
 
         Route::post('/signup', 'signUp');
         Route::post('/signin', 'signIn');
@@ -92,6 +93,9 @@ Route::group(['middleware' => ['admin']], function () {
         Route::post('/createmanager' , [ManagerController::class, 'create']);
         Route::post('/updatemanager' , [ManagerController::class, 'update']);
 
+        Route::get('/banuser/{id}' , [AuthController::class, 'ban']);
+        Route::get('/restoruser/{id}' , [AuthController::class, 'restore']);
+
         Route::resources(['admin' => AdminController::class]);
 
     
@@ -101,14 +105,18 @@ Route::group(['middleware' => ['admin']], function () {
 Route::post('/changephotomanager/{id}' , [ManagerController::class, 'changephoto']);
 Route::post('/modifiermotdepass' , [AuthController::class, 'modifiermotdepass']);
 
-Route::get('/banuser/{id}' , [AuthController::class, 'ban']);
-Route::get('/restoruser/{id}' , [AuthController::class, 'restore']);
-
 
 
 // Cars Manager
 
-Route::get('/cars/manager' , [CarController::class, 'ManagerIndex'])->name('voitures');
+Route::get('/manager/dashboard' , [ManagerController::class, 'ManagerDashboard'])->name('manager.dashboard');
+Route::get('/manager/cars' , [CarController::class, 'ManagerIndex'])->name('manager.cars');
+Route::get('/manager/myprofile/{id}' , [ManagerController::class, 'profilepage']);
+Route::post('/manager/changepass' , [AuthController::class, 'modifiermotdepass']);
+Route::post('/manager/changeimage/{id}' , [ManagerController::class, 'changephoto']);
+
+
+
 Route::get('/cars/desponible/{id}' , [CarController::class, 'desponible']);
 Route::get('/cars/indesponible/{id}' , [CarController::class, 'indesponible']);
 Route::post('/cars/create' , [CarController::class, 'store']);
