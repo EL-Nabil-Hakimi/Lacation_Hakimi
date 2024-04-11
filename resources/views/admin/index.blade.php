@@ -66,13 +66,20 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    
-                    <a href="{{ route('dashboard') }}" class="nav-item nav-link{{ request()->routeIs('dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
+                    @if(session()->get('role_id') == 1)
+                    <a href="{{ route('admin.dashboard') }}" class="nav-item nav-link{{ request()->routeIs('admin.dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
+                    <a href="{{ route('admin.managers') }}" class="nav-item nav-link{{ request()->routeIs('admin.managers') ? ' active' : '' }}"><i class="fas fa-users me-2"></i>Managers</a>
+                    <a href="{{ route('admin.clients') }}" class="nav-item nav-link{{ request()->routeIs('admin.clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
+                    <a href="{{ route('admin.voitures') }}" class="nav-item nav-link{{ request()->routeIs('admin.voitures') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
+                    <a href="{{ route('admin.modules') }}" class="nav-item nav-link{{ request()->routeIs('admin.modules') ? ' active' : '' }}"><i class="fas fa-cube me-2"></i>Modules</a>
+
+                    @else
+                    {{-- <a href="{{ route('dashboard') }}" class="nav-item nav-link{{ request()->routeIs('dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
                     <a href="{{ route('managers') }}" class="nav-item nav-link{{ request()->routeIs('managers') ? ' active' : '' }}"><i class="fas fa-users me-2"></i>Managers</a>
                     <a href="{{ route('admin.clients') }}" class="nav-item nav-link{{ request()->routeIs('clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
                     <a href="{{ route('voitures') }}" class="nav-item nav-link{{ request()->routeIs('voitures') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
-                    <a href="{{ route('modules') }}" class="nav-item nav-link{{ request()->routeIs('modules') ? ' active' : '' }}"><i class="fas fa-cube me-2"></i>Modules</a>
-                                  
+                    <a href="{{ route('modules') }}" class="nav-item nav-link{{ request()->routeIs('modules') ? ' active' : '' }}"><i class="fas fa-cube me-2"></i>Modules</a> --}}
+                    @endif            
                    
                 </div>
             </nav>

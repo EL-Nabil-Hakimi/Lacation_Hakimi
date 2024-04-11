@@ -16,12 +16,12 @@ return new class extends Migration
             $table->string('cin')->unique()->nullable();
             $table->string('image')->nullable();
             $table->string('permi')->nullable();
-            $table->string('type_permi')->nullable();
             $table->string('nom')->unique()->nullable();
             $table->string('prenom')->unique()->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('adresse')->unique()->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users');
+            $table->string('accepte')->nullable();
             $table->timestamps();
         });
     }

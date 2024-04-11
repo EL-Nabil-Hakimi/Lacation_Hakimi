@@ -55,7 +55,7 @@
             <td>
               <div class="d-flex align-items-center">
                 <img
-                    src="{{$manager->manager->image}}"
+                    src="{{asset($manager->manager->image)}}"
                     alt=""
                     style="width: 45px; height: 45px"
                     class="rounded-circle"

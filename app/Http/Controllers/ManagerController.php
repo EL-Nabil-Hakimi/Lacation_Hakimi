@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\manager;
 use App\Models\Roles;
 use App\Models\User;
@@ -38,13 +39,13 @@ class ManagerController extends Controller
     {
 
         $request->merge([
-            'name' => $request->prenom . '.' . $request->nom . '.' . mt_rand(1000, 9999),
+            'name' => $request->prenom . '.' . $request->nom ,
         ]);
     
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'unique:users,name', 'regex:/^[a-zA-Z]+\.[a-zA-Z]+\.[0-9]{4}$/'],
+            'name' => ['required', 'unique:users,name',],
             'email' => ['required', 'email', 'unique:users,email' , 
-            'cin' => 'required' , 'unique:manager,cin'],
+            'cin' => 'required' , 'unique:managers,cin'],
         ], [
             'name.unique' => 'Le nom d\'utilisateur est déjà pris.',
             'cin.unique' => 'Le cin d\'utilisateur est déjà pris.',
@@ -60,7 +61,7 @@ class ManagerController extends Controller
         }
         
         $user = new User;    
-        $user->name = $request->name;    
+        $user->name = $request->name. '.' . mt_rand(1000, 9999);    
         $user->email = $request->email;    
         $user->password = Hash::make($request->cin);    
         $user->role_id = $request->role_id;   
@@ -90,19 +91,19 @@ class ManagerController extends Controller
     }
 
     public function update(Request $request)
-    {
+    {               
         if($request->role_id == 0){
             return redirect()->back()->with('errormsg' , 'le role est vide !!');
         }
 
         $request->merge([
-            'name' => $request->prenom . '.' . $request->nom,
+            'name' => $request->prenom . '.' . $request->nom ,
         ]);
     
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'unique:users,name,' . $request->id, 'regex:/^[a-zA-Z]+\.[a-zA-Z]+$/'],
             'email' => 'required|email|unique:users,email,' . $request->id,
-            'cin' => 'required' , 'unique:manager,cin',
+            'cin' => 'required' , 'unique:managers,cin',
 
         ], [
 
@@ -120,14 +121,15 @@ class ManagerController extends Controller
         }
     
         $user = User::find($request->id);
+
         if (!$user) {
             return redirect()->back()->withErrors(['error' => 'Utilisateur non trouvé.'])->withInput();
         }
     
-        $user->name = $request->name;
+        $user->name = $request->name. '.' . mt_rand(1000, 9999);
         $user->email = $request->email;
         $user->role_id = $request->role_id;
-        $user->save();
+        $user->update();
     
         $manager = Manager::where('user_id', $request->id)->
                 orWhere('cin' , $request->cin)->first();
@@ -142,7 +144,7 @@ class ManagerController extends Controller
         $manager->adresse = $request->adresse;
         
         $manager->adresse = $request->adresse;
-        $manager->save();
+        $manager->update();
     
         return redirect()->back()->with('success', 'Manager mis à jour avec succès.');
     }
@@ -189,6 +191,20 @@ class ManagerController extends Controller
         else{
             return redirect()->back()->with('success', 'Photo de profil est pas compatible.');
         }
+    }
+
+    public function accepteuser($id){
+        $user = Client::findOrFail($id);
+        $user->accepte = 1;
+        $user->save();
+        return redirect()->back()->with('success', 'Utilisateur comfirmé avec succès.');
+    }
+
+    public function refuseuser($id){
+        $user = Client::findOrFail($id);
+        $user->accepte = -1;
+        $user->save();
+        return redirect()->back()->with('success', 'Utilisateur refusé avec succès.');
     }
 
    }

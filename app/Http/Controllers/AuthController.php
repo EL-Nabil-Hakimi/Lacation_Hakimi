@@ -80,7 +80,7 @@ class AuthController extends Controller
 
         
         $validator = Validator::make($request->all(), [
-            'name' => ['required',  'regex:/^([a-zA-Z]+\.[a-zA-Z]+)|([a-zA-Z]+\.[a-zA-Z]+\.[0-9]+)$/'],            'password' => 'required|string',
+            'name' => ['required',  'regex:/^([a-zA-Z]+\.[a-zA-Z]+)|([a-zA-Z]+\.[a-zA-Z]+\.[0-9]+)$/'], 'password' => 'required|string',
         ], [
             'name.required' => 'Le champ nom d\'utilisateur est obligatoire.',
             'name.exists' => 'Le nom d\'utilisateur n\'existe pas.',
@@ -101,8 +101,10 @@ class AuthController extends Controller
         $password = $request->password;
         $user = $this->user;
         $user = $user->where('name', $name)->first();
-        if($user->ban != null){
-            return back()->with('msg', 'Vous êtes banni. Vous ne pouvez pas vous connecter.');
+
+        // dd($user);
+        if($user && $user->ban !== null){
+            return redirect()->back()->with('msg', 'Vous êtes banni. Vous ne pouvez pas vous connecter.');
         }
         if ($user != null && Hash::check($password , $user->password)) 
         {

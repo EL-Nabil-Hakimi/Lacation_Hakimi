@@ -99,17 +99,6 @@
             
           }
     
-        .profile-pic:hover {
-            background-color: rgba(0, 0, 0, .5);
-            z-index: 10000;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all .3s ease;
-            text-decoration: none;
-
-        }
     
         .profile-pic span {
             display: inline-block;
@@ -250,19 +239,50 @@
 
             <div id="headerclientinfo">
             
-             <li class="nav-item d-flex justify-content-end p-2">
-              <button class="btn" onclick="openComfirmModalinfo()" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
+            @if($user[0]->client->accepte == null && $user[0]->client )
+            <li class="nav-item d-flex justify-content-end p-2">
+              <button class="btn" onclick="openComfirmModalinfo({{$user[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
+                  <i class="far fa-square fa-lg"></i>  
+                  <span style="color: white">Confirmer</span>
+              </button>
+              </li>
+              <li class="nav-item d-flex justify-content-end p-2">
+
+              <button class="btn" onclick="openCancelConfirmationModal({{$user[0]->client->id}})" title="Je ne suis pas sûr">
+                  <i class="far fa-square fa-lg"></i>  
+                  <span style="color: white">Infirmer</span>
+              </button>
+                  </li>
+            @elseif($user[0]->client->accepte == 1)
+            <li class="nav-item d-flex justify-content-end p-2">
+              <button class="btn" onclick="openComfirmModalinfo({{$user[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
                   <i class="far fa-check-square fa-lg"></i>  
                   <span style="color: white">Confirmer</span>
               </button>
               </li>
               <li class="nav-item d-flex justify-content-end p-2">
 
-              <button class="btn" onclick="openCancelConfirmationModal()" title="Je ne suis pas sûr">
+              <button class="btn" onclick="openCancelConfirmationModal({{$user[0]->client->id}})" title="Je ne suis pas sûr">
                   <i class="far fa-square fa-lg"></i>  
                   <span style="color: white">Infirmer</span>
               </button>
                   </li>
+            @else
+            <li class="nav-item d-flex justify-content-end p-2">
+              <button class="btn" onclick="openComfirmModalinfo({{$user[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
+                  <i class="far fa-square fa-lg"></i>  
+                  <span style="color: white">Confirmer</span>
+              </button>
+              </li>
+              <li class="nav-item d-flex justify-content-end p-2">
+
+              <button class="btn" onclick="openCancelConfirmationModal({{$user[0]->client->id}})" title="Je ne suis pas sûr">
+                  <i class="far fa-check-square fa-lg"></i>  
+                  <span style="color: white">Infirmer</span>
+              </button>
+                  </li>
+              
+            @endif
           
 
             </div>
@@ -271,12 +291,13 @@
               @csrf
               <label for="fileToUpload">
                   <div class="profile-pic" style="background-image: url('{{asset($user[0]->client->image)}}')">
+                    @if($user[0]->client->accepte == 1)
                       <img src="{{asset('images/verify.png')}}" id="verifyimg" title="Ce Compte a été vérifié par les responsables">
+                    @endif
                       <span class="glyphicon glyphicon-camera"></span>
                       <span><i class="fas fa-image"></i></span>
                   </div>
               </label>
-              <input type="file" name="image" id="fileToUpload">
           </form>
           
           </div>
@@ -562,7 +583,7 @@
             });
     }
 
-    var openComfirmModalinfo = function(img) {
+    var openComfirmModalinfo = function(id) {
     Swal.fire({
         title: 'Tu confirmes que cette personne est réelle et que les informations fournies sont correctes?',
         icon: 'question',
@@ -572,11 +593,11 @@
         cancelButtonText: 'Non',
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = '/mapap.com'; // Redirect to the specified URL
+            window.location.href = '/manager/accepteuser/' + id;
         }
     });
 };
-    var openCancelConfirmationModal = function(img) {
+    var openCancelConfirmationModal = function(id) {
     Swal.fire({
       title: 'Vous avez des doutes sur la véracité des informations fournies par cette personne?',
         icon: 'question',
@@ -586,7 +607,7 @@
         cancelButtonText: 'Non',
         }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = '/mapap.com'; 
+            window.location.href = '/manager/refuseuser/' + id;
         }
     });
 };

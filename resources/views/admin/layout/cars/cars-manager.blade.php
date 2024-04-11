@@ -273,7 +273,7 @@
     <i class="fas fa-plus"></i>
 </button>
   
-@foreach($cars as $car)
+@forelse($cars as $car)
 
 
 
@@ -285,7 +285,7 @@
         @elseif($car->accepte == 1)
             <div style="background-color:rgb(5, 116, 18)">Accepté</div>
         @elseif($car->accepte == 2)
-            <div style="background-color:rgb(137, 8, 8)">Rejeté</div>
+            <div style="background-color:rgb(180, 13, 13)">Rejeté</div>
         @endif
     </div>
 
@@ -313,9 +313,17 @@
                                 '{{ $car->nombre_de_sieges }}',
                                 '{{ $car->prix_par_jour}}',)">
             </i>
-            <a class="text-danger" onclick="deleteCar({{$car->id}})" title="Indisponible"><i class="fas fa-ban"></i></a>
-            <a class="text-success" onclick="restoreCar({{$car->id}})" title="Disponible"><i class="fas fa-check"></i></a>
-        </div>
+            <a class="text-danger" onclick="Modals({{$car->id}} , 'Confirmer la rendue indisponible' , 'Êtes-vous sûr de vouloir rendre cette voiture indisponible ?' , 'warning' , '/cars/indesponible/')" title="Indisponible"><i class="fas fa-ban"></i></a>
+            <a class="text-success" onclick="Modals({{$car->id}} , 'Confirmer la rendue disponible' , 'Êtes-vous sûr de vouloir rendre cette voiture disponible ?' , 'warning' , '/cars/desponible/' )" title="Disponible"><i class="fas fa-check"></i></a>
+            @if($car->accepte == null && session()->get('role_id') == 1)
+                <a class="text-success" onclick="Modals({{$car->id}} , 'Confirmer l\'acceptation' , 'Êtes-vous sûr d\'accepter cette voiture' ,'warning', '/admin/cars/restore/')" title="Accepter"><i class="bi bi-check-square-fill"></i> </a>
+                <a class="text-danger" onclick="Modals({{$car->id}} ,'Confirmer le rejet' , 'Êtes-vous sûr de rejeter cette voiture' , 'warning' ,'/admin/cars/destroy/')" title="Rejeter">  <i class="bi bi-x-square-fill"></i> </a>
+            @endif
+            @if(session()->get('role_id') == 1)
+                <a class="text-danger" onclick="Modals({{$car->id}} , 'Confirmer la suppression' , 'Êtes-vous sûr de vouloir supprimer cette voiture ?' , 'error' , '/admin/cars/delete/')" title="Supprimer"><i class="fas fa-trash"></i></a>
+            @endif  
+
+       </div>
         <h1 class="card__head">{{$car->marque->name}}</h1>
        <span class="card__date">Module: {{$car->model->name}}</span>
     <p class="card__text"> {{$car->description}}</p>
@@ -348,7 +356,10 @@
     </main> 
     
 </div>
-@endforeach
+@empty
+
+<div style="width: 100% ; height: 40%; display: flex; justify-content: center; align-items: center">No Cars Found</div>
+@endforelse
 
 <div class="liksbtns">{{ $cars->links('pagination::bootstrap-5') }}</div>
 
@@ -545,8 +556,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@12.5.1/dist/sweetalert2.all.min.js"></script>
 
 <script>
@@ -628,45 +637,27 @@
     var myModal = new bootstrap.Modal(document.getElementById('EditModalManager'));
     myModal.show();
 
-        }
-
-
-   
+        } 
   
-    var deleteCar = function(id) {
+    var Modals = function(id , title , text , type , route) {
         Swal.fire({
-            title: 'Confirmer la rendue indisponible',
-        text: 'Êtes-vous sûr de vouloir rendre cette voiture indisponible ?',
-            icon: 'warning',
+            title: title,
+            text: text,
+            icon: type,
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Oui, supprimer!',
+            confirmButtonText: 'Oui',
             cancelButtonText: 'Annuler'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/cars/indesponible/" + id;
+                url = route;
+                window.location.href = url + id;
 
             }
         });
     }
-    var restoreCar = function(id) {
-        Swal.fire({
-    title: 'Confirmer la rendue disponible',
-        text: 'Êtes-vous sûr de vouloir rendre cette voiture disponible ?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Oui, supprimer!',
-            cancelButtonText: 'Annuler'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/cars/desponible/" + id;
-
-            }
-        });
-    }
+  
 </script>
 
 @endsection

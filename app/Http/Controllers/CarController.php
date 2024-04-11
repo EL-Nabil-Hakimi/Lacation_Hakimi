@@ -7,6 +7,7 @@ use App\Models\CarCompany;
 use App\Models\ModelCar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
     
@@ -27,8 +28,8 @@ class CarController extends Controller
     }
     public function ManagerIndex()
     {
-        $user_id = 2; 
-
+        $user_id  = Session::get('user_id');
+        
         $cars = Car::with('marque')->with('model')->where('user_id', $user_id)->latest()->paginate(5);
         $marques = CarCompany::all();
         $models = ModelCar::all();
@@ -38,12 +39,17 @@ class CarController extends Controller
     }
     public function AdminIndex()
     {
-        $user_id = 2; 
+        $user_id  = Session::get('user_id');
 
-        $cars = Car::where('user_id', $user_id)->get();
+        if(Session::get('role_id') != 1){
+            return redirect('/login');
+        }
 
-        // return view('cars.index', ['cars' => $cars]);
-        return response()->json($cars);
+        $cars = Car::with('marque')->with('model')->latest()->paginate(5);
+        $marques = CarCompany::all();
+        $models = ModelCar::all();
+        // dd($cars);
+        return view('admin.layout.cars.cars-manager' , compact('cars' , 'models',   'marques' , 'user_id'));
     }
 
     public function create()
@@ -53,7 +59,9 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-        $user_id  = 2;
+        $user_id  = Session::get('user_id');
+        // dd($user_id);
+
         $validator = Validator::make($request->all(), [
             'matricule' => 'required|string|unique:cars,matricule|max:255',
             'type_carburant' => 'required|string|in:Essence,Diesel,Hybride,Électrique,Autre',
@@ -67,14 +75,13 @@ class CarController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
-
         }
-
+        
         // dd($request->all());
         $image = $request->file('image');
         $imageName = time().'.'.$image->extension();
         $image->move(public_path('images/cars'), $imageName);
-
+        
         $car = Car::create([
             'matricule' => $request->matricule,
             'type_carburant' => $request->type_carburant,
@@ -154,21 +161,21 @@ class CarController extends Controller
     public function destroy($id)
     {   
         // dd('hamiiiiiiiiiiiid');
-        $user_id = 2;
 
-        $car = Car::where('user_id', $user_id)->findOrFail($id);
-        $car->accepte = false;
+        $car = Car::findOrFail($id);
+        $car->accepte = 2;
         $car->save();
 
         return redirect()->back()->with('success', 'La voiture a été supprimée avec succès.');
         // return response()->json(['message' => 'La voiture a été supprimée avec succès.']);
     }
 
+
+
     public function restore($id)
     {
-        $user_id = true;
 
-        $car = Car::where('user_id', $user_id)->findOrFail($id);
+        $car = Car::findOrFail($id);
         $car->accepte = 1;
         $car->save();
 
@@ -177,6 +184,14 @@ class CarController extends Controller
     }
 
 
+    public function delete($id)
+    {
+
+        $car = Car::findOrFail($id)->delete();
+
+        return redirect()->back()->with('success', 'La voiture a été supprimée avec succès.');
+        // return response()->json(['message' => 'La voiture a été restaurée avec succès.']);
+    }
 
 
     public function desponible($id)

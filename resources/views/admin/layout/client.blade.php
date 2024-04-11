@@ -83,9 +83,7 @@
             </td>
            
             <td>
-              <button onclick="openUpdateModal({{ $client->id }}, '{{ $client->client->nom }}', '{{ $client->client->prenom }}', '{{ $client->client->cin }}', '{{ $client->client->phone }}', '{{ $client->email }}', '{{ $client->role_id }}' , '{{ $client->client->adresse }}')" type="button" class="btn btn-link btn-sm btn-rounded">
-                  Edit
-              </button>
+     
               @if ($client->ban == 1)
 
               <button onclick="popuprestoreuser({{ $client->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">

@@ -6,6 +6,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ModelCarController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Models\ModelCar;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +33,13 @@ Route::group([], function () {
         Route::get('/about', 'about')->name('Client.about');
         Route::get('/blog', 'blog')->name('Client.blog');
         Route::get('/contact', 'contact')->name('Client.contact');
+
+        Route::get('/profileusershow/{id}', 'profileusershow');
+        Route::get('/profileuser/{id}',  'profileuser');
+        Route::get('/clients/admin',  'dashboard')->name('admin.clients');
+        Route::post('/changephotouser/{id}',  'changephotouser');
+        Route::post('/updateinfo',  'updateinfo');
+
     });
 });
 
@@ -58,31 +66,37 @@ Route::group([], function () {
 
 
 // client____
-Route::get('/profileusershow/{id}', [ClientController::class, 'profileusershow']);
-Route::get('/profileuser/{id}', [ClientController::class, 'profileuser']);
-Route::get('/clients/admin', [ClientController::class, 'dashboard'])->name('admin.clients');
-Route::post('/changephotouser/{id}', [ClientController::class, 'changephotouser']);
-Route::post('/updateinfo', [ClientController::class, 'updateinfo']);
 
 
+
+
+// Group Middleware
 // Admin____________________________________________________________________________________
+Route::group(['middleware' => ['admin']], function () {
 
-Route::resources(['admin' => AdminController::class]);
-
-Route::get('/admin', [AdminController::class, 'index'])->name('dashboard');
-Route::get('/managers', [ManagerController::class, 'index'])->name('managers');
-Route::get('/profile', [ManagerController::class, 'profilepage']);
-Route::get('/profileshow', [ManagerController::class, 'profileshow']);
-
-
+        
+        Route::get('/admin/cars' , [CarController::class , 'AdminIndex'])->name('admin.voitures');
+        Route::get('/admin/cars/destroy/{id}' , [CarController::class , 'destroy']);
+        Route::get('/admin/cars/restore/{id}' , [CarController::class , 'restore']);
+        Route::get('/admin/cars/delete/{id}' , [CarController::class , 'delete']);
 
 
-Route::get('/clients', [AdminController::class, 'clients'])->name('clients');
-Route::get('/voitures', [AdminController::class, 'voitures'])->name('voitures');
-Route::get('/modules', [AdminController::class, 'modules'])->name('modules');
+        Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/admin/managers', [ManagerController::class, 'index'])->name('admin.managers');
+        Route::get('/profile', [ManagerController::class, 'profilepage']);
+        Route::get('/profileshow', [ManagerController::class, 'profileshow']);
 
-Route::post('/createmanager' , [ManagerController::class, 'create']);
-Route::post('/updatemanager' , [ManagerController::class, 'update']);
+        Route::get('/admin/clients', [ClientController::class, 'dashboard'])->name('admin.clients');
+        Route::get('/admin/modules', [AdminController::class, 'modules'])->name('admin.modules');
+
+        Route::post('/createmanager' , [ManagerController::class, 'create']);
+        Route::post('/updatemanager' , [ManagerController::class, 'update']);
+
+        Route::resources(['admin' => AdminController::class]);
+
+    
+});
+
 
 Route::post('/changephotomanager/{id}' , [ManagerController::class, 'changephoto']);
 Route::post('/modifiermotdepass' , [AuthController::class, 'modifiermotdepass']);
@@ -101,6 +115,10 @@ Route::post('/cars/create' , [CarController::class, 'store']);
 Route::post('/cars/update' , [CarController::class, 'update']);
 
 // Model
+
+Route::get('/manager/accepteuser/{id}' , [ManagerController::class, 'accepteuser']);
+Route::get('/manager/refuseuser/{id}' , [ManagerController::class, 'refuseuser']);
+
 Route::get('/cars/searchByMark/{id}' , [ModelCarController::class, 'searchByMark']);
 
 
