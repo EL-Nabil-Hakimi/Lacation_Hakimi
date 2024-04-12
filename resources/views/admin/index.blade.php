@@ -3,6 +3,79 @@
 
 <head>
     
+    @if(session()->has('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session("success") }}',
+                showConfirmButton: false,
+                timer: 3000 
+            }); 
+        });
+    </script>
+    @elseif(session()->has('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'error!',
+                text: '{{ session("error") }}',
+                showConfirmButton: false,
+                timer: 3000 
+            }); 
+        });
+    </script>
+
+    @endif
+
+    @if ($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error!',
+                html: '<ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+                showConfirmButton: false,
+                timer: 5000 
+            });
+        });
+    </script>
+@endif
+
+
+@if ($errors->any() || session()->has('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let errorMessage = '';
+            @if ($errors->any())
+                errorMessage += '<ul>';
+                @foreach ($errors->all() as $error)
+                    // Remove asterisk from error message
+                    let errorMessageWithoutAsterisk = '{{ $error }}'.replace(/^\*/, '');
+                    errorMessage += '<li>' + errorMessageWithoutAsterisk + '</li>';
+                @endforeach
+                errorMessage += '</ul>';
+            @endif
+
+            @if(session()->has('error'))
+                errorMessage += '<p>{{ session("error") }}</p>';
+            @endif
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                html: errorMessage,
+                showConfirmButton: false,
+                timer: 5000 
+            });
+        });
+    </script>
+@endif
+
+
+
     <meta charset="utf-8">
     <title>My Car</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -72,11 +145,15 @@
                     <a href="{{ route('admin.managers') }}" class="nav-item nav-link{{ request()->routeIs('admin.managers') ? ' active' : '' }}"><i class="fas fa-users me-2"></i>Managers</a>
                     <a href="{{ route('admin.clients') }}" class="nav-item nav-link{{ request()->routeIs('admin.clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
                     <a href="{{ route('admin.voitures') }}" class="nav-item nav-link{{ request()->routeIs('admin.voitures') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
-                    <a href="{{ route('admin.modules') }}" class="nav-item nav-link{{ request()->routeIs('admin.modules') ? ' active' : '' }}"><i class="fas fa-cube me-2"></i>Modules</a>
-
+                    <a href="{{ route('marque.cars') }}" class="nav-item nav-link{{ request()->routeIs('marque.cars') ? ' active' : '' }}"><i class="fas fa-tag me-2"></i>Marque</a>
+                      <a href="{{ route('module.cars') }}" class="nav-item nav-link{{ request()->routeIs('module.cars') ? ' active' : '' }}"><i class="fas fa-puzzle-piece me-2"></i>Module</a>
+                    
                     @else
                     <a href="{{ route('manager.dashboard') }}" class="nav-item nav-link{{ request()->routeIs('manager.dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
+                    <a href="{{ route('manager.clients') }}" class="nav-item nav-link{{ request()->routeIs('manager.clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
                     <a href="{{ route('manager.cars') }}" class="nav-item nav-link{{ request()->routeIs('manager.cars') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
+                    <a href="{{ route('marque.cars') }}" class="nav-item nav-link{{ request()->routeIs('marque.cars') ? ' active' : '' }}"><i class="fas fa-tag me-2"></i>Marque</a>
+                    <a href="{{ route('module.cars') }}" class="nav-item nav-link{{ request()->routeIs('module.cars') ? ' active' : '' }}"><i class="fas fa-puzzle-piece me-2"></i>Module</a>
                     {{-- <a href="{{ route('dashboard') }}" class="nav-item nav-link{{ request()->routeIs('dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
                     <a href="{{ route('managers') }}" class="nav-item nav-link{{ request()->routeIs('managers') ? ' active' : '' }}"><i class="fas fa-users me-2"></i>Managers</a>
                     <a href="{{ route('admin.clients') }}" class="nav-item nav-link{{ request()->routeIs('clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>

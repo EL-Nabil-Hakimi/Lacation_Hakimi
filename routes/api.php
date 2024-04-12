@@ -40,3 +40,6 @@ Route::get('/searchcar/{matricule}', [CarController::class, 'searchByMatricule']
 
 
 Route::get('/cars/searchByMark/{id}' , [ModelCarController::class, 'searchByMark']);
+
+
+Route::get('/marques', [CarCompanyController::class, 'datajsnon']);

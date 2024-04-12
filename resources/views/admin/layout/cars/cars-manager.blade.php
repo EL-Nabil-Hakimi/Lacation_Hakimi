@@ -348,7 +348,7 @@
        @else
         <div class="card__availability">
             <i class="fas fa-times-circle" style="color: red;"></i>
-            <span class="card__availability-text" style="color: red;">Indisponible</span>
+            <span class="card__availability-text" style="color: resources/views/admin/layout/managers.blade.phpred;">Indisponible</span>
         </div>
         @endif
         <small class="card__tag mb-2">{{$car->matricule}}</small>

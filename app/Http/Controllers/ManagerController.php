@@ -50,9 +50,9 @@ class ManagerController extends Controller
         ]);
     
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'unique:users,name',],
-            'email' => ['required', 'email', 'unique:users,email' , 
-            'cin' => 'required' , 'unique:managers,cin'],
+            'name' => ['required', 'unique:users,name'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'cin' => ['required', 'unique:managers,cin'],
         ], [
             'name.unique' => 'Le nom d\'utilisateur est déjà pris.',
             'cin.unique' => 'Le cin d\'utilisateur est déjà pris.',
@@ -108,9 +108,9 @@ class ManagerController extends Controller
         ]);
     
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'unique:users,name,' . $request->id, 'regex:/^[a-zA-Z]+\.[a-zA-Z]+$/'],
-            'email' => 'required|email|unique:users,email,' . $request->id,
-            'cin' => 'required' , 'unique:managers,cin',
+            'name' => ['required', 'regex:/^[a-zA-Z]+\.[a-zA-Z]+$/', 'unique:users,name,' . $request->id],
+            'email' => ['required', 'email', 'unique:users,email,' . $request->id],
+            'cin' => ['required', 'unique:managers,cin,' . $request->id],
 
         ], [
 
@@ -164,7 +164,6 @@ class ManagerController extends Controller
         $user = User::with('manager')->where('id' , $user_id)->with('role')->get();
         $roles = Roles::all();
         Session::put('user_image', $user[0]->manager->image);
-
 
         return view('admin.layout.profile-manager' , compact('user' , 'roles'));
     }

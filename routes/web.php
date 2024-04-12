@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CarCompanyController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ManagerController;
@@ -96,11 +97,14 @@ Route::group(['middleware' => ['admin']], function () {
         Route::get('/banuser/{id}' , [AuthController::class, 'ban']);
         Route::get('/restoruser/{id}' , [AuthController::class, 'restore']);
 
+        Route::get('/admin/module' , [ModelCarController::class, 'index'])->name('module.cars');
+        Route::post('/module/add' , [ModelCarController::class, 'store']);
+        Route::get('/module/delete/{id}' , [ModelCarController::class, 'delete']);
+
         Route::resources(['admin' => AdminController::class]);
 
     
 });
-
 
 Route::post('/changephotomanager/{id}' , [ManagerController::class, 'changephoto']);
 Route::post('/modifiermotdepass' , [AuthController::class, 'modifiermotdepass']);
@@ -110,10 +114,24 @@ Route::post('/modifiermotdepass' , [AuthController::class, 'modifiermotdepass'])
 // Cars Manager
 
 Route::get('/manager/dashboard' , [ManagerController::class, 'ManagerDashboard'])->name('manager.dashboard');
+Route::get('/manager/clients', [ClientController::class, 'dashboard'])->name('manager.clients');
+
 Route::get('/manager/cars' , [CarController::class, 'ManagerIndex'])->name('manager.cars');
+Route::get('/manager/marque' , [CarCompanyController::class, 'index'])->name('marque.cars');
+Route::get('/manager/module' , [ModelCarController::class, 'index'])->name('module.cars');
+Route::post('/module/add' , [ModelCarController::class, 'store']);
+Route::post('/module/update' , [ModelCarController::class, 'update']);
+Route::get('/module/delete/{id}' , [ModelCarController::class, 'delete']);
+
+
+Route::post('/marque/add' , [CarCompanyController::class, 'store']);
+Route::post('/marque/update' , [CarCompanyController::class, 'update']);
+Route::get('/marque/delete/{id}' , [CarCompanyController::class, 'delete']);
+
 Route::get('/manager/myprofile/{id}' , [ManagerController::class, 'profilepage']);
 Route::post('/manager/changepass' , [AuthController::class, 'modifiermotdepass']);
 Route::post('/manager/changeimage/{id}' , [ManagerController::class, 'changephoto']);
+
 
 
 

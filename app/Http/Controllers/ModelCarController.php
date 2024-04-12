@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarCompany;
 use App\Models\ModelCar;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,9 @@ class ModelCarController extends Controller
 
     public function index()
     {
-        $modelCars = ModelCar::all();
-        return response()->json(['data' => $modelCars], 200);
+        $modules = ModelCar::with('company')->latest()->paginate(20);
+        $marques = CarCompany::all();
+        return view('admin.layout.cars.cars-module' , compact('modules' , 'marques'));
     }
 
     public function show($id)
@@ -26,40 +28,53 @@ class ModelCarController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'company_id' => 'required|exists:car_companies,id'
-        ]);
+        $chekmodule = ModelCar::where('name' , $request->name)->where('company_id' , $request->company_id)->first();
+        if(!$chekmodule){
 
-        $modelCar = ModelCar::create($request->all());
-        return response()->json(['message' => 'Model car created successfully', 'data' => $modelCar], 201);
+            $request->validate([
+                'name' => 'required|string',
+                'company_id' => 'required|exists:car_companies,id'
+            ]);
+    
+            $modelCar = ModelCar::create($request->all());
+            return redirect()->back()->with('success' , 'Le Module a été ajoutée avec succès');
+        }
+        else{
+            
+            return redirect()->back()->with('error' , 'Le Module deja existe!');
+        }
+
+       
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:model_cars,id,' . $request->marque_id . ',id',
             'company_id' => 'required|exists:car_companies,id'
         ]);
 
-        $modelCar = ModelCar::find($id);
+        // dd($request->all());
+        $modelCar = ModelCar::find($request->marque_id);
         if (!$modelCar) {
-            return response()->json(['message' => 'Model car not found'], 404);
+            return redirect()->back()->with('error' , 'Le Module n\'existe pas');   
         }
 
         $modelCar->update($request->all());
-        return response()->json(['message' => 'Model car updated successfully', 'data' => $modelCar], 200);
+        return redirect()->back()->with('success' , 'Le Module a été modifié avec succès');
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         $modelCar = ModelCar::find($id);
         if (!$modelCar) {
-            return response()->json(['message' => 'Model car not found'], 404);
+
+            return redirect()->back()->with('error' , 'Le Module n\'existe pas');
         }
 
         $modelCar->delete();
-        return response()->json(['message' => 'Model car deleted successfully'], 200);
+        return redirect()->back()->with('success' , 'Le Module a été supprimer avec succès');
     }
 
     public function searchByMark($id)
