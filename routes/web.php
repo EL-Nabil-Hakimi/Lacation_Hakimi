@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([], function () {
     Route::controller(ClientController::class)->group(function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('Client.index');
         Route::get('/index', 'index')->name('Client.index');
         Route::get('/services', 'services')->name('Client.services');
         Route::get('/cars', 'cars')->name('Client.cars');
@@ -40,6 +40,8 @@ Route::group([], function () {
         Route::get('/clients/admin',  'dashboard')->name('admin.clients');
         Route::post('/changephotouser/{id}',  'changephotouser');
         Route::post('/updateinfo',  'updateinfo');
+
+        Route::get('/car_single/{id}' , 'car_single');
 
     });
 });

@@ -7,14 +7,11 @@
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-          <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
-          <li class="nav-item"><a href="car.html" class="nav-link">Cars</a></li>
-          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-          <li class="nav-item"><a href="login" class="nav-link">Login</a></li>
+          <li class="nav-item {{ request()->routeIs('Client.index') ? ' active' : '' }}"><a href="{{ route('Client.index') }}" class="nav-item nav-link">Home</a></li>
+          <li class="nav-item {{ request()->routeIs('Client.cars') ? ' active' : '' }}"><a href="{{ route('Client.cars') }}" class="nav-item nav-link">Cars</a></li>
+          <li class="nav-item {{ request()->routeIs('Client.blog') ? ' active' : '' }}"><a href="{{ route('Client.blog') }}" class="nav-item nav-link">Blogs</a></li>
+          <li class="nav-item {{ request()->routeIs('Client.services') ? ' active' : '' }}"><a href="{{ route('Client.services') }}" class="nav-item nav-link">Services</a></li>
+          <li class="nav-item {{ request()->routeIs('Client.about') ? ' active' : '' }}"><a href="{{ route('Client.about') }}" class="nav-item nav-link">About</a></li>
         </ul>
       </div>
     </div>

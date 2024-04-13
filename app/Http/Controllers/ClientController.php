@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,7 +26,17 @@ class ClientController extends Controller
     }
     public function cars()
     {
-        return view('Client.single-car');
+
+        $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->get();
+
+        return view('Client.cars' , compact('cars'));
+    }
+
+    public function car_single($id)
+    {
+        $car = Car::with('marque')->with('model')->where('accepte' , 1)->where('id'  , $id)->get();
+        // dd($car);
+        return view('Client.single-car' , compact('car'));
     }
 
     public function blog()

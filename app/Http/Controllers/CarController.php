@@ -127,8 +127,8 @@ class CarController extends Controller
         ]);
     
         if ($validator->fails()) {
-            return response()->json(['message' => 'Validation failed.', 'errors' => $validator->errors()], 400);
-        }
+            return redirect()->back()->withErrors($validator)->withInput();
+            }
         // dd($request->car_id);
         $car = Car::findOrFail($request->car_id);
     

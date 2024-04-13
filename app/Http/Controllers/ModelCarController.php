@@ -12,7 +12,7 @@ class ModelCarController extends Controller
 
     public function index()
     {
-        $modules = ModelCar::with('company')->latest()->paginate(20);
+        $modules = ModelCar::with('company')->orderBy('company_id' , 'desc')->latest()->paginate(20);
         $marques = CarCompany::all();
         return view('admin.layout.cars.cars-module' , compact('modules' , 'marques'));
     }
