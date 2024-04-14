@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+    <title>My Car</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -30,43 +30,43 @@
 		<section class="ftco-section bg-light">
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-4">
-				@forelse ($cars as $car)
-				<div class="car-wrap rounded ftco-animate">
-					<div class="img rounded d-flex align-items-end" style="background-image: url({{asset('images/cars/'.$car->image)}});">
-					</div>
-					<div class="text">
-						<h2 class="mb-0"><a href="car-single.html">{{$car->marque->name}}</a></h2>
-						<div class="d-flex mb-3">
-							<span class="cat" style="color: rgb(101, 101, 101)">{{$car->model->name}}</span>
-							<p class="price ml-auto">${{$car->prix_par_jour}} <span>/day</span></p>
-						</div>
-						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="/car_single/{{$car->id}}" class="btn btn-secondary py-2 ml-1">Details</a></p>
-					</div>	
-				</div>
-					@empty
 
-					<div>
-						<h1>Cars Not Fount</h1>
-                    </div>
-					</div>
-						
-					@endforelse
-    			
-    			</div>    			
+          @foreach($cars as $car)
+          <div class="col-md-4">
+    				<div class="car-wrap rounded ftco-animate">
+    					<div class="img rounded d-flex align-items-end" style="background-image: url({{asset('images/cars/'.$car->image)}});">
+    					</div>
+    					<div class="text">
+    						<h2 class="mb-0"><a href="/car_single/{{$car->id}}">{{$car->marque->name}}</a></h2>
+    						<div class="d-flex mb-3">
+	    						<span style="color: rgb(132, 132, 132)">{{$car->model->name}}</span>
+	    						<p class="price ml-auto">DH {{$car->prix_par_jour}} <span>/day</span></p>
+    						</div>
+    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="/car_single/{{$car->id}}" class="btn btn-secondary py-2 ml-1">Details</a></p>
+    					</div>
+    				</div>
+    			</div>
+          @endforeach
+          
     		</div>
     		<div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
+                @if ($cars->lastPage() > 1)
+                    <li><a href="{{ $cars->url(1) }}">&lt;</a></li>
+                    @for ($i = 1; $i <= min(5, $cars->lastPage()); $i++)
+                        <li class="{{ $i == $cars->currentPage() ? 'active' : '' }}"><a href="{{ $cars->url($i) }}">{{ $i }}</a></li>
+                    @endfor
+                    @if ($cars->lastPage() > 5)
+                        <li><span>...</span></li>
+                        <li><a href="{{ $cars->url($cars->lastPage()) }}">{{ $cars->lastPage() }}</a></li>
+                    @endif
+                    <li><a href="{{ $cars->url($cars->currentPage() + 1) }}">&gt;</a></li>
+                @endif
+            </ul>
+            
+            
             </div>
           </div>
         </div>

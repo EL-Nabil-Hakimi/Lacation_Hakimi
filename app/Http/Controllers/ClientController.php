@@ -17,7 +17,10 @@ class ClientController extends Controller
 
     public function index()
     {
-        return view('Client.index');
+
+        $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->paginate(9);
+
+        return view('Client.index' , compact('cars'));
     }
 
     public function about()
@@ -27,16 +30,23 @@ class ClientController extends Controller
     public function cars()
     {
 
-        $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->get();
+        $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->latest()->paginate(9);
+        $count_cars = $cars->count();
 
-        return view('Client.cars' , compact('cars'));
+        $c_cars = intval($count_cars / 9);
+
+        return view('Client.cars' , compact('cars' , 'c_cars'));
     }
 
     public function car_single($id)
     {
         $car = Car::with('marque')->with('model')->where('accepte' , 1)->where('id'  , $id)->get();
-        // dd($car);
-        return view('Client.single-car' , compact('car'));
+
+        $related_cars = Car::with('marque')->with('model')->where('company_id' , $car[0]->marque->id)->where('id' ,'!=', $car[0]->id)->get();
+
+        // dd($related_cars); 
+
+        return view('Client.single-car' , compact('car' , 'related_cars'));
     }
 
     public function blog()
@@ -100,7 +110,7 @@ class ClientController extends Controller
             return redirect()->back()->with('success', 'Photo de profil mis à jour avec succès.');
         }
         else{
-            return redirect()->back()->with('success', 'Photo de profil est pas compatible.');
+            return redirect()->back()->with('error', 'Photo de profil est pas compatible.');
         }
     }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Carbook - Free Bootstrap 4 Template by Colorlib</title>
+    <title>My Car</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -303,20 +303,28 @@
           </div>
         </div>
         <div class="row">
-        	<div class="col-md-4">
+			@forelse ($related_cars as $r_car)
+				<div class="col-md-4">
     				<div class="car-wrap rounded ftco-animate">
-    					<div class="img rounded d-flex align-items-end" style="background-image: url({{asset('assets/client/images/car-1.jpg')}});">
+    					<div class="img rounded d-flex align-items-end" style="background-image: url({{asset('images/cars/'.$r_car->image)}});">
     					</div>
     					<div class="text">
-    						<h2 class="mb-0"><a href="car-single.html">Mercedes Grand Sedan</a></h2>
+    						<h2 class="mb-0"><a href="car-single.html">{{$r_car->marque->name}}</a></h2>
     						<div class="d-flex mb-3">
-	    						<span class="cat">Cheverolet</span>
-	    						<p class="price ml-auto">$500 <span>/day</span></p>
+	    						<span class="cat" style="color: rgb(77, 77, 77)">{{$r_car->model->name}}</span>
+	    						<p class="price ml-auto">DH {{$r_car->prix_par_jour}} <span style="color: rgb(77, 77, 77)">/day</span></p>
     						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="car-single.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
+    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="/car_single/{{$r_car->id}}" class="btn btn-secondary py-2 ml-1">Details</a></p>
     					</div>
     				</div>
     			</div>
+				@empty
+
+				<div class="col-md-12">
+					<p style="text-align: center">No related cars found. 😞</p>
+				</div>
+
+				@endforelse
         </div>
     	</div>
     </section>
