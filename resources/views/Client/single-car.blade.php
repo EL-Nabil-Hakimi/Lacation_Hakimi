@@ -182,7 +182,7 @@
 						    	</div>
 						    </div>
 
-							<p class="d-flex mb-0 d-block"><a class="btn btn-primary " id="btn_reaserve" onclick="show_modal()">Book now</a>
+							<p class="d-flex mb-0 d-block"><a class="btn btn-primary " id="btn_reaserve" onclick="show_modal('{{session()->get('user_id')}}')">Book now</a>
 
 							
 						    <div class="tab-pane fade" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
@@ -408,10 +408,37 @@
 
 
   <script>
-    var show_modal = function() {
+  var show_modal = function(id) {
+    @if(!session()->has('user_id'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You must be logged in to book a car!',
+            confirmButtonText: 'Go to Login',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/login";
+            }
+        });
+    @elseif(session()->get('user_id') && $user[0]->nom == null && $user[0]->nom == null && $user[0]->client->cin == null && $user[0]->client->permi==null)
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You need to complete your information before booking a car!',
+            confirmButtonText: 'Go to Profile',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/profile/"+id;
+            }
+        });
+    @else
         var modal = document.getElementById("modale_reservation");
         if (modal.style.display === 'block') {
-            modal.classList.remove('fade-in'); // Supprimez la classe d'animation
+            modal.classList.remove('fade-in'); 
             modal.style.display = 'none';
         } else {
             modal.style.display = 'block';
@@ -419,6 +446,9 @@
                 modal.classList.add('fade-in');
             }, 10);
         }
-    }
+    @endif
+}
+
+
 </script>
 </html>

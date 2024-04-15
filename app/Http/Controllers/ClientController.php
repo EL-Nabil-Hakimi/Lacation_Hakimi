@@ -229,8 +229,19 @@ class ClientController extends Controller
 
     public function profile_client($id)
     {
+
+
         $user = User::with('client')->where('id', $id)->get();
-        return view('Client.profile', compact('user'));
+        if($user->isEmpty()){
+            return redirect()->to('/profile/'.session('user_id'));
+        }
+
+        if( session()->get('user_id') == $user[0]->id){
+            return view('Client.profile', compact('user'));
+        }
+        else{
+           return redirect()->to('/profile/'.session('user_id'));
+        }
     }
 
     
