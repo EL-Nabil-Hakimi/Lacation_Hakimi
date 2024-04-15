@@ -7,7 +7,35 @@
     
 	@include('Client.layout.style-link')
 
+<style>
+	#btn_reaserve{
+		width: 100%;
+		box-shadow: 0px 0px 3px 1px black !important;
+		transition: 0.3s;
+	}
+	#btn_reaserve:hover{
+		box-shadow : 0px 0px 0px 0px black !important;
+		background-color: rgb(7, 91, 7) !important;
+
+	}
+
+	.fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+			width: 0%;
+        }
+        to {
+			width: 100%;
+        }
+    }	
+</style>
+
   </head>
+
+
   <body>
     
 	@include('Client.layout.nav')
@@ -154,6 +182,9 @@
 						    	</div>
 						    </div>
 
+							<p class="d-flex mb-0 d-block"><a class="btn btn-primary " id="btn_reaserve" onclick="show_modal()">Book now</a>
+
+							
 						    <div class="tab-pane fade" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
 						      <p>{{$car[0]->description}}.</p>
 						    </div>
@@ -292,6 +323,37 @@
 		      </div>
 				</div>
       </div>
+
+
+	  <div class="container mt-3" style=" color: black; border-radius: 3px; padding: 20px;display: none ;" id="modale_reservation">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="section-title">
+					<h2 style="text-align: center;">Reservation</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<form action="" method="POST">
+					@csrf
+					<div class="form-group">
+						<label for="pickup_date">Start Date</label>
+						<input type="date" class="form-control" id="pickup_date" name="pickup_date" required>
+					</div>
+			</div>
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="return_date">End Date</label>
+					<input type="date" class="form-control" id="return_date" name="return_date" required>
+				</div>
+				<button type="submit" class="btn btn-primary btn-block" >Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
     </section>
 
     <section class="ftco-section ftco-no-pt">
@@ -343,4 +405,20 @@
 
     
   </body>
+
+
+  <script>
+    var show_modal = function() {
+        var modal = document.getElementById("modale_reservation");
+        if (modal.style.display === 'block') {
+            modal.classList.remove('fade-in'); // Supprimez la classe d'animation
+            modal.style.display = 'none';
+        } else {
+            modal.style.display = 'block';
+            setTimeout(function() {
+                modal.classList.add('fade-in');
+            }, 10);
+        }
+    }
+</script>
 </html>

@@ -35,11 +35,15 @@ Route::group([], function () {
         Route::get('/blog', 'blog')->name('Client.blog');
         Route::get('/contact', 'contact')->name('Client.contact');
 
+        Route::get('/profile/{id}', 'profile_client')->name('Client.profile');
+
         Route::get('/profileusershow/{id}', 'profileusershow');
         Route::get('/profileuser/{id}',  'profileuser');
         Route::get('/clients/admin',  'dashboard')->name('admin.clients');
+
         Route::post('/changephotouser/{id}',  'changephotouser');
-        Route::post('/updateinfo',  'updateinfo');
+
+        Route::post('/updateinfouser',  'updateinfouser');
 
         Route::get('/car_single/{id}' , 'car_single');
 
@@ -150,5 +154,4 @@ Route::get('/manager/refuseuser/{id}' , [ManagerController::class, 'refuseuser']
 Route::get('/cars/searchByMark/{id}' , [ModelCarController::class, 'searchByMark']);
 
 
-
-
+Route::post('/updateinfo/{id}' , [ClientController::class, 'updateinfo']);

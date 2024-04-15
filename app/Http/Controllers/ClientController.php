@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
 {
@@ -19,21 +20,43 @@ class ClientController extends Controller
     {
 
         $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->paginate(9);
-
+        if (session()->has('user_id') && session()->get('role_id') == 3) {
+            $user_id = session('user_id');
+            $user = User::with('client')->where('id', $user_id)->get();
+            // dd($user);  
+            return view('Client.index', compact('cars', 'user'));
+        }
         return view('Client.index' , compact('cars'));
     }
 
     public function about()
     {
+
+        if (session()->has('user_id') && session()->get('role_id') == 3) {
+            $user_id = session('user_id');
+            $user = User::with('client')->where('id', $user_id)->get();
+            // dd($user);  
+            return view('Client.about', compact('user'));
+        }
+        
         return view('Client.about');
     }
     public function cars()
     {
 
+
+
         $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->latest()->paginate(9);
         $count_cars = $cars->count();
 
         $c_cars = intval($count_cars / 9);
+
+        if (session()->has('user_id') && session()->get('role_id') == 3) {
+            $user_id = session('user_id');
+            $user = User::with('client')->where('id', $user_id)->get();
+            // dd($user);  
+            return view('Client.cars', compact('user' , 'cars' , 'c_cars'));
+        }
 
         return view('Client.cars' , compact('cars' , 'c_cars'));
     }
@@ -44,23 +67,54 @@ class ClientController extends Controller
 
         $related_cars = Car::with('marque')->with('model')->where('company_id' , $car[0]->marque->id)->where('id' ,'!=', $car[0]->id)->get();
 
-        // dd($related_cars); 
+        // dd($related_cars);
+        
+        if (session()->has('user_id') && session()->get('role_id') == 3) {
+            $user_id = session('user_id');
+            $user = User::with('client')->where('id', $user_id)->get();
+            // dd($user);  
+            return view('Client.single-car', compact('user' , 'car' , 'related_cars'));
+        }
 
         return view('Client.single-car' , compact('car' , 'related_cars'));
     }
 
     public function blog()
     {
+
+
+        if (session()->has('user_id') && session()->get('role_id') == 3) {
+            $user_id = session('user_id');
+            $user = User::with('client')->where('id', $user_id)->get();
+            // dd($user);  
+            return view('Client.blog', compact('user'));
+        }
+
         return view('Client.blog');
     }
 
     public function contact()
     {
+        if (session()->has('user_id') && session()->get('role_id') == 3) {
+            $user_id = session('user_id');
+            $user = User::with('client')->where('id', $user_id)->get();
+            // dd($user);  
+            return view('Client.contact', compact('user'));
+        }
+        
         return view('Client.contact');
     }
 
     public function services()
         {
+
+            if (session()->has('user_id') && session()->get('role_id') == 3) {
+                $user_id = session('user_id');
+                $user = User::with('client')->where('id', $user_id)->get();
+                // dd($user);  
+                return view('Client.services', compact('user'));
+            }
+            
             return view('Client.services');
         }
 
@@ -114,22 +168,25 @@ class ClientController extends Controller
         }
     }
 
-    public function updateinfo(Request $request){
-        $request->validate([
-            'email' => 'required|email|unique:users,email,'.$request->user_id,
-            'permi' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
+    public function updateinfouser(Request $request){
+        
+        $validator = Validator::make($request->all() , [
+            'cin' => 'required|unique:clients,cin,'.$request->user_id,
             'nom' => 'required',
             'prenom' => 'required',
             'phone' => 'required',
             'adresse' => 'required',
-            'cin' => 'required',
-        ], [
-            'email.unique' => 'Cet email est déjà utilisé.'
-        ]);
+            'permi' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
+            'v_permi' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
+            // 'email' => 'required|email|unique:users,email,'.$request->id,
+        ], );
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
     
-        $user_id = $request->user_id;
         $newEmail = $request->email;
-        $user = User::find($user_id);
+        $user = User::find($request->id);
         if($user && $user->email !== $newEmail){
             $checkEmail = User::where('email', $newEmail)->first();
             if($checkEmail){
@@ -141,13 +198,14 @@ class ClientController extends Controller
             }
         }
         
-        $id = $request->id;
+        $id = $request->user_id;
         $client = Client::findOrFail($id);
         $client->nom = $request->nom;
         $client->cin = $request->cin;
         $client->prenom = $request->prenom;
         $client->phone = $request->phone;
         $client->adresse = $request->adresse;
+        $client->accepte = null;
     
         if($request->hasFile('permi')){
             $image = $request->file('permi');
@@ -155,9 +213,25 @@ class ClientController extends Controller
             $image->move(public_path('images'),  $image_name);
             $client->permi = $image_name;
         }
+        if($request->hasFile('v_permi')){
+            $image = $request->file('v_permi');
+            $image_name = "images/" . uniqid() .".".$image->getClientOriginalExtension();
+            $image->move(public_path('images'),  $image_name);
+            $client->v_permi = $image_name;
+        }
+        
         $client->save();
     
         return redirect()->back()->with('success', 'Client mis à jour avec succès.');
     }
+    
+
+
+    public function profile_client($id)
+    {
+        $user = User::with('client')->where('id', $id)->get();
+        return view('Client.profile', compact('user'));
+    }
+
     
 }

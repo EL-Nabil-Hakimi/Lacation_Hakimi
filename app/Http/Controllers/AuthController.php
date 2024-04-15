@@ -36,14 +36,14 @@ class AuthController extends Controller
     public function signUp(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'unique:users,name', 'regex:/^[a-zA-Z]+\.[a-zA-Z]+|[a-zA-Z]+\.[a-zA-Z]$/'],
+            'name' => ['required', 'regex:/^[a-zA-Z]+\.[a-zA-Z]+\.[0-9]+$/', 'unique:users,name'],
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
             'c_password' => 'required|same:password',
         ], [
             'name.unique' => 'Le nom d\'utilisateur est déjà pris.',
             'name.required' => 'Le champ nom d\'utilisateur est obligatoire.',
-            'name.regex' => 'Le champ nom d\'utilisateur doit être au format "Prénom.Nom" et ne doit pas contenir d\'espace.',
+            'name.regex' => 'Le champ nom d\'utilisateur doit être au format "Prénom.Nom.9090" et ne doit pas contenir d\'espace.',
             'email.required' => 'Le champ email est obligatoire.',
             'email.email' => 'Veuillez entrer une adresse email valide.',
             'email.unique' => 'L\'adresse email est déjà utilisée.',
@@ -52,13 +52,14 @@ class AuthController extends Controller
             'c_password.required' => 'Le champ de confirmation du mot de passe est obligatoire.',
             'c_password.same' => 'La confirmation du mot de passe ne correspond pas au mot de passe.',
         ]);
+        
     
         if ($validator->fails()) {
             return response()->json(['success' => false, 'errors' => $validator->errors()], 422);
         }
     
         $user = new User();
-        $user->name = $request->name. '.' . mt_rand(1000, 9999);
+        $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role_id = 3; 
@@ -86,7 +87,8 @@ class AuthController extends Controller
 
         
         $validator = Validator::make($request->all(), [
-            'name' => ['required',  'regex:/^([a-zA-Z]+\.[a-zA-Z]+)|([a-zA-Z]+\.[a-zA-Z]+\.[0-9]+)$/'], 'password' => 'required|string',
+            'name' => ['required',  'regex:/^([a-zA-Z]+\.[a-zA-Z]+)|([a-zA-Z]+\.[a-zA-Z]+\.[0-9]+)$/'],
+         'password' => 'required|string',
         ], [
             'name.required' => 'Le champ nom d\'utilisateur est obligatoire.',
             'name.exists' => 'Le nom d\'utilisateur n\'existe pas.',
