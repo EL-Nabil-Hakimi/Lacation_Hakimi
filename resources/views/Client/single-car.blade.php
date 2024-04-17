@@ -4,6 +4,8 @@
     <title>My Car</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="csrf-token" content="{{ csrf_token() }}"> <!-- CSRF token meta tag -->
+
     
 	@include('Client.layout.style-link')
 
@@ -335,22 +337,21 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<form action="" method="POST">
+				<form action="/addreservation/{{$car[0]->id}}" method="POST" id="reservationForm">
 					@csrf
 					<div class="form-group">
-						<label for="pickup_date">Start Date</label>
-						<input type="date" class="form-control" id="pickup_date" name="pickup_date" required>
+						<label for="pickup_datetime">Date and Time of Pickup</label>
+						<input type="datetime-local" class="form-control" id="pickup_datetime" name="date_debut" required>
 					</div>
-			</div>
-			<div class="col-md-12">
-				<div class="form-group">
-					<label for="return_date">End Date</label>
-					<input type="date" class="form-control" id="return_date" name="return_date" required>
-				</div>
-				<button type="submit" class="btn btn-primary btn-block" >Submit</button>
+					<div class="form-group">
+						<label for="return_datetime">Date and Time of Return</label>
+						<input type="datetime-local" class="form-control" id="return_datetime" name="date_fin" required>
+					</div>
+					<button type="submit" class="btn btn-primary btn-block">Submit</button>
 				</form>
 			</div>
 		</div>
+		
 	</div>
 	
 	
@@ -376,7 +377,7 @@
 	    						<span class="cat" style="color: rgb(77, 77, 77)">{{$r_car->model->name}}</span>
 	    						<p class="price ml-auto">DH {{$r_car->prix_par_jour}} <span style="color: rgb(77, 77, 77)">/day</span></p>
     						</div>
-    						<p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="/car_single/{{$r_car->id}}" class="btn btn-secondary py-2 ml-1">Details</a></p>
+    						<p class="d-flex mb-0 d-block"><a href="/car_single/{{$r_car->id}}" class="btn btn-primary py-2 mr-1">Book now</a> <a href="/car_single/{{$r_car->id}}" class="btn btn-secondary py-2 ml-1">Details</a></p>
     					</div>
     				</div>
     			</div>
@@ -408,6 +409,9 @@
 
 
   <script>
+
+document.getElementById('pickup_datetime').setAttribute('min', new Date().toISOString().split('T')[0] + 'T00:00');
+
   var show_modal = function(id) {
     @if(!session()->has('user_id'))
         Swal.fire({
@@ -422,7 +426,7 @@
                 window.location.href = "/login";
             }
         });
-    @elseif(session()->get('user_id') && $user[0]->nom == null && $user[0]->nom == null && $user[0]->client->cin == null && $user[0]->client->permi==null)
+    @elseif(session()->get('user_id') && session()->get('role_id') == 3 && $user[0]->nom == null && $user[0]->nom == null && $user[0]->client->cin == null && $user[0]->client->permi==null)
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -448,6 +452,74 @@
         }
     @endif
 }
+
+
+function updateReturnDateTimeMin() {
+    var pickupDateTimeValue = document.getElementById("pickup_datetime").value;
+    document.getElementById("return_datetime").min = pickupDateTimeValue;
+}
+
+document.getElementById("pickup_datetime").addEventListener("change", function() {
+    var pickupDate = new Date(this.value);
+
+    pickupDate.setDate(pickupDate.getDate() + 1);
+
+    var returnDate = pickupDate.getFullYear() + '-' + ('0' + (pickupDate.getMonth() + 1)).slice(-2) + '-' + ('0' + pickupDate.getDate()).slice(-2) + 'T' + ('0' + pickupDate.getHours()).slice(-2) + ':' + ('0' + pickupDate.getMinutes()).slice(-2);
+
+    document.getElementById("return_datetime").value = returnDate;
+});
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("reservationForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var returnDateValue = document.getElementById("return_datetime").value;
+        var pickupDateValue = document.getElementById("pickup_datetime").value;
+        
+        var carId = {{$car[0]->id}}; 
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        $.ajax({
+            url: '/addreservation/' + carId, 
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken 
+            },
+            data: {
+                date_debut: pickupDateValue,
+                date_fin: returnDateValue
+            },
+            success: function(response) {
+				if (response.success) {
+					Swal.fire({
+						icon: 'success',
+						title: 'Good Job',
+						text: response.success
+					});
+				} else if (response.error) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: response.error
+					});
+				}
+			},
+
+            error: function(xhr, status, error) {        
+                console.error(error);
+            }
+        });
+    });
+});
+
+
+
+
+
+
 
 
 </script>

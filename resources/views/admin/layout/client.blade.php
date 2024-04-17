@@ -36,86 +36,79 @@
     top: -.2em;
     left: -.6em;
   }
+
+  #div_table th{
+        background-color: #ffffff;
+        transition: 0.3s; 
+  }
+  
+  #div_table tr{
+        background-color: #f5f5f5;
+        transition: 0.3s; 
+  }
+  #div_table tr:hover{
+        background-color: #ffffff;
+  }
+
+
 </style>
 
 
 
-<div style="min-height:70vh ; margin-top : 6em" >
-<table class="table align-middle mb-0 mt-5 bg-white"  >
+<div style="min-height: 70vh; margin-top: 6em; overflow-x: auto ; padding: 10px 10px" id="div_table">
+  <table class="table align-middle mb-0 mt-5 bg-white" style="width: 100%;">
     <thead class="bg-light">
       <tr>
         <th>Name</th>
         <th>Cin</th>
         <th>Tele</th>
-        <th>Type de permi</th>
         <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-        @foreach ($clients as $client)            
-          <tr>
-            <td>
-              <div class="d-flex align-items-center" style="position: relative">
-                @if($client->client->accepte == 1)
-                   <img src="{{asset('images/verify.png')}}" id="verifyimg" title="Ce Compte a été vérifié par les responsables">
-                @endif
+      @foreach ($clients as $client)
+      <tr>
+        <td>
+          <div class="d-flex align-items-center" style="position: relative">
+            @if($client->client->accepte == 1)
+            <img src="{{asset('images/verify.png')}}" id="verifyimg" title="Ce Compte a été vérifié par les responsables">
+            @endif
 
-                <img
-                   src="{{ asset($client->client->image) }}"
-                    alt=""  
-                    style="width: 45px; height: 45px"
-                    class="rounded-circle"
-                    />
-                <div class="ms-3">
-                  <a href="/profileusershow/{{$client->id}}"><p class="fw-bold mb-1">{{$client->name}}</p> </a>
-                  <p class="text-muted mb-0">{{$client->email}}</p>
-                </div>
-              </div>
-            </td>
-            <td>{{$client->client->cin}}</td>
-
-            <td>
-              <p class="fw-normal mb-2">{{$client->client->phone}}</p>
-              
-            </td>
-            <td>
-              <p class="fw-normal mb-2">{{$client->role->name}}</p>
-              
-            </td>
-
-            <td>
-
-              @if ($client->ban == 1)
-                <span class="badge badge-danger rounded-pill d-inline">Bloque</span>
-              @else
-                <span class="badge badge-success rounded-pill d-inline">Actif</span>                  
-              @endif
-
-            </td>
-           
-            <td>
-     
-              @if ($client->ban == 1)
-
-              <button onclick="popuprestoreuser({{ $client->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">
-                Debloquer
-              </button>
-
-              @else
-              <button onclick="popupbanuser({{ $client->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">
-                Bloquer
-              </button>
-
-              @endif
-            </td>
-          </tr>
-
+            <img src="{{ asset($client->client->image) }}" alt="" style="width: 45px; height: 45px" class="rounded-circle">
+            <div class="ms-3">
+              <a href="/profileusershow/{{$client->id}}">
+                <p class="fw-bold mb-1">{{$client->name}}</p>
+              </a>
+              <p class="text-muted mb-0">{{$client->email}}</p>
+            </div>
+          </div>
+        </td>
+        <td>{{$client->client->cin}}</td>
+        <td>
+          <p class="fw-normal mb-2">{{$client->client->phone}}</p>
+        </td>
+    
+        <td>
+          @if ($client->ban == 1)
+          <span class="badge badge-danger rounded-pill d-inline">Bloque</span>
+          @else
+          <span class="badge badge-success rounded-pill d-inline">Actif</span>
+          @endif
+        </td>
+        <td>
+          @if ($client->ban == 1)
+          <button onclick="popuprestoreuser({{ $client->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">Debloquer</button>
+          @else
+          <button onclick="popupbanuser({{ $client->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">Bloquer</button>
+          @endif
+        </td>
+      </tr>
       @endforeach
-             
     </tbody>
-  </table>  
+  </table>
 </div>
+
 
 
 

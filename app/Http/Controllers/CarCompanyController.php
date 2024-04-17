@@ -74,4 +74,7 @@ class CarCompanyController extends Controller
         return response()->json(['data' => $marques], 200);
     }
 
+    
+
+
 }

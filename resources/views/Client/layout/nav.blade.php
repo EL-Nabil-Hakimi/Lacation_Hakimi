@@ -29,6 +29,8 @@
             </li>
 
             @if(session()->has('user_id') && session()->get('role_id') == 3)
+            <a href="/Client/reservations" id="reservation_btn"title="Show my reservations">My Reservations</a>
+
             <li class="nav-item">
               <a href="/profile/{{ $user[0]->id }}" class="nav-item nav-link">
                   <img src="{{asset($user[0]->client->image)}}"
@@ -50,7 +52,6 @@
             <li class="nav-item ">
               <a href="/login" class="nav-item nav-link">Login/Register</a>
           </li>
-           
             @endif
         </ul>
     </div>
@@ -127,7 +128,36 @@
               timer: 5000 
           });
       });
+
   </script>
 @endif
 
+<style>
+    #reservation_btn{
+        position: fixed;
+        left: 0;
+        z-index: 9999999999999999;
+        width: 10em;
+        height: 2em;
+        background-color: #0d6efd !important;
 
+        border-radius:0px 20px 20px 0px;
+        top: 15%;   
+        padding: 0.5em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        opacity: 0.7;
+    }
+
+    #reservation_btn:hover{
+        background-color: blue !important;
+        color: white;
+        transform: scale(1.1);
+        opacity: 1;
+        width: 15em;
+        border-radius:0px 20px 20px 0px;
+    }
+
+</style>

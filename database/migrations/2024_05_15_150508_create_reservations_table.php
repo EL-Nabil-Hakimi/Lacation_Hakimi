@@ -13,8 +13,16 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('car_id');
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
+            $table->dateTime('date_debut'); 
+            $table->dateTime('date_fin'); 
+            $table->boolean('accepte')->nullable();
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -25,3 +33,4 @@ return new class extends Migration
         Schema::dropIfExists('reservations');
     }
 };
+

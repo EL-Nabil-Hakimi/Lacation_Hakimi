@@ -7,6 +7,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ModelCarController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\ModelCar;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,8 @@ Route::group([], function () {
 
         Route::get('/profile/{id}', 'profile_client')->name('Client.profile');
 
+        
+
         Route::get('/profileusershow/{id}', 'profileusershow');
         Route::get('/profileuser/{id}',  'profileuser');
         Route::get('/clients/admin',  'dashboard')->name('admin.clients');
@@ -51,7 +54,13 @@ Route::group([], function () {
 });
 
 
+Route::post('/addreservation/{id}',[ReservationController::class , 'addreservation']);
 
+
+Route::post('/check_car/{id}' , [ReservationController::class, 'check_car']);
+
+
+Route::get('/Client/reservations' , [ReservationController::class, 'index']);
 // Authontification _______________________________________________________________________
 
 Route::group([], function () {
@@ -97,6 +106,11 @@ Route::group(['middleware' => ['admin']], function () {
         Route::get('/admin/clients', [ClientController::class, 'dashboard'])->name('admin.clients');
         Route::get('/admin/modules', [AdminController::class, 'modules'])->name('admin.modules');
 
+        // reservation
+
+        Route::get('/admin/reservation', [ReservationController::class, 'AdminReservation'])->name('admin.reservation');
+        Route::get('/admin/StatuCar/{id}/{status}', [ReservationController::class, 'StatuCar']);
+
         Route::post('/createmanager' , [ManagerController::class, 'create']);
         Route::post('/updatemanager' , [ManagerController::class, 'update']);
 
@@ -112,8 +126,14 @@ Route::group(['middleware' => ['admin']], function () {
     
 });
 
+Route::get('/client/StatuCar/{id}/{status}', [ReservationController::class, 'StatuCar']);
+Route::get('/client/downloadReservation/{id}',  [ReservationController::class, 'downloadReservation']);
+
+
+
 Route::post('/changephotomanager/{id}' , [ManagerController::class, 'changephoto']);
 Route::post('/modifiermotdepass' , [AuthController::class, 'modifiermotdepass']);
+
 
 
 

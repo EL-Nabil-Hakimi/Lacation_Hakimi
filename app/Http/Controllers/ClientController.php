@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Client;
+use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -131,15 +132,24 @@ class ClientController extends Controller
     }
 
     public function profileusershow($id){
-            $user = $this->user->with('client')->where('id',$id)->get();
-            $role_id = 3;
-            return view('admin.layout.profileusershow' , compact('user' , 'role_id'));
+        $infos = User::with(['car', 'reservation' => function ($query) {
+            $query->orderBy('updated_at', 'DESC');
+        }])
+        ->where('id', $id)
+        ->get();
+    
+        // Pagination should be applied to the reservation relationship, not $infos
+        // You can access the reservation relationship using $infos[0]->reservation
+        $reservations = $infos[0]->reservation()->paginate(10);
+    
+        $role_id = session()->get('role_id');
+        return view('admin.layout.profileusershow', compact('infos', 'reservations', 'role_id'));
     }
+    
 
     public function profileuser($id){
       
         $user = User::with('client')->where('id' , $id)->get();
-
         return view('admin.layout.profileuser' , compact('user'));
         // return response()->json($user);
     }
@@ -226,7 +236,6 @@ class ClientController extends Controller
     }
     
 
-
     public function profile_client($id)
     {
 
@@ -238,6 +247,7 @@ class ClientController extends Controller
 
         if( session()->get('user_id') == $user[0]->id){
             return view('Client.profile', compact('user'));
+            
         }
         else{
            return redirect()->to('/profile/'.session('user_id'));

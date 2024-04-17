@@ -239,44 +239,44 @@
 
             <div id="headerclientinfo">
             
-            @if($user[0]->client->accepte == null && $user[0]->client )
+            @if($infos[0]->accepte == null  )
             <li class="nav-item d-flex justify-content-end p-2">
-              <button class="btn" onclick="openComfirmModalinfo({{$user[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
+              <button class="btn" onclick="openComfirmModalinfo({{$infos[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
                   <i class="far fa-square fa-lg"></i>  
                   <span style="color: white">Confirmer</span>
               </button>
               </li>
               <li class="nav-item d-flex justify-content-end p-2">
 
-              <button class="btn" onclick="openCancelConfirmationModal({{$user[0]->client->id}})" title="Je ne suis pas sûr">
+              <button class="btn" onclick="openCancelConfirmationModal({{$infos[0]->client->id}})" title="Je ne suis pas sûr">
                   <i class="far fa-square fa-lg"></i>  
                   <span style="color: white">Infirmer</span>
               </button>
                   </li>
-            @elseif($user[0]->client->accepte == 1)
+            @elseif($infos[0]->client->accepte == 1)
             <li class="nav-item d-flex justify-content-end p-2">
-              <button class="btn" onclick="openComfirmModalinfo({{$user[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
+              <button class="btn" onclick="openComfirmModalinfo({{$infos[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
                   <i class="far fa-check-square fa-lg"></i>  
                   <span style="color: white">Confirmer</span>
               </button>
               </li>
               <li class="nav-item d-flex justify-content-end p-2">
 
-              <button class="btn" onclick="openCancelConfirmationModal({{$user[0]->client->id}})" title="Je ne suis pas sûr">
+              <button class="btn" onclick="openCancelConfirmationModal({{$infos[0]->client->id}})" title="Je ne suis pas sûr">
                   <i class="far fa-square fa-lg"></i>  
                   <span style="color: white">Infirmer</span>
               </button>
                   </li>
             @else
             <li class="nav-item d-flex justify-content-end p-2">
-              <button class="btn" onclick="openComfirmModalinfo({{$user[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
+              <button class="btn" onclick="openComfirmModalinfo({{$infos[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
                   <i class="far fa-square fa-lg"></i>  
                   <span style="color: white">Confirmer</span>
               </button>
               </li>
               <li class="nav-item d-flex justify-content-end p-2">
 
-              <button class="btn" onclick="openCancelConfirmationModal({{$user[0]->client->id}})" title="Je ne suis pas sûr">
+              <button class="btn" onclick="openCancelConfirmationModal({{$infos[0]->client->id}})" title="Je ne suis pas sûr">
                   <i class="far fa-check-square fa-lg"></i>  
                   <span style="color: white">Infirmer</span>
               </button>
@@ -287,11 +287,11 @@
 
             </div>
           <div class="card-header bg-transparent text-center">
-            <form id="photoForm" method="post" enctype="multipart/form-data" action="/changephotouser/{{$user[0]->client->id}}">
+            <form id="photoForm" method="post" enctype="multipart/form-data" action="/changephotouser/{{$infos[0]->client->id}}">
               @csrf
               <label for="fileToUpload">
-                  <div class="profile-pic" style="background-image: url('{{asset($user[0]->client->image)}}')">
-                    @if($user[0]->client->accepte == 1)
+                  <div class="profile-pic" style="background-image: url('{{asset($infos[0]->client->image)}}')">
+                    @if($infos[0]->client->accepte == 1)
                       <img src="{{asset('images/verify.png')}}" id="verifyimg" title="Ce Compte a été vérifié par les responsables">
                     @endif
                       <span class="glyphicon glyphicon-camera"></span>
@@ -306,32 +306,32 @@
             <ul class="nav flex-column side-menu">
               <li class="nav-item d-flex">
                   <span class="me-2" style="width:25% ; height:1.5em;color : rgb(32, 44, 181) ;">Nom </span>
-                  <span>{{ $user[0]->client->nom }}</span>
+                  <span>{{ $infos[0]->client->nom }}</span>
               </li>
               <hr>  
               <li class="nav-item d-flex">
                   <span class="me-2" style="width:25% ; height:1.5em;color : rgb(32, 44, 181) ;">Prenom </span>
-                  <span> {{ $user[0]->client->prenom }}</span>
+                  <span> {{ $infos[0]->client->prenom }}</span>
               </li>
               <hr>
               <li class="nav-item d-flex">
                   <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ;">Cin </span>
-                  <span>{{ $user[0]->client->cin }}</span>
+                  <span>{{ $infos[0]->client->cin }}</span>
               </li>
               <hr>
               <li class="nav-item d-flex">
                   <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ;">Tele </span>
-                  <span>{{ $user[0]->client->phone }}</span>
+                  <span>{{ $infos[0]->client->phone }}</span>
               </li>
               <hr>
               <li class="nav-item d-flex">
                   <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ; ">Email </span>
-                  <span>{{ $user[0]->email }}</span>
+                  <span>{{ $infos[0]->email }}</span>
               </li>
               <hr>
               <li class="nav-item d-flex">
                   <span class="me-2" style="width:25% ; height:1.5em; color : rgb(32, 44, 181) ; ">Adress </span>
-                  <p>{{ $user[0]->client->adresse}}</p>
+                  <p>{{ $infos[0]->client->adresse}}</p>
               </li>
               <hr>
              
@@ -340,8 +340,8 @@
               </li>
               <li class="nav-item" >
                 <div id="permiImg">
-                  <img onclick="openImage('{{ asset($user[0]->client->permi) }}')" src="{{ asset($user[0]->client->permi) }}" alt="" >
-                  <img onclick="openImage('{{ asset($user[0]->client->permi) }}')" src="{{ asset($user[0]->client->permi) }}" alt="" >
+                  <img onclick="openImage('{{ asset($infos[0]->client->permi) }}')" src="{{ asset($infos[0]->client->permi) }}" alt="" >
+                  <img onclick="openImage('{{ asset($infos[0]->client->permi) }}')" src="{{ asset($infos[0]->client->permi) }}" alt="" >
               </div>
               
               </li>
@@ -354,102 +354,54 @@
       <div class="col-lg-8">
         <div class="card shadow-sm mb-3">
           <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Shoping Status</h3>
+            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Reservations</h3>
           </div>
           <div class="card-body pt-0" style="overflow-x: auto;">
-            <table class="table table-bordered" >
-              <tr class="bg-light">
-                <th>Date</th>
-                <th>Title</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr>
-                <td>19/05/2020</td>
-                <td>Makeup</td>
-                <td>6</td>
-                <td>6,000</td>
-                <td><span class="badge badge-success">Deliverd</span></td>
-                <td>
-                  <button type="button" class="btn btn-sm btn-success">View</button>
-                </td>
-              </tr>
-              <tr>
-                <td>19/05/2020</td>
-                <td>Lipstick</td>
-                <td>12</td>
-                <td>10,000</td>
-                <td><span class="badge badge-warning">Pending</span></td>
-                <td>
-                  <button type="button" class="btn btn-sm btn-success">View</button>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="card shadow-sm mb-3" style="overflow-x: auto;">
-          <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Shoping History</h3>
-          </div>
-          <div class="card-body pt-0">
             <table class="table table-bordered">
-              <tr class="bg-light">
-                <th>Date</th>
-                <th>Title</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-              <tr>
-                <td>19/05/2020</td>
-                <td>Makeup</td>
-                <td>6</td>
-                <td>6,000</td>
-                <td><span class="badge badge-success">Deliverd</span></td>
-                <td>
-                  <button type="button" class="btn btn-sm btn-primary">Reorder</button>
-                </td>
-              </tr>
-              <tr>
-                <td>19/05/2020</td>
-                <td>Lipstick</td>
-                <td>12</td>
-                <td>10,000</td>
-                <td><span class="badge badge-danger">Cancel</span></td>
-                <td>
-                  <button type="button" class="btn btn-sm btn-primary">Reorder</button>
-                </td>
-              </tr>
+                <tr class="bg-light">
+                    <th>Nr</th>
+                    <th>Date Debut</th>
+                    <th>Date Fin</th>
+                    <th>Marque</th>  
+                    <th>Model</th>  
+                    <th>prix/jour</th>
+                    <th>Status</th>
+                </tr>
+                @forelse($reservations as $res) 
+                <tr>
+                    <td>{{$res->id}}</td>
+                    <td>{{ date('d-m-Y', strtotime($res->date_debut)) }}</td>
+                    <td>{{ date('d-m-Y', strtotime($res->date_fin)) }}</td>
+                    <td>{{$res->car->marque->name}}</td>
+                    <td>{{$res->car->marque->name}}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-success">{{$res->car->prix_par_jour}} DH</button>
+                    </td>
+                    @if($res->accepte == null)
+                        <td><span class="badge badge-primary">panding</span></td>
+                    @elseif($res->accepte == 1)
+                        <td><span class="badge badge-success">Accepte</span></td>
+                    @elseif($res->accepte == 2)
+                        <td><span class="badge badge-danger">Rejected</span></td>
+                    @elseif($res->accepte == 3)
+                        <td><span class="badge badge-warning">Car is out</span></td>
+                    @elseif($res->accepte == 4)
+                        <td><span class="badge badge-info">Ended</span></td>
+                    @endif
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" style="text-align: center;">Not reservations found</td>
+                </tr>
+                @endforelse
             </table>
-          </div>
+            <div class="liksbtns">{{ $reservations->links('pagination::bootstrap-5') }}</div>
+
+          
         </div>
-        <div class="card shadow-sm">
-          <div class="card-header bg-transparent border-0">
-            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Ajouter des souvenirs</h3>
-          </div>
-          <div class="card-body pt-0">
-            <form action="#">
-              <div class="form-group">
-                  <label for="">Image</label>
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label for="name">Titre</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="name">
-              </div>
-              <div class="form-group">
-                  <label for="exampleInputEmail1">Description</label>
-                  <textarea type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>
-              </div>
-            </form>
-          </div>
+        
         </div>
+       
       </div>
     </div>
   </div>
@@ -465,7 +417,7 @@
                     <div class="modal-body">
                         <form method="post" action="/modifiermotdepass">
                             @csrf
-                            <input type="hidden" name="id" value="{{$user[0]->id}}">
+                            <input type="hidden" name="id" value="{{$infos[0]->id}}">
                             
                             <div class="mb-3">
                                 <label for="oldmdp" class="form-label">Ancien mot de passe</label>
@@ -506,8 +458,8 @@
                   <div class="modal-body">
                     <form method="post" action="/updateinfo" enctype="multipart/form-data">
                       @csrf
-                      <input type="hidden" name="user_id" value="{{$user[0]->id}}">
-                      <input type="hidden" name="id" value="{{$user[0]->client->id}}">
+                      <input type="hidden" name="user_id" value="{{$infos[0]->id}}">
+                      <input type="hidden" name="id" value="{{$infos[0]->client->id}}">
                       
                       <div class="form-group">
                         <input type="file" name="permi" id="file" class="input-file">
@@ -520,28 +472,28 @@
                   
                       <div class="mb-3">
                           <label for="cin" class="form-label">Cin</label>
-                          <input type="text" name="cin" class="form-control" value="{{$user[0]->client->cin}}" id="cin" required>
+                          <input type="text" name="cin" class="form-control" value="{{$infos[0]->client->cin}}" id="cin" required>
                       </div>
 
                       <div class="mb-3">
                           <label for="nom" class="form-label">Nom</label>
-                          <input type="text" name="nom" class="form-control" value="{{$user[0]->client->nom}}" id="nom" required>
+                          <input type="text" name="nom" class="form-control" value="{{$infos[0]->client->nom}}" id="nom" required>
                       </div>
                       <div class="mb-3">
                           <label for="prenom" class="form-label">Prenom</label>
-                          <input type="text" name="prenom" class="form-control" value="{{$user[0]->client->prenom}}" id="prenom" required>
+                          <input type="text" name="prenom" class="form-control" value="{{$infos[0]->client->prenom}}" id="prenom" required>
                       </div>
                       <div class="mb-3">
                           <label for="email" class="form-label">Email</label>
-                          <input type="text" name="email" class="form-control"  value="{{$user[0]->email}}" id="email">
+                          <input type="text" name="email" class="form-control"  value="{{$infos[0]->email}}" id="email">
                       </div>
                       <div class="mb-3">
                           <label for="phone" class="form-label">Tele</label>
-                          <input type="text" name="phone" class="form-control" value="{{$user[0]->client->phone}}" id="phone" required>
+                          <input type="text" name="phone" class="form-control" value="{{$infos[0]->client->phone}}" id="phone" required>
                       </div>
                       <div class="mb-3">
                           <label for="adresse" class="form-label">Adresse</label>
-                          <input type="text" name="adresse" class="form-control" value="{{$user[0]->client->adresse}}" id="adresse" required>
+                          <input type="text" name="adresse" class="form-control" value="{{$infos[0]->client->adresse}}" id="adresse" required>
                       </div>
                       
                       <button type="submit" class="btn btn-primary">Modifier</button>

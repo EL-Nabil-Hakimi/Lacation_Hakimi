@@ -5,6 +5,7 @@ use App\Http\Controllers\CarCompanyController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ModelCarController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,3 +44,5 @@ Route::get('/cars/searchByMark/{id}' , [ModelCarController::class, 'searchByMark
 
 
 Route::get('/marques', [CarCompanyController::class, 'datajsnon']);
+
+

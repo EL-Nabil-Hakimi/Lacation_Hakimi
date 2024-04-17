@@ -85,8 +85,10 @@
     <!-- Favicon -->
     <link href="{{asset('assets/admin/img/favicon.ico')}}" rel="icon">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-sqntGU3CTEVGj2Og5kwYPqjPyRX1vIBR7zmV6BZ9LlT3Cv9Fdm/Bt0BUgaQD/nmydxvzJR4x53kHvNuX1i0Awg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link href="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')}}" rel ="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -120,7 +122,6 @@
         </div>
         <!-- Spinner End -->
 
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
@@ -133,9 +134,11 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
+
                         <h6 class="mb-0">{{session()->get('user_name')}}</h6>
                         
                         <span>{{session()->get('role_name')}}</span>
+
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -146,6 +149,7 @@
                     <a href="{{ route('admin.voitures') }}" class="nav-item nav-link{{ request()->routeIs('admin.voitures') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
                     <a href="{{ route('marque.cars') }}" class="nav-item nav-link{{ request()->routeIs('marque.cars') ? ' active' : '' }}"><i class="fas fa-tag me-2"></i>Marque</a>
                     <a href="{{ route('module.cars') }}" class="nav-item nav-link{{ request()->routeIs('module.cars') ? ' active' : '' }}"><i class="fas fa-puzzle-piece me-2"></i>Module</a>
+                    <a href="{{ route('admin.reservation') }}" class="nav-item nav-link{{ request()->routeIs('module.reservation') ? ' active' : '' }}"><i class="fas fa-calendar-check me-2"></i>Reservations</a>
                     
                     @else
                     <a href="{{ route('manager.dashboard') }}" class="nav-item nav-link{{ request()->routeIs('manager.dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
@@ -153,6 +157,7 @@
                     <a href="{{ route('manager.cars') }}" class="nav-item nav-link{{ request()->routeIs('manager.cars') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
                     <a href="{{ route('marque.cars') }}" class="nav-item nav-link{{ request()->routeIs('marque.cars') ? ' active' : '' }}"><i class="fas fa-tag me-2"></i>Marque</a>
                     <a href="{{ route('module.cars') }}" class="nav-item nav-link{{ request()->routeIs('module.cars') ? ' active' : '' }}"><i class="fas fa-puzzle-piece me-2"></i>Module</a>
+
                     {{-- <a href="{{ route('dashboard') }}" class="nav-item nav-link{{ request()->routeIs('dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
                     <a href="{{ route('managers') }}" class="nav-item nav-link{{ request()->routeIs('managers') ? ' active' : '' }}"><i class="fas fa-users me-2"></i>Managers</a>
                     <a href="{{ route('admin.clients') }}" class="nav-item nav-link{{ request()->routeIs('clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
@@ -541,6 +546,9 @@
 
     <!-- Template Javascript -->
     <script src="{{asset('assets/admin/js/main.js')}}"></script>
+    <!-- Add this in your HTML file, preferably in the <head> section -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </body>
 
 </html>

@@ -36,8 +36,8 @@
 </button>
 
 
-<div style="min-height:70vh ; margin-top : 6em" >
-<table class="table align-middle mb-0 mt-5 bg-white"  >
+<div style="min-height: 70vh; margin-top: 6em; ">
+  <table class="table align-middle mb-0 mt-5 bg-white" style="width: 100%;">
     <thead class="bg-light">
       <tr>
         <th>Name</th>
@@ -49,68 +49,47 @@
       </tr>
     </thead>
     <tbody>
-
-        @foreach ($managers as $manager)            
-          <tr>
-            <td>
-              <div class="d-flex align-items-center">
-                <img
-                    src="{{asset($manager->manager->image)}}"
-                    alt=""
-                    style="width: 45px; height: 45px"
-                    class="rounded-circle"
-                    />
-                <div class="ms-3">
-                  <a href="/profileshow?user={{$manager->id}}"><p class="fw-bold mb-1">{{$manager->name}}</p> </a>
-                  <p class="text-muted mb-0">{{$manager->email}}</p>
-                </div>
-              </div>
-            </td>
-            <td>{{$manager->manager->cin}}</td>
-
-            <td>
-              <p class="fw-normal mb-2">{{$manager->manager->phone}}</p>
-              
-            </td>
-            <td>
-              <p class="fw-normal mb-2">{{$manager->role->name}}</p>
-              
-            </td>
-
-            <td>
-
-              @if ($manager->ban == 1)
-                <span class="badge badge-danger rounded-pill d-inline">Bloque</span>
-              @else
-                <span class="badge badge-success rounded-pill d-inline">Actif</span>                  
-              @endif
-
-            </td>
-           
-            <td>
-              <button onclick="openUpdateModal({{ $manager->id }}, '{{ $manager->manager->nom }}', '{{ $manager->manager->prenom }}', '{{ $manager->manager->cin }}', '{{ $manager->manager->phone }}', '{{ $manager->email }}', '{{ $manager->role_id }}' , '{{ $manager->manager->adresse }}')" type="button" class="btn btn-link btn-sm btn-rounded">
-                  Edit
-              </button>
-              @if ($manager->ban == 1)
-
-              <button onclick="popuprestoremanager({{ $manager->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">
-                Debloquer
-              </button>
-
-              @else
-              <button onclick="popupdelmanager({{ $manager->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">
-                Bloquer
-              </button>
-
-              @endif
-            </td>
-          </tr>
-
+      @foreach ($managers as $manager)
+      <tr>
+        <td>
+          <div class="d-flex align-items-center">
+            <img src="{{asset($manager->manager->image)}}" alt="" style="width: 45px; height: 45px" class="rounded-circle">
+            <div class="ms-3">
+              <a href="/profileshow?user={{$manager->id}}">
+                <p class="fw-bold mb-1">{{$manager->name}}</p>
+              </a>
+              <p class="text-muted mb-0">{{$manager->email}}</p>
+            </div>
+          </div>
+        </td>
+        <td>{{$manager->manager->cin}}</td>
+        <td>
+          <p class="fw-normal mb-2">{{$manager->manager->phone}}</p>
+        </td>
+        <td>
+          <p class="fw-normal mb-2">{{$manager->role->name}}</p>
+        </td>
+        <td>
+          @if ($manager->ban == 1)
+          <span class="badge badge-danger rounded-pill d-inline">Bloque</span>
+          @else
+          <span class="badge badge-success rounded-pill d-inline">Actif</span>
+          @endif
+        </td>
+        <td>
+          <button onclick="openUpdateModal({{ $manager->id }}, '{{ $manager->manager->nom }}', '{{ $manager->manager->prenom }}', '{{ $manager->manager->cin }}', '{{ $manager->manager->phone }}', '{{ $manager->email }}', '{{ $manager->role_id }}' , '{{ $manager->manager->adresse }}')" type="button" class="btn btn-link btn-sm btn-rounded">Edit</button>
+          @if ($manager->ban == 1)
+          <button onclick="popuprestoremanager({{ $manager->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">Debloquer</button>
+          @else
+          <button onclick="popupdelmanager({{ $manager->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">Bloquer</button>
+          @endif
+        </td>
+      </tr>
       @endforeach
-             
     </tbody>
-  </table>  
+  </table>
 </div>
+
 
 
 

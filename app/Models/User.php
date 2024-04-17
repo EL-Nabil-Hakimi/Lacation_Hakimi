@@ -49,8 +49,25 @@ class User extends Authenticatable
     public function client(){
         return $this->hasOne(Client::class);
     }
+    
     public function role(){
         return $this->belongsTo(Roles::class);
     }
+
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function car()
+    {
+        return $this->hasMany(Car::class);
+
+    }
+    
+
+    
+
+    
 
 }

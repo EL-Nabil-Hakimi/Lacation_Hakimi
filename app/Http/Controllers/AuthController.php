@@ -17,16 +17,19 @@ class AuthController extends Controller
 {
     //
     protected $user;
-    public function __construct(){
+    public function __construct()
+    {
 
         $this->user = new User();
         
     }
-    public function login(){
+    public function login()
+    {
       
         return view('Auth.login');
     }
-    public function logout(){
+    public function logout()
+    {
       
         Session::forget('role_id');
         Session::forget('user_id');
@@ -213,7 +216,8 @@ class AuthController extends Controller
             }
         
     }
-        public function modifiermotdepass(Request $request){
+        public function modifiermotdepass(Request $request)
+        {
             $validator = Validator::make($request->all(), [
                 'oldmdp' => 'required|string',
                 'newmdp' => 'required|string|min:8',
