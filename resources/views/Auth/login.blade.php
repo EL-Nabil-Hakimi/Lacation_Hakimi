@@ -15,7 +15,7 @@
 	body {
 	font-family: Arial, sans-serif;
 	padding: 20px;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/client/images/bg_2.jpg');
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{ asset('assets/client/images/bg_2.jpg')}});
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -37,7 +37,7 @@
     <input type="checkbox" id="flip">
     <div class="cover">
       <div class="back">
-        <img src="assets/auth/images/frontImg.jpg" alt="">
+        <img src="{{asset('assets/auth/images/frontImg.jpg')}}" alt="">
         <div class="text">
 			<span class="text-1">Explorez des kilomètres de voyage <br> avec une seule voiture</span>
 			<span class="text-2">Commencez maintenant</span>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="front">
-        <img class="backImg" src="assets/auth/images/backImg.jpg" alt="">
+        <img class="backImg" src="{{asset('assets/auth/images/backImg.jpg')}}" alt="">
         <div class="text">
 			<span class="text-1">Explorez des kilomètres de voyage <br> avec une seule voiture</span>
 			<span class="text-2">Commencez maintenant</span>
