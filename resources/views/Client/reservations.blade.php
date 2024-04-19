@@ -102,6 +102,19 @@
           display: none;
        }
       
+       #idreservation{
+          z-index: 999999999999;
+          background-color: #ffffff;
+          padding: .3em;
+          margin-top: .5em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #007bff;
+          left: -1.5em; 
+          top: -.8em;
+          font-weight: bold;  
+        }
     </style>
     
     @include('Client.layout.nav')
@@ -122,17 +135,22 @@
 
     <section class="ftco-section contact-section">
 
-      <div style="display: flex ;justify-content: center"><h1><span style="color: rgb(63, 63, 208) ;  ">My Car</span>  is always in your service</h1></div>
+      <div style="display: flex ; justify-content: center ; text-align: center; width: 100%">
+         <h1><span style="color: rgb(63, 63, 208) ;  ">My Car</span>  is always in your service</h1></div>
 
       <div class="container">
 
         <div class="container mt-5 mb-5">
           @forelse ($reservations as $res)
-          <div class="d-flex justify-content-center row mt-2" >
+          <div class="d-flex justify-content-center row mt-3" >
             <div class="col-md-10" style="box-shadow: 0px 0px 5px 1px">
-                <div class="row p-2 bg-white border rounded" style="align-items: center">
+              <p id="idreservation">Invoice number : {{$res->id}}</p>
+              <hr>
+
+                <div class="row p-2 bg-white " style="align-items: center">
                     <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{asset('images/cars/'.$res->car->image )}}"></div>
                     <div class="col-md-6 mt-1">
+
                         <h5>{{$res->car->marque->name}} <h6>{{$res->car->model->name}}</h6></h5>
                         
                         <div class="d-flex flex-row">

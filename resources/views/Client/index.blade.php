@@ -36,7 +36,7 @@
       </div>
     </div>
 
-     <section class="ftco-section ftco-no-pt bg-light">
+    <section class="ftco-section ftco-no-pt bg-light">
     	<div class="container">
     		<div class="row no-gutters">
     			<div class="col-md-12	featured-top">
@@ -45,11 +45,11 @@
 	  						<form action="#" class="request-form ftco-animate bg-primary">
 		          		<h2>Make your trip</h2>
 			    				<div class="form-group">
-			    					<label for="" class="label">Pick-up My</label>
+			    					<label for="" class="label">Mark</label>
 			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
 			    				</div>
 			    				<div class="form-group">
-			    					<label for="" class="label">Drop-off My</label>
+			    					<label for="" class="label">Model</label>
 			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
 			    				</div>
 			    				<div class="d-flex">

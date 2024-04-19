@@ -239,7 +239,7 @@
 
             <div id="headerclientinfo">
             
-            @if($infos[0]->accepte == null  )
+            @if($infos[0]->client->accepte == null  )
             <li class="nav-item d-flex justify-content-end p-2">
               <button class="btn" onclick="openComfirmModalinfo({{$infos[0]->client->id}})" title="Je confirme que cette personne est réelle et que les informations fournies sont correctes?">
                   <i class="far fa-square fa-lg"></i>  

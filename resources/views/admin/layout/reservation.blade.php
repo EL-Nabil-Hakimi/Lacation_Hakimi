@@ -132,6 +132,20 @@
     left: -.6em;
   }
 
+
+  #idreservation{
+    z-index: 999999999999;
+    background-color: #1078e7;
+    padding: .3em;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    left: -1.5em; 
+    top: -.8em;
+    font-weight: bold;  
+  }
 </style>
 
 <section class="ftco-section contact-section ">
@@ -144,6 +158,7 @@
       <div class="d-flex justify-content-center row mt-3" >
         
         <div class="col-md-10" style="box-shadow: 0px 0px 5px 1px ; padding :1em;" >
+          <p id="idreservation">{{$res->id}}</p>
           <td >
             <div class="d-flex align-items-center" style="position: relative ; margin-bottom:0.5em ; margin-left: 1em" >
               @if($res->user->client->accepte == 1)
@@ -202,10 +217,12 @@
                             <button class="btn btn-outline-danger btn-sm mt-2" type="button" onclick="AlertCan({{$res->id}}  , '2','You want to reject this car.')">
                             <i class="fas fa-times"></i> Reject
                           </button>  
-                      @elseif($res->accepte == 1 || $res->accepte == 3)          
+                      @elseif($res->accepte == 1 || $res->accepte == 3)   
+                      @if($res->accepte != 1)       
                             <button class="btn btn-outline-success btn-sm" type="button" onclick="AlertCan({{$res->id}}  , '4', 'You confirm this car is received!')">
                             <i class="fas fa-times"></i> Rceived
                           </button>
+                      @endif
                       @if($res->accepte != 3)
                           <button class="btn btn-outline-warning btn-sm mt-2" type="button" onclick="AlertCan({{$res->id}}  , '3', 'You want to set this car out !')">
                             <i class="fas fa-times"></i> Car is out

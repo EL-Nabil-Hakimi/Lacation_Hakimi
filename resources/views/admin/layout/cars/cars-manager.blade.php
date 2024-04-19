@@ -284,6 +284,8 @@
             <div style="background-color:rgb(1, 1, 162)">En attente</div>
         @elseif($car->accepte == 1)
             <div style="background-color:rgb(5, 116, 18)">Accepté</div>
+        @elseif($car->accepte == 3)
+            <div style="background-color:rgb(197, 215, 39)">Car is out</div>
         @elseif($car->accepte == 2)
             <div style="background-color:rgb(180, 13, 13)">Rejeté</div>
         @endif

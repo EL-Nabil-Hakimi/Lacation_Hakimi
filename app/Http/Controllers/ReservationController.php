@@ -81,6 +81,19 @@ class ReservationController extends Controller
     public function StatuCar($id , $status)
     {
         $reservation = Reservation::findOrFail($id);
+        if($status == 3){
+            $car = Car::findOrFail($reservation->car_id);
+            $car->accepte = 3;
+            $car->disponibilite = null;
+            $car->save();    
+        }
+        if($status == 4){
+            $car = Car::findOrFail($reservation->car_id);
+            $car->accepte = 1;
+            $car->disponibilite = 1;
+            $car->save();    
+        }
+
         $reservation->accepte = $status;
         $reservation->save();
 
