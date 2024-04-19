@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\YouCode\Documents\Mes Projets\Location_Hakimi\resources\views/auth/layout/footer.blade.php ENDPATH**/ ?>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My Car</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>"> <!-- CSRF token meta tag -->
+
+    
+	<?php echo $__env->make('Client.layout.style-link', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+<style>
+	#btn_reaserve{
+		width: 100%;
+		box-shadow: 0px 0px 3px 1px black !important;
+		transition: 0.3s;
+	}
+	#btn_reaserve:hover{
+		box-shadow : 0px 0px 0px 0px black !important;
+		background-color: rgb(7, 91, 7) !important;
+
+	}
+
+	.fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+			width: 0%;
+        }
+        to {
+			width: 100%;
+        }
+    }	
+</style>
+
+  </head>
+
+
+  <body>
+    
+	<?php echo $__env->make('Client.layout.nav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+    <!-- END nav -->
+    
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('<?php echo e(asset('assets/client/images/bg_3.jpg')); ?>');" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+          <div class="col-md-9 ftco-animate pb-5">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Car details <i class="ion-ios-arrow-forward"></i></span></p>
+            <h1 class="mb-3 bread">Car Details</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+		
+
+		<section class="ftco-section ftco-car-details">
+      <div class="container">
+      	<div class="row justify-content-center">
+      		<div class="col-md-12">
+      			<div class="car-details">
+      				<div class="img rounded" style="background-image: url(<?php echo e(asset('images/cars/'.$car[0]->image)); ?>);"></div>
+      				<div class="text text-center">
+      					<span class="subheading"><?php echo e($car[0]->model->name); ?></span>
+      					<h2><?php echo e($car[0]->marque->name); ?></h2>
+      				</div>
+      			</div>
+      		</div>
+      	</div>	
+      	<div class="row">
+    
+          <div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-pistons"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Transmission
+		                	<span><?php echo e($car[0]->transmission); ?></span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car-seat"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Seats
+		                	<span><?php echo e($car[0]->nombre_de_sieges); ?> Adults</span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-backpack"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Luggage
+		                	<span><?php echo e($car[0]->capacite_coffre); ?> Bags</span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services">
+              <div class="media-body py-md-4">
+              	<div class="d-flex mb-3 align-items-center">
+	              	<div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-diesel"></span></div>
+	              	<div class="text">
+		                <h3 class="heading mb-0 pl-3">
+		                	Fuel
+		                	<span><?php echo e($car[0]->type_carburant); ?></span>
+		                </h3>
+	                </div>
+                </div>
+              </div>
+            </div>      
+          </div>
+      	</div>
+      	<div class="row">
+      		<div class="col-md-12 pills">
+						<div class="bd-example bd-example-tabs">
+							<div class="d-flex justify-content-center">
+							  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+							    <li class="nav-item">
+							      <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Features</a>
+							    </li>
+							    <li class="nav-item">
+							      <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill" href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer" aria-expanded="true">Description</a>
+							    </li>
+							    <li class="nav-item">
+							      <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-expanded="true">Review</a>
+							    </li>
+							  </ul>
+							</div>
+
+						  <div class="tab-content" id="pills-tabContent">
+						    <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+						    	<div class="row">
+						    		<div class="col-md-4">
+						    			<ul class="features">
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>GPS</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Music</li>
+						    			</ul>
+						    		</div>
+						    		<div class="col-md-4">
+						    			<ul class="features">
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li>
+						    				<li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Water</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li>
+						    				<li class="remove"><span class="ion-ios-close"></span>Onboard computer</li>
+						    			</ul>
+						    		</div>
+						    		<div class="col-md-4">
+						    			<ul class="features">
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Audio input</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li>
+						    				<li class="check"><span class="ion-ios-checkmark"></span>Climate control</li>
+						    			</ul>
+						    		</div>
+						    	</div>
+						    </div>
+
+							<p class="d-flex mb-0 d-block"><a class="btn btn-primary " id="btn_reaserve" onclick="show_modal('<?php echo e(session()->get('user_id')); ?>')">Book now</a>
+
+							
+						    <div class="tab-pane fade" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
+						      <p><?php echo e($car[0]->description); ?>.</p>
+						    </div>
+
+						    <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+						      <div class="row">
+							   		<div class="col-md-7">
+							   			<h3 class="head">23 Reviews</h3>
+							   			<div class="review d-flex">
+									   		<div class="user-img" style="background-image: url(<?php echo e(asset('assets/client/images/person_1.jpg')); ?>)"></div>
+									   		<div class="desc">
+									   			<h4>
+									   				<span class="text-left">Jacob Webb</span>
+									   				<span class="text-right">14 March 2018</span>
+									   			</h4>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+								   					</span>
+								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+									   			</p>
+									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+									   		</div>
+									   	</div>
+									   	<div class="review d-flex">
+									   		<div class="user-img" style="background-image: url(<?php echo e(asset('assets/client/images/person_2.jpg')); ?>)"></div>
+									   		<div class="desc">
+									   			<h4>
+									   				<span class="text-left">Jacob Webb</span>
+									   				<span class="text-right">14 March 2018</span>
+									   			</h4>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+								   					</span>
+								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+									   			</p>
+									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+									   		</div>
+									   	</div>
+									   	<div class="review d-flex">
+									   		<div class="user-img" style="background-image: url(<?php echo e(asset('assets/client/images/person_3.jpg')); ?>)"></div>
+									   		<div class="desc">
+									   			<h4>
+									   				<span class="text-left">Jacob Webb</span>
+									   				<span class="text-right">14 March 2018</span>
+									   			</h4>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+								   					</span>
+								   					<span class="text-right"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+									   			</p>
+									   			<p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrov</p>
+									   		</div>
+									   	</div>
+							   		</div>
+							   		<div class="col-md-5">
+							   			<div class="rating-wrap">
+								   			<h3 class="head">Give a Review</h3>
+								   			<div class="wrap">
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(98%)
+								   					</span>
+								   					<span>20 Reviews</span>
+									   			</p>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(85%)
+								   					</span>
+								   					<span>10 Reviews</span>
+									   			</p>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(70%)
+								   					</span>
+								   					<span>5 Reviews</span>
+									   			</p>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(10%)
+								   					</span>
+								   					<span>0 Reviews</span>
+									   			</p>
+									   			<p class="star">
+									   				<span>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					<i class="ion-ios-star"></i>
+									   					(0%)
+								   					</span>
+								   					<span>0 Reviews</span>
+									   			</p>
+									   		</div>
+								   		</div>
+							   		</div>
+							   	</div>
+						    </div>
+						  </div>
+						</div>
+		      </div>
+				</div>
+      </div>
+
+
+	  <div class="container mt-3" style=" color: black; border-radius: 3px; padding: 20px;display: none ;" id="modale_reservation">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="section-title">
+					<h2 style="text-align: center;">Reservation</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<form action="/addreservation/<?php echo e($car[0]->id); ?>" method="POST" id="reservationForm">
+					<?php echo csrf_field(); ?>
+					<div class="form-group">
+						<label for="pickup_datetime">Date and Time of Pickup</label>
+						<input type="datetime-local" class="form-control" id="pickup_datetime" name="date_debut" required>
+					</div>
+					<div class="form-group">
+						<label for="return_datetime">Date and Time of Return</label>
+						<input type="datetime-local" class="form-control" id="return_datetime" name="date_fin" required>
+					</div>
+					<button type="submit" class="btn btn-primary btn-block">Submit</button>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+    </section>
+
+    <section class="ftco-section ftco-no-pt">
+    	<div class="container">
+    		<div class="row justify-content-center">
+          <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+          	<span class="subheading">Choose Car</span>
+            <h2 class="mb-2">Related Cars</h2>
+          </div>
+        </div>
+        <div class="row">
+			<?php $__empty_1 = true; $__currentLoopData = $related_cars; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $r_car): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+				<div class="col-md-4">
+    				<div class="car-wrap rounded ftco-animate">
+    					<div class="img rounded d-flex align-items-end" style="background-image: url(<?php echo e(asset('images/cars/'.$r_car->image)); ?>);">
+    					</div>
+    					<div class="text">
+    						<h2 class="mb-0"><a href="car-single.html"><?php echo e($r_car->marque->name); ?></a></h2>
+    						<div class="d-flex mb-3">
+	    						<span class="cat" style="color: rgb(77, 77, 77)"><?php echo e($r_car->model->name); ?></span>
+	    						<p class="price ml-auto">DH <?php echo e($r_car->prix_par_jour); ?> <span style="color: rgb(77, 77, 77)">/day</span></p>
+    						</div>
+    						<p class="d-flex mb-0 d-block"><a href="/car_single/<?php echo e($r_car->id); ?>" class="btn btn-primary py-2 mr-1">Book now</a> <a href="/car_single/<?php echo e($r_car->id); ?>" class="btn btn-secondary py-2 ml-1">Details</a></p>
+    					</div>
+    				</div>
+    			</div>
+				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+
+				<div class="col-md-12">
+					<p style="text-align: center">No related cars found. 😞</p>
+				</div>
+
+				<?php endif; ?>
+        </div>
+    	</div>
+    </section>
+    
+
+	<?php echo $__env->make('Client.layout.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+    
+  
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <?php echo $__env->make('Client.layout.js-link', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+    
+  </body>
+
+
+  <script>
+
+document.getElementById('pickup_datetime').setAttribute('min', new Date().toISOString().split('T')[0] + 'T00:00');
+
+  var show_modal = function(id) {
+    <?php if(!session()->has('user_id')): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You must be logged in to book a car!',
+            confirmButtonText: 'Go to Login',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/login";
+            }
+        });
+    <?php elseif(session()->get('user_id') && session()->get('role_id') == 3 && $user[0]->nom == null && $user[0]->nom == null && $user[0]->client->cin == null && $user[0]->client->permi==null): ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You need to complete your information before booking a car!',
+            confirmButtonText: 'Go to Profile',
+            showCancelButton: true,
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/profile/"+id;
+            }
+        });
+    <?php else: ?>
+        var modal = document.getElementById("modale_reservation");
+        if (modal.style.display === 'block') {
+            modal.classList.remove('fade-in'); 
+            modal.style.display = 'none';
+        } else {
+            modal.style.display = 'block';
+            setTimeout(function() {
+                modal.classList.add('fade-in');
+            }, 10);
+        }
+    <?php endif; ?>
+}
+
+
+function updateReturnDateTimeMin() {
+    var pickupDateTimeValue = document.getElementById("pickup_datetime").value;
+    document.getElementById("return_datetime").min = pickupDateTimeValue;
+}
+
+document.getElementById("pickup_datetime").addEventListener("change", function() {
+    var pickupDate = new Date(this.value);
+
+    pickupDate.setDate(pickupDate.getDate() + 1);
+
+    var returnDate = pickupDate.getFullYear() + '-' + ('0' + (pickupDate.getMonth() + 1)).slice(-2) + '-' + ('0' + pickupDate.getDate()).slice(-2) + 'T' + ('0' + pickupDate.getHours()).slice(-2) + ':' + ('0' + pickupDate.getMinutes()).slice(-2);
+
+    document.getElementById("return_datetime").value = returnDate;
+});
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("reservationForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var returnDateValue = document.getElementById("return_datetime").value;
+        var pickupDateValue = document.getElementById("pickup_datetime").value;
+        
+        var carId = <?php echo e($car[0]->id); ?>; 
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        $.ajax({
+            url: '/addreservation/' + carId, 
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken 
+            },
+            data: {
+                date_debut: pickupDateValue,
+                date_fin: returnDateValue
+            },
+            success: function(response) {
+				if (response.success) {
+					Swal.fire({
+						icon: 'success',
+						title: 'Good Job',
+						text: response.success
+					});
+				} else if (response.error) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: response.error
+					});
+				}
+			},
+
+            error: function(xhr, status, error) {        
+                console.error(error);
+            }
+        });
+    });
+});
+
+
+
+
+
+
+
+
+</script>
+</html><?php /**PATH C:\Users\YouCode\Documents\Mes Projets\fileRouge\Location_Hakimi\resources\views/Client/single-car.blade.php ENDPATH**/ ?>
