@@ -56,6 +56,12 @@
     </div>
     
     </div>
+
+
+    @if(session()->has('user_id') && session()->get('role_id') == 3)
+            <a href="/Client/reservations" id="reservation_btn"title="Show my reservations">My Reservations</a>
+    @endif
+
   </nav>
 
 
