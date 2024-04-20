@@ -14,7 +14,6 @@
     <style>
        .profile-pic {
             border-radius: 50%;
-           
             background-size: cover;
             background-position: center;
             background-blend-mode: multiply;
@@ -147,8 +146,9 @@
               <p id="idreservation">Invoice number : {{$res->id}}</p>
               <hr>
 
-                <div class="row p-2 bg-white " style="align-items: center">
-                    <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="{{asset('images/cars/'.$res->car->image )}}"></div>
+                <div class="row p-2 bg-white " style="align-items: center" >
+            
+            <div class="col-md-3 mt-1" ><img class="img-fluid img-responsive rounded product-image" src="{{asset('images/cars/'.$res->car->image )}}"></div>
                     <div class="col-md-6 mt-1">
 
                         <h5>{{$res->car->marque->name}} <h6>{{$res->car->model->name}}</h6></h5>

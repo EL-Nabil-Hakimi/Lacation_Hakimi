@@ -14,7 +14,7 @@
     <style>
        .profile-pic {
             border-radius: 50%;
-           
+            border: 1px solid black;
             background-size: cover;
             background-position: center;
             background-blend-mode: multiply;
@@ -105,8 +105,6 @@
     </style>
     
     @include('Client.layout.nav')
-
-    <!-- END nav -->
     
     <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{asset('assets/client/images/bg_3.jpg')}}');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>

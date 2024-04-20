@@ -33,8 +33,7 @@
 
             <li class="nav-item">
               <a href="/profile/{{ $user[0]->id }}" class="nav-item nav-link">
-                  <img src="{{asset($user[0]->client->image)}}"
-                    style="width: 2em ;height: 2em; ; border-radius: 50%"
+                  <img src="{{asset($user[0]->client->image)}}" id="photoprofile"
                   alt="Profile Image" class="img-fluid">
                   @if($user[0]->client->nom == null)
                      Edit your Profile
@@ -158,6 +157,22 @@
         opacity: 1;
         width: 15em;
         border-radius:0px 20px 20px 0px;
+    }
+
+    #photoprofile{
+        border-radius: 50%;           
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: multiply;
+            vertical-align: middle;
+            text-align: center;
+            color: transparent;
+            transition: all .3s ease;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            width: 2.2em; 
+            height: 2.2em;
     }
 
 </style>
