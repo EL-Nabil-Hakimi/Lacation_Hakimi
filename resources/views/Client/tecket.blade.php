@@ -34,17 +34,17 @@
 </style>
 
 <div class="reservation-details">
-    <h2>Détails de la réservation</h2>
+    <h2>Reservation Details</h2>
     <img id="imagy" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path("images/cars/" . $res[0]->car->image))) }}" alt="">
-    <p>Date Debut: {{ $res[0]->date_debut }}</p>
-    <p>Date Fin: {{ $res[0]->date_fin }}</p>
-    <p>Matricule: {{ $res[0]->car->matricule }}</p>
-    <p>Marque : {{ $res[0]->car->marque->name }}</p>
-    <p>Model : {{ $res[0]->car->model->name }}</p>
-    <p>Prenom : {{ $res[0]->user->client->prenom }}</p>
-    <p>Nom : {{ $res[0]->user->client->nom }}</p>
-    <p>Heure: {{ $res[0]->car->prix_par_jour }} DH</p>
-    <p>Total: {{ $totalCost }} DH pour {{ $totalDays }} jours</p>
+    <p>Start Date: {{ $res[0]->date_debut }}</p>
+    <p>End Date: {{ $res[0]->date_fin }}</p>
+    <p>License Plate: {{ $res[0]->car->matricule }}</p>
+    <p>Brand: {{ $res[0]->car->marque->name }}</p>
+    <p>Model: {{ $res[0]->car->model->name }}</p>
+    <p>First Name: {{ $res[0]->user->client->prenom }}</p>
+    <p>Last Name: {{ $res[0]->user->client->nom }}</p>
+    <p>Price/day: {{ $res[0]->car->prix_par_jour }} DH</p>
+    <p>Total: {{ $totalCost }} DH for {{ $totalDays }} days</p>
 </div>
     
     
