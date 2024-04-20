@@ -37,7 +37,7 @@
     <input type="checkbox" id="flip">
     <div class="cover">
       <div class="back">
-        <img src="{{asset('assets/auth/images/frontImg.jpg')}}" alt="">
+        <img src="{{asset('assets/client/images/bg_2.jpg')}}" alt="">
         <div class="text">
 			<span class="text-1">Explorez des kilomètres de voyage <br> avec une seule voiture</span>
 			<span class="text-2">Commencez maintenant</span>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="front">
-        <img class="backImg" src="{{asset('assets/auth/images/backImg.jpg')}}" alt="">
+        <img class="backImg" src="{{asset('assets/client/images/bg_2.jpg')}}" alt="">
         <div class="text">
 			<span class="text-1">Explorez des kilomètres de voyage <br> avec une seule voiture</span>
 			<span class="text-2">Commencez maintenant</span>
