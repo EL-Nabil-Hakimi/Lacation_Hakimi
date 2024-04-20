@@ -15,7 +15,7 @@
 	body {
 	font-family: Arial, sans-serif;
 	padding: 20px;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url({{ asset('assets/client/images/bg_2.jpg')}});
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('assets/client/images/bg_2.jpg')}}');
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;

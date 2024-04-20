@@ -113,7 +113,7 @@ class ReservationController extends Controller
     $totalCost = $totalDays * $res[0]->car->prix_par_jour;
     $image = asset('images/cars/'.$res[0]->car->image);
 
-    $htmlContent = view('client.tecket' ,compact('res' , 'totalDays' , 'totalCost' , 'image'))->render();
+    $htmlContent = view('Client.tecket' ,compact('res' , 'totalDays' , 'totalCost' , 'image'))->render();
 
     $options = new Options();
     $options->set('isHtml5ParserEnabled', true);
