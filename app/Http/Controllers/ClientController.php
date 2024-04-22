@@ -303,7 +303,7 @@ class ClientController extends Controller
         if (!empty($request->marque_id)) {
             $cars->where(function ($query) use ($request) {
                 $query->where('company_id', $request->marque_id)
-                    ->orWhere('model_id', $request->car_model);
+                    ->where('model_id', $request->car_model);
             });
         }
 

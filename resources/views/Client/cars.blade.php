@@ -186,6 +186,8 @@
               type: 'GET',
               success: function(response) {
                   $('#car_model').empty();
+                  $('#car_model').append('<option style="background-color: #1089ff !important; color: white" value="">Select Model...</option>');
+
                   $.each(response.data, function(key, value) {
                       $('#car_model').append('<option style="background-color: #1089ff !important; color: white" value="' + value.id + '">' + value.name + '</option>');
                   });

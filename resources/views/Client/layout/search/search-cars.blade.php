@@ -1,4 +1,4 @@
-@foreach($cars as $car)
+@forelse($cars as $car)
 	<div class="col-md-4">
 			<div class="car-wrap rounded ftco-animate">
 				<div class="img rounded d-flex align-items-end" style="background-image: url({{asset('images/cars/'.$car->image)}});">
@@ -13,5 +13,26 @@
 				</div>
 			</div>
 		</div>
-@endforeach
+@empty
+<div id="carimage">
+	<img src="{{asset('images/carsad.png')}}" alt="">
+	<br>
+	<h3>CARS NOT FOUND</h3>
+</div>
+<style>
+	#carimage{
+        width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		background-color: white
+	}
+	#carimage img{
+		width: 50%;
+
+	}
+
+</style>
+@endforelse
           
