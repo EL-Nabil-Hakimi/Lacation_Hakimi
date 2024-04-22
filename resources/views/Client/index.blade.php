@@ -49,7 +49,6 @@
                     <label for="car_mark" class="label">Mark</label>
                     <select name="marque_id"  style=" color: white !important" class="form-control" id="car_mark" >
 
-                      <option style="background-color: #1089ff !important; color: white" value="" selected disabled>Ferrari ...</option>
 
                       @foreach ($cars as $car)                          
                         <option style="background-color: #1089ff !important; color: white" value="{{$car->marque->id}}">{{$car->marque->name}}</option>
