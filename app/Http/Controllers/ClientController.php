@@ -283,6 +283,7 @@ class ClientController extends Controller
                 })
                 ->paginate(9);
     
+                
     
         $count_cars = $cars->count();
 
