@@ -47,9 +47,9 @@
                   <h2>Make your trip</h2>
                   <div class="form-group">
                     <label for="car_mark" class="label">Mark</label>
-                    <select name="marque_id"  style=" color: white !important" class="form-control" id="car_mark" >
+                    <select name="marque_id"  style=" color: white !important" class="form-control" id="car_mark" required>
 
-                      <option style="background-color: #1089ff !important; color: white" value="" selected disabled></option>
+                      <option style="background-color: #1089ff !important; color: white" value="" selected disabled>Ferrari ...</option>
 
                       @foreach ($cars as $car)                          
                         <option style="background-color: #1089ff !important; color: white" value="{{$car->marque->id}}">{{$car->marque->name}}</option>
@@ -61,7 +61,7 @@
 
                 <div class="form-group">
                     <label for="car_model" class="label">Model</label>
-                    <select name="model_id" style=" color: white !important" class="form-control" id="car_model" >
+                    <select name="model_id" style=" color: white !important" class="form-control" id="car_model" required>
 
                     </select>
                 </div>
