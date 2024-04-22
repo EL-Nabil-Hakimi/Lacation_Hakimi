@@ -175,3 +175,6 @@ Route::get('/cars/searchByMark/{id}' , [ModelCarController::class, 'searchByMark
 
 
 Route::post('/updateinfo/{id}' , [ClientController::class, 'updateinfo']);
+
+
+Route::post('/search/cars/client' , [ClientController::class, 'searchcarforclient']);

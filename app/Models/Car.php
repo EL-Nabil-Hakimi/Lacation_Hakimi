@@ -44,7 +44,4 @@ class Car extends Model
         return $this->belongsTo(User::class)->with('client');
     }
 
-   
-
-
 }

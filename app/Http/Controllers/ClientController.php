@@ -27,6 +27,7 @@ class ClientController extends Controller
             // dd($user);  
             return view('Client.index', compact('cars', 'user'));
         }
+        
         return view('Client.index' , compact('cars'));
     }
 
@@ -253,6 +254,50 @@ class ClientController extends Controller
            return redirect()->to('/profile/'.session('user_id'));
         }
     }
+
+
+
+    public function searchcarforclient(Request $request)
+    {   
+
+        // dd($request->all());
+
+      
+
+        $cars = Car::with('marque', 'model')
+                ->where('accepte', 1)
+                ->where('disponibilite', 1)
+                ->where(function ($query) use ($request) {
+                    $query->where('company_id', $request->marque_id)
+                        ->orWhere('model_id', $request->car_model);
+                })
+                ->whereNotIn('id', function ($query) use ($request) {
+                    $formattedDateStart = \Carbon\Carbon::parse($request->date_start)->format('Y-m-d H:i:s');
+                    $formattedDateEnd = \Carbon\Carbon::parse($request->date_end)->format('Y-m-d H:i:s');
+                    $query->select('car_id')
+                        ->from('reservations')
+                        ->where(function ($query) use ($formattedDateStart, $formattedDateEnd) {
+                            $query->where('date_debut', '<=', $formattedDateEnd)
+                                    ->where('date_fin', '>=', $formattedDateStart);
+                        });
+                })
+                ->paginate(9);
+    
+    
+        $count_cars = $cars->count();
+
+        $c_cars = intval($count_cars / 9);
+
+        if (session()->has('user_id') && session()->get('role_id') == 3) {
+            $user_id = session('user_id');
+            $user = User::with('client')->where('id', $user_id)->get();
+            // dd($user);  
+            return view('Client.cars', compact('user' , 'cars' , 'c_cars'));
+        }
+
+        return view('Client.cars' , compact('cars' , 'c_cars'));
+    }
+
 
     
 }

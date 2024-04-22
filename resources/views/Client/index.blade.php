@@ -42,34 +42,43 @@
     			<div class="col-md-12	featured-top">
     				<div class="row no-gutters">
 	  					<div class="col-md-4 d-flex align-items-center">
-	  						<form action="#" class="request-form ftco-animate bg-primary">
-		          		<h2>Make your trip</h2>
-			    				<div class="form-group">
-			    					<label for="" class="label">Mark</label>
-			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
-			    				</div>
-			    				<div class="form-group">
-			    					<label for="" class="label">Model</label>
-			    					<input type="text" class="form-control" placeholder="City, Airport, Station, etc">
-			    				</div>
-			    				<div class="d-flex">
-			    					<div class="form-group mr-2">
-			                <label for="" class="label">Pick-up date</label>
-			                <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
-			              </div>
-			              <div class="form-group ml-2">
-			                <label for="" class="label">Drop-off date</label>
-			                <input type="text" class="form-control" id="book_off_date" placeholder="Date">
-			              </div>
-		              </div>
-		              <div class="form-group">
-		                <label for="" class="label">Pick-up time</label>
-		                <input type="text" class="form-control" id="time_pick" placeholder="Time">
-		              </div>
-			            <div class="form-group">
-			              <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
-			            </div>
-			    			</form>
+	  						<form action="/search/cars/client" method="POST" class="request-form ftco-animate bg-primary" style="width: 100%">
+                  @csrf
+                  <h2>Make your trip</h2>
+                  <div class="form-group">
+                    <label for="car_mark" class="label">Mark</label>
+                    <select name="marque_id"  style=" color: white !important" class="form-control" id="car_mark" required>
+
+                      <option style="background-color: #1089ff !important; color: white" value="" selected disabled>Ferrari ...</option>
+
+                      @foreach ($cars as $car)                          
+                        <option style="background-color: #1089ff !important; color: white" value="{{$car->marque->id}}">{{$car->marque->name}}</option>
+                      @endforeach
+                    </select>
+                </div>
+
+                {{-- modeuuuuuuuuuuuuuuuuuuul --}}
+
+                <div class="form-group">
+                    <label for="car_model" class="label">Model</label>
+                    <select name="model_id" style=" color: white !important" class="form-control" id="car_model" required>
+
+                    </select>
+                </div>
+                
+                  <div class="form-group datetime-input">
+                      <label for="book_pick_datetime" class="label">Pick-up date and time</label>
+                      <input type="datetime-local" name="date_start" class="form-control" id="book_pick_datetime" required>
+                  </div>
+                  <div class="form-group datetime-input">
+                      <label for="book_off_datetime" class="label">Drop-off date and time</label>
+                      <input type="datetime-local" name="date_end" class="form-control" id="book_off_datetime" required>
+                  </div>
+                  <div class="form-group">
+                      <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
+                  </div>
+              </form>
+              
 	  					</div>
 	  					<div class="col-md-8 d-flex align-items-center">
 	  						<div class="services-wrap rounded-right w-100">
@@ -120,6 +129,7 @@
     		<div class="row">
     			<div class="col-md-12">
     				<div class="carousel-car owl-carousel">
+
               @foreach($cars as $car)
                 <div class="item">
                   <div class="car-wrap rounded ftco-animate">
@@ -404,6 +414,26 @@
 
 
   @include('Client.layout.js-link')
+
+
+  <script>
+    $(document).ready(function() {
+        $('#car_mark').change(function() {
+            var marqueId = $(this).val();
+            $.ajax({
+                url: '/cars/searchByMark/' + marqueId,
+                type: 'GET',
+                success: function(response) {
+                    $('#car_model').empty();
+                    $.each(response.data, function(key, value) {
+                        $('#car_model').append('<option style="background-color: #1089ff !important; color: white" value="' + value.id + '">' + value.name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+
+  </script>
  
     
   </body>
