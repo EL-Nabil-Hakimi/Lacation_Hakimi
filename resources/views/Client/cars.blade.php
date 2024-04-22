@@ -83,6 +83,8 @@
         <input class="form-control" type="datetime-local" id="startDateInput" name="date_end" required><br>
      </form>
     </div>
+    <a href="/cars" class="mb-3 bread" style="text-align: center ; margin-top: 1em;width: 100%; display: flex; justify-content: center; ">Show All Cars</a>
+
 
 		<section class="ftco-section bg-light">
     	<div class="container">
