@@ -45,9 +45,6 @@ class ClientController extends Controller
     }
     public function cars()
     {
-
-
-
         $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->latest()->paginate(9);
         $count_cars = $cars->count();
 
@@ -258,11 +255,7 @@ class ClientController extends Controller
 
 
     public function searchcarforclient(Request $request)
-    {   
-
-        // dd($request->all());
-
-      
+    {     
 
         $cars = Car::with('marque', 'model')
             ->where('accepte', 1)
@@ -300,6 +293,39 @@ class ClientController extends Controller
 
         return view('Client.cars' , compact('cars' , 'c_cars'));
     }
+
+
+    
+    public function searchCarByModle(Request $request){
+        $cars = Car::with('marque', 'model')
+        ->where('accepte', 1)
+        ->where('disponibilite', 1);
+        if (!empty($request->marque_id)) {
+            $cars->where(function ($query) use ($request) {
+                $query->where('company_id', $request->marque_id)
+                    ->orWhere('model_id', $request->car_model);
+            });
+        }
+
+        if(!empty($request->date_start) && !empty($request->date_end)){
+            $cars->whereNotIn('id', function ($query) use ($request) {
+                $formattedDateStart = \Carbon\Carbon::parse($request->date_start)->format('Y-m-d H:i:s');
+                $formattedDateEnd = \Carbon\Carbon::parse($request->date_end)->format('Y-m-d H:i:s');
+                $query->select('car_id')
+                    ->from('reservations')
+                    ->where(function ($query) use ($formattedDateStart, $formattedDateEnd) {
+                        $query->where('date_debut', '<=', $formattedDateEnd)
+                              ->where('date_fin', '>=', $formattedDateStart);
+                    });
+            });
+        }
+
+        $cars = $cars->paginate(9);
+
+        return view('Client.layout.search.search-cars', compact('cars'));
+        // return response()->json($cars);
+    }
+
 
 
     

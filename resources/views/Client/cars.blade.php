@@ -9,6 +9,45 @@
    
   </head>
   <body>
+
+
+    <style>
+      #search{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 2em;
+        
+      }
+      #search form{
+        width: 80%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        flex-direction: row;
+        gap: 1em;
+      }
+      
+
+      #search form input{
+        outline: none;
+      }
+
+
+      @media(max-width:800px){
+        #search form{
+        width: 80%;
+        display: grid;
+        grid-template-columns: 1fr;
+        flex-direction: column;
+        gap: 1em;
+      }
+      }
+
+      .ftco-animate{
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
     
 	@include('Client.layout.nav')
 
@@ -25,11 +64,29 @@
         </div>
       </div>
     </section>
+    <h1 class="mb-3 bread" style="text-align: center ; margin-top: 1em;">Saerch  </h1>
 		
+    <div id="search">
+      <form action="" id="searchForm" onchange="performSearch">
+        <select class="form-control" id="car_mark"  name="marque_id" required>
+          <option value="" selected disabled>Select Marque</option>
+          @foreach ($cars as $car)              
+            <option value="{{$car->marque->id}}">{{$car->marque->name}}</option> 
+          @endforeach
+
+        </select>
+        <select class="form-control" id="car_model" name="car_model" required>
+          <option value="" selected disabled>Select Model</option>
+        </select>
+
+        <input class="form-control" type="datetime-local" id="startDateInput" name="date_start" required>
+        <input class="form-control" type="datetime-local" id="startDateInput" name="date_end" required><br>
+     </form>
+    </div>
 
 		<section class="ftco-section bg-light">
     	<div class="container">
-    		<div class="row">
+    		<div class="row" id="searchResults">
 
           @foreach($cars as $car)
           <div class="col-md-4">
@@ -72,7 +129,8 @@
         </div>
     	</div>
     </section>
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 	@include('Client.layout.footer')
 
@@ -84,6 +142,59 @@
 
   @include('Client.layout.js-link')
 
+
+  <script>
+    
+    $(document).ready(function(){
+    $('#searchForm').find('input, select').change(function() {
+        performSearch();
+    });
+
+    function performSearch() {
+        var formData = $('#searchForm').serialize();
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        
+        $.ajax({
+            url: '/search/cars/client/ajax',
+            type: 'POST',
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response){
+                console.log(response);
+                $('#searchResults').html(response);
+            },
+            error: function(xhr, status, error){
+                console.error(error);
+            }
+        });
+    }
+});
+
+
+
+  </script>
+
+
+<script>
+  $(document).ready(function() {
+      $('#car_mark').change(function() {
+          var marqueId = $(this).val();
+          $.ajax({
+              url: '/cars/searchByMark/' + marqueId,
+              type: 'GET',
+              success: function(response) {
+                  $('#car_model').empty();
+                  $.each(response.data, function(key, value) {
+                      $('#car_model').append('<option style="background-color: #1089ff !important; color: white" value="' + value.id + '">' + value.name + '</option>');
+                  });
+              }
+          });
+      });
+  });
+
+</script>
     
   </body>
 </html>

@@ -178,3 +178,5 @@ Route::post('/updateinfo/{id}' , [ClientController::class, 'updateinfo']);
 
 
 Route::post('/search/cars/client' , [ClientController::class, 'searchcarforclient']);
+Route::post('/search/cars/client/ajax' , [ClientController::class, 'searchCarByModle']);
+
