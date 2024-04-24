@@ -84,19 +84,17 @@ Route::group([], function () {
 
 // client____
 
-
-
-
 // Group Middleware
 // Admin____________________________________________________________________________________
 Route::group(['middleware' => ['admin']], function () {
 
         Route::get('/admin/permissions' , [AdminController::class, 'Role'])->name('admin.roles');
         Route::post('/admin/Permissions/add' , [AdminController::class, 'createRole']);
+        
         Route::post('/admin/Permissions/update' , [AdminController::class, 'updateRole']);
         Route::get('/admin/Permissions/destroy/{id}' , [AdminController::class, 'destroyRole']);
 
-        Route::get('/getroles/{id}' , [AdminController::class, 'getroles' ]);
+        Route::get('/getroles/{id}' , [AdminController::class, 'getPermission' ]);
 
         
         Route::get('/admin/cars' , [CarController::class , 'AdminIndex'])->name('admin.voitures');

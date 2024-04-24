@@ -12,6 +12,6 @@ class PermissionsName extends Model
 
     public function permissions()
     {
-        return $this->hasMany(permissions::class);
+        return $this->hasMany(permissions::class , 'permission_id');
     }
 }

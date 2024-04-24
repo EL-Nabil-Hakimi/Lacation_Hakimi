@@ -83,9 +83,6 @@
               <button onclick="popupdelmanager({{ $role->id }})" type="button" class="btn btn-link btn-sm btn-rounded" style="color: red">
                 <i class="fas fa-trash"></i>
               </button>
-              <button onclick="DetailsModal({{ $role->id }})" data-permissions="{{ json_encode($role->permissions->pluck('name')) }}" title="Show Details" type="button" class="btn btn-link btn-sm btn-rounded" style="color: rgb(8, 0, 255)">
-                <i class="fas fa-eye"></i>
-            </button>
             
 
             </td>
@@ -116,6 +113,12 @@
           <div class="mb-3">
             <label for="exampleInputName" class="form-label">Nom du Role</label>
             <input type="text" name="name" class="form-control" id="nom">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputName" class="form-label">Permissions : </label>
+              <div style="padding: 0px 30px; min-height: 10em ;max-height: 20em ;  overflow-y: scroll ;" id="InsertPer">
+               
+              </div>
           </div>
           
           <button type="submit" class="btn btn-primary">Modifier</button>
@@ -186,44 +189,52 @@
  }
   
 
- function openUpdateModal(id, nom) {
-    console.log(id, nom)
-    document.getElementById('marque_id').value = id;
-    document.getElementById('nom').value = nom;
-
-    var myModal = new bootstrap.Modal(document.getElementById('myModal'));
-      myModal.show();
-    }
 
 
 
-    function DetailsModal(roleId) {
-        $.ajax({
-            url: '/getroles/' + roleId ,
-            type: 'GET',
-            success: function(data) {
-                var modalBody = $('#myModal .modal-body');
-                modalBody.empty(); 
-                if (data.length > 0) {
-                    modalBody.append('<h5>Permissions associées au rôle:</h5>');
-                    var list = $('<ul>');
-                    data.forEach(function(permission) {
-                        list.append('<li>' + permission.permission_name.name + '</li>');
+ function openUpdateModal(roleId, roleName) {
+    $.ajax({
+        url: '/getroles/' + roleId,
+        type: 'GET',
+        success: function(data) {
+            $('#marque_id').val(roleId);
+            $('#nom').val(roleName);
+            var modalBody = $('#InsertPer');
+            modalBody.empty();
+            if (data.length > 0) {
+                var list = $('<ul>');
+                data.forEach(function(permission) {
+                    var listItem = $('<li>');
+                    var checkbox = $('<input type="checkbox">').attr('name', 'per_id[]').val(permission.id);
+                    console.log(permission.id);
+                    var hasPermission = false;
+                    permission.permissions.forEach(function(perm) {
+                        if (perm.permission_id == permission.id) {
+                            hasPermission = true;
+                        }
                     });
-                    modalBody.append(list);
-                } else {
-                    modalBody.text('Aucune permission associée à ce rôle.');
-                }
-                $('#myModal').modal('show');
-            },
-            error: function() {
-                console.error('Une erreur s\'est produite lors de la récupération des données.');
+                    if (hasPermission) {
+                        checkbox.prop('checked', true);
+                    }
+                    listItem.append(checkbox);
+                    listItem.append('<label>' + permission.name + '</label>');
+                    list.append(listItem);
+                });
+                modalBody.append(list);
+            } else {
+                modalBody.text('Aucune permission associée à ce rôle.');
             }
-        });
-    }
+            $('#myModal').modal('show');
+        },
+        error: function() {
+            console.error('Une erreur s\'est produite lors de la récupération des données.');
+        }
+    });
+}
 
 
-  
+
+
 
 </script>
 @endsection

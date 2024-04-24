@@ -21,8 +21,9 @@ class AdminController extends Controller
    
     public function Role()
     {
-        $roles = Roles::with('permissions')->where('name' , "!=", "Admin")->where('name' , "!=", "Client")->paginate(10);
+        $roles = Roles::with('permissions')->whereNot('id', 1)->whereNot('id' , 3)->paginate(10);
         $permissions = PermissionsName::all();
+        
         return view('admin.layout.permission.role' , compact('roles' , 'permissions'));
     }
    
@@ -52,15 +53,34 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success' , 'Role has been created successfully');
     }
-    public function updateRole(Request $request )
+    public function updateRole(Request $request)
     {
-        $permission = Roles::find($request->id);
-        $permission->update([
-            "name" => $request->name,
+        $request->validate([
+            "name" => "required|unique:roles,name," . $request->id,
+            "per_id" => "required|array",
         ]);
+    
+        $role = Roles::find($request->id);
+    
+        if ($role) {
+            $role->name = $request->name;
+            $role->save(); 
+            permissions::where('role_id', $request->id)->delete();
+    
 
-        return redirect()->back()->with('success' , 'Role has been updated successfully');
+            foreach ($request->per_id as $per_id) {
+                permissions::create([
+                    "role_id" => $request->id,
+                    "permission_id" => $per_id,
+                ]);
+            }
+    
+            return redirect()->back()->with('success', 'Le rôle a été mis à jour avec succès');
+        } else {
+            return redirect()->back()->with('error', 'Le rôle n\'existe pas!');
+        }
     }
+    
 
     public function destroyRole($id)
     {
@@ -71,11 +91,12 @@ class AdminController extends Controller
     }
 
 
-    public function getroles($id)
+    public function getPermission($id)
     {
-        $permission = permissions::with('permissionName')->where('role_id' , $id)->get();
-        return response()->json($permission);
+        $permissions = PermissionsName::with('permissions')->get();
+        // dd($permissions);
+        return response()->json($permissions);
     }
-
+    
 
 }
