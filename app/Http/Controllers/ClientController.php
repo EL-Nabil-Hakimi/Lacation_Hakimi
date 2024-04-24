@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller
@@ -20,6 +21,7 @@ class ClientController extends Controller
     public function index()
     {
 
+        
         $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->paginate(9);
         if (session()->has('user_id') && session()->get('role_id') == 3) {
             $user_id = session('user_id');
@@ -45,6 +47,7 @@ class ClientController extends Controller
     }
     public function cars()
     {
+    
         $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->latest()->paginate(9);
         $count_cars = $cars->count();
 

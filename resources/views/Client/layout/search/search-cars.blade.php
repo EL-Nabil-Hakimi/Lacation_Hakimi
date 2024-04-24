@@ -19,6 +19,10 @@
 	<br>
 	<h3>CARS NOT FOUND</h3>
 </div>
+
+@endforelse
+          
+
 <style>
 	#carimage{
         width: 100%;
@@ -34,5 +38,3 @@
 	}
 
 </style>
-@endforelse
-          

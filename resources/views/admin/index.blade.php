@@ -150,7 +150,8 @@
                     <a href="{{ route('admin.reservation') }}" class="nav-item nav-link{{ request()->routeIs('module.reservation') ? ' active' : '' }}"><i class="fas fa-calendar-check me-2"></i>Reservations</a>
                     <a href="{{ route('marque.cars') }}" class="nav-item nav-link{{ request()->routeIs('marque.cars') ? ' active' : '' }}"><i class="fas fa-tag me-2"></i>Marque</a>
                     <a href="{{ route('module.cars') }}" class="nav-item nav-link{{ request()->routeIs('module.cars') ? ' active' : '' }}"><i class="fas fa-puzzle-piece me-2"></i>Module</a>
-                    
+                    <a href="{{ route('admin.roles') }}" class="nav-item nav-link{{ request()->routeIs('admin.roles') ? ' active' : '' }}"><i class="fas fa-user-tag"></i>Rôles</a>
+                                        
                     @else
                     <a href="{{ route('manager.dashboard') }}" class="nav-item nav-link{{ request()->routeIs('manager.dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
                     <a href="{{ route('manager.clients') }}" class="nav-item nav-link{{ request()->routeIs('manager.clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
@@ -184,9 +185,7 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+              
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">

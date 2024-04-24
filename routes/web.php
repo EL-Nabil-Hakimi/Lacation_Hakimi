@@ -91,6 +91,13 @@ Route::group([], function () {
 // Admin____________________________________________________________________________________
 Route::group(['middleware' => ['admin']], function () {
 
+        Route::get('/admin/permissions' , [AdminController::class, 'Role'])->name('admin.roles');
+        Route::post('/admin/Permissions/add' , [AdminController::class, 'createRole']);
+        Route::post('/admin/Permissions/update' , [AdminController::class, 'updateRole']);
+        Route::get('/admin/Permissions/destroy/{id}' , [AdminController::class, 'destroyRole']);
+
+        Route::get('/getroles/{id}' , [AdminController::class, 'getroles' ]);
+
         
         Route::get('/admin/cars' , [CarController::class , 'AdminIndex'])->name('admin.voitures');
         Route::get('/admin/cars/destroy/{id}' , [CarController::class , 'destroy']);
@@ -180,3 +187,4 @@ Route::post('/updateinfo/{id}' , [ClientController::class, 'updateinfo']);
 Route::post('/search/cars/client' , [ClientController::class, 'searchcarforclient']);
 Route::post('/search/cars/client/ajax' , [ClientController::class, 'searchCarByModle']);
 
+// Permission

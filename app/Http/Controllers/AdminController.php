@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\permissions;
+use App\Models\PermissionsName;
+use App\Models\Roles;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -16,56 +19,63 @@ class AdminController extends Controller
         return view('admin.layout.dashboard');
     }
    
-
-    
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function Role()
     {
-        //
+        $roles = Roles::with('permissions')->where('name' , "!=", "Admin")->where('name' , "!=", "Client")->paginate(10);
+        $permissions = PermissionsName::all();
+        return view('admin.layout.permission.role' , compact('roles' , 'permissions'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Admin $admin)
-    {
-        //
-    }
-
-
    
+    public function createRole(Request $request)
+    {
+        $request->validate([
+            "name" => "required|unique:roles",
+            "per_id" => "required"
+        ]);
+
+
+        Roles::create([
+            "name" => $request->name,
+        ]);
+
+        $Role = Roles::where('name' , $request->name)->first();
+        $Role_id = $Role->id;
+
+        foreach ($request->per_id as $per_id)
+        {
+            permissions::create([
+                "role_id" => $Role_id,
+                "permission_id" => $per_id,
+            ]);
+        }
+
+
+        return redirect()->back()->with('success' , 'Role has been created successfully');
+    }
+    public function updateRole(Request $request )
+    {
+        $permission = Roles::find($request->id);
+        $permission->update([
+            "name" => $request->name,
+        ]);
+
+        return redirect()->back()->with('success' , 'Role has been updated successfully');
+    }
+
+    public function destroyRole($id)
+    {
+        $permission = Roles::find($id);
+        $permission->delete();
+
+        return redirect()->back()->with('success' , 'Role has been deleted successfully');
+    }
+
+
+    public function getroles($id)
+    {
+        $permission = permissions::with('permissionName')->where('role_id' , $id)->get();
+        return response()->json($permission);
+    }
+
+
 }
