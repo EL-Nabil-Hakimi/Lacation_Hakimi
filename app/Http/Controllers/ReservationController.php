@@ -38,7 +38,10 @@ class ReservationController extends Controller
         ]);
 
        
-    
+        if($request->date_debut > $request->date_fin){
+            return response()->json(['error' => 'The start date must be less than the end date']);
+        }
+        
         if(session()->get('role_id') == 3){
             $checkcar = Reservation::where('date_fin', '>', $request->date_debut)
                 ->where('date_debut', '<', $request->date_fin)

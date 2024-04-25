@@ -61,6 +61,7 @@ class User extends Authenticatable
 
     public function car()
     {
+        
         return $this->hasMany(Car::class);
 
     }
