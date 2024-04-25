@@ -204,6 +204,9 @@
                     <h6 class="text-warning">Status: Car is out</h6>
                     @elseif($res->accepte === 4)
                     <h6 class="text-secondary">Status: Ended</h6>
+                  
+                    @elseif($res->accepte === 5 || $res->accepte === 6)
+                    <h6 class="text-danger">Status: Canceld</h6>
                     @else
                     <h6 class="text-primary">Status: Pending</h6>
                     @endif

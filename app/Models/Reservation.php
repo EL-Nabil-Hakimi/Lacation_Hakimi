@@ -20,7 +20,5 @@ class Reservation extends Model
         return $this->belongsTo(Car::class)->with('marque')->with('model')->with('user');
     }
 
-    
-    
 
 }

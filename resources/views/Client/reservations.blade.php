@@ -169,13 +169,13 @@
                         </div>
                         @if($res->accepte === 1)
                         <h6 class="text-success">Status: Accepted</h6>
-                        @elseif($res->accepte === 2)
+                        @elseif($res->accepte === 2 || $res->accepte === 7)
                         <h6 class="text-danger">Status: Rejected</h6>
                         @elseif($res->accepte === 3)
                         <h6 class="text-warning">Status: Car is out</h6>
                         @elseif($res->accepte === 4)
                         <h6 class="text-secoundary">Status: Ended</h6>
-                        @elseif($res->accepte === 5)
+                        @elseif($res->accepte === 5 || $res->accepte === 6)
                         <h6 class="text-danger">Status: Canceld</h6>
                         @else
                         <h6 class="text-primary">Status: Pending</h6>
@@ -185,18 +185,6 @@
                         <div class="d-flex flex-column mt-4">
                           @if($res->accepte == null)
                           <button class="btn btn-danger btn-sm" type="button" onclick="AlertCan( '{{$res->id}}' ,'5','If this reservation is canceled, you can\'t cancel it again.')">
-                            <i class="fas fa-times"></i> Cancel
-                          </button>
-                          @elseif($res->accepte == 1 || $res->accepte == 2)
-                          <button class="btn btn-danger btn-sm" type="button" onclick="AlertCant('This reservation cannot be canceled.')">
-                            <i class="fas fa-times"></i> Cancel
-                          </button>
-                          @elseif($res->accepte == 3 || $res->accepte == 4)
-                          <button class="btn btn-danger btn-sm" type="button" onclick="AlertCant('You can\'t cancel this reservation.')">
-                            <i class="fas fa-times"></i> Cancel
-                          </button>
-                          @elseif($res->accepte == -1)
-                          <button class="btn btn-danger btn-sm" type="button" onclick="AlertCant('This reservation has been rejected')">
                             <i class="fas fa-times"></i> Cancel
                           </button>
                           @endif
@@ -209,10 +197,7 @@
                             <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="downloadReservation({{$res->id}})">
                               <i class="fas fa-download"></i> Download
                             </button>
-                          @elseif($res->accepte == 2)
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="AlertCant('This reservation has been rejected')">
-                              <i class="fas fa-download"></i> Download
-                            </button>
+                         
                           @elseif($res->accepte == 3)
                             <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="downloadReservation({{$res->id}})">
                               <i class="fas fa-download"></i> Download
@@ -221,10 +206,7 @@
                             <button class="btn btn-outline-primary btn-sm mt-2" type="button" onclick="downloadReservation({{$res->id}})">
                               <i class="fas fa-download"></i> Download
                             </button>
-                          @elseif($res->accepte == -1)
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="button" disabled onclick="AlertCant('Reservations cannot be downloaded if they are rejected')">
-                              <i class="fas fa-download"></i> Download
-                            </button>
+                          
                           @endif
                         </div>
                         </div>

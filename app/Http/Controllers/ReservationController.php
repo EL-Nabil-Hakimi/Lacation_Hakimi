@@ -17,7 +17,7 @@ class ReservationController extends Controller
     public function index()
     {
         $reservations = Reservation::with('car')->with('user')
-       ->where('user_id' , session()->get('user_id'))->orderBy('updated_at' , 'desc')->paginate(5);
+       ->where('user_id' , session()->get('user_id'))->orderBy('updated_at' , 'desc')->latest()->paginate(5);
         if (session()->has('user_id') && session()->get('role_id') == 3) {
             $user_id = session('user_id');
             $user = User::with('client')->where('id', $user_id)->get();
@@ -38,23 +38,27 @@ class ReservationController extends Controller
         ]);
 
        
-        if($request->date_debut > $request->date_fin){
-            return response()->json(['error' => 'The start date must be less than the end date']);
-        }
-        
+    if($request->date_debut > $request->date_fin){
+        return response()->json(['error' => 'The start date must be less than the end date']);
+    }
+    
         if(session()->get('role_id') == 3){
             $checkcar = Reservation::where('date_fin', '>', $request->date_debut)
                 ->where('date_debut', '<', $request->date_fin)
                 ->where('car_id', $id)
+                ->where('accepte' , 1)
+                ->orWhere('accepte' , 3)
+                ->orWhere('accepte' , null)
+                ->orderBy('updated_at' , 'DESC')
                 ->first();
-    
-            
-            if($checkcar == null){
                 
-                $date_now = now()->format('Y-m-d');
-                if ($date_now > $request->date_debut) {
-                    return response()->json(['error' => 'You cannot reserve a car with a date before today']);
+            if($checkcar == null || $checkcar != null && $checkcar->accepte == 5){
+
+                if($checkcar != null && $checkcar->accepte == 5){
+                    $checkcar->accepte = 6;
+                    $checkcar->save();
                 }
+                 
 
                 $reservation  = new Reservation();
                 $reservation->user_id = session()->get('user_id');
