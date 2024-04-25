@@ -155,9 +155,9 @@
                     @else
                     <a href="{{ route('manager.dashboard') }}" class="nav-item nav-link{{ request()->routeIs('manager.dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
                     <a href="{{ route('manager.clients') }}" class="nav-item nav-link{{ request()->routeIs('manager.clients') ? ' active' : '' }}"><i class="fas fa-user-friends me-2"></i>Clients</a>
-                    <a href="{{ route('manager.cars') }}" class="nav-item nav-link{{ request()->routeIs('manager.cars') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
-                    <a href="{{ route('marque.cars') }}" class="nav-item nav-link{{ request()->routeIs('marque.cars') ? ' active' : '' }}"><i class="fas fa-tag me-2"></i>Marque</a>
-                    <a href="{{ route('module.cars') }}" class="nav-item nav-link{{ request()->routeIs('module.cars') ? ' active' : '' }}"><i class="fas fa-puzzle-piece me-2"></i>Module</a>
+                    <a href="{{ route('manager.voitures') }}" class="nav-item nav-link{{ request()->routeIs('manager.voitures') ? ' active' : '' }}"><i class="fas fa-car me-2"></i>Voitures</a>
+                    <a href="{{ route('manager.marque_cars') }}" class="nav-item nav-link{{ request()->routeIs('manager.marque_cars') ? ' active' : '' }}"><i class="fas fa-tag me-2"></i>Marque</a>
+                    <a href="{{ route('manager.module_cars') }}" class="nav-item nav-link{{ request()->routeIs('manager.module_cars') ? ' active' : '' }}"><i class="fas fa-puzzle-piece me-2"></i>Module</a>
 
                     {{-- <a href="{{ route('dashboard') }}" class="nav-item nav-link{{ request()->routeIs('dashboard') ? ' active' : '' }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a>
                     <a href="{{ route('managers') }}" class="nav-item nav-link{{ request()->routeIs('managers') ? ' active' : '' }}"><i class="fas fa-users me-2"></i>Managers</a>

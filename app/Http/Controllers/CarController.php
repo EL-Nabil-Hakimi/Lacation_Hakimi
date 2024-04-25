@@ -17,15 +17,7 @@ class CarController extends Controller
 
 
 
-    public function index()
-    {
-        $user_id = 2; 
-
-        $cars = Car::where('accepte', true)->get();
-
-        // return view('cars.index', ['cars' => $cars]);
-        return response()->json($cars);
-    }
+    
     public function ManagerIndex()
     {
         $user_id  = Session::get('user_id');
@@ -40,10 +32,6 @@ class CarController extends Controller
     public function AdminIndex()
     {
         $user_id  = Session::get('user_id');
-
-        if(Session::get('role_id') != 1){
-            return redirect('/login');
-        }
 
         $cars = Car::with('marque')->with('model')->latest()->paginate(5);
         $marques = CarCompany::all();

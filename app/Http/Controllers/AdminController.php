@@ -7,6 +7,7 @@ use App\Models\permissions;
 use App\Models\PermissionsName;
 use App\Models\Roles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class AdminController extends Controller
 {
@@ -15,7 +16,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
         return view('admin.layout.dashboard');
     }
    

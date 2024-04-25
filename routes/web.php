@@ -131,6 +131,43 @@ Route::group(['middleware' => ['admin']], function () {
     
 });
 
+Route::get('/profile', [ManagerController::class, 'profilepage']);
+
+Route::group(['middleware' => ['manager']], function () {
+    // Dashboard
+    Route::get('/manager/dashboard', [AdminController::class, 'index'])->name('manager.dashboard');
+
+    // Cars
+    Route::get('/manager/cars', [CarController::class, 'AdminIndex'])->name('manager.voitures');
+    Route::get('/manager/cars/destroy/{id}', [CarController::class, 'manager.destroy']);
+    Route::get('/manager/cars/restore/{id}', [CarController::class, 'manager.restore']);
+    Route::get('/manager/cars/delete/{id}', [CarController::class, 'manager.delete']);
+
+    // Clients
+    Route::get('/manager/clients', [ClientController::class, 'dashboard'])->name('manager.clients');
+
+    // Modules
+    Route::get('/manager/modules', [AdminController::class, 'modules'])->name('manager.modules');
+
+    // Reservation
+    Route::get('/manager/reservation', [ReservationController::class, 'AdminReservation'])->name('manager.reservation');
+    Route::get('/manager/StatuCar/{id}/{status}', [ReservationController::class, 'StatuCar'])->name('manager.statuCar');
+
+    // User Management
+    Route::get('/manager/banuser/{id}', [AuthController::class, 'ban'])->name('manager.banUser');
+    Route::get('/manager/restoruser/{id}', [AuthController::class, 'restore'])->name('manager.restoreUser');
+
+    // Module Cars
+    Route::get('/manager/module', [ModelCarController::class, 'index'])->name('manager.module_cars');
+    Route::post('/manager/module/add', [ModelCarController::class, 'store'])->name('manager.module_add');
+    Route::get('/manager/module/delete/{id}', [ModelCarController::class, 'delete'])->name('manager.module_delete');
+
+    // Mark Cars
+    Route::get('/manager/marque' , [CarCompanyController::class, 'index'])->name('manager.marque_cars');
+
+});
+
+
 Route::get('/client/StatuCar/{id}/{status}', [ReservationController::class, 'StatuCar']);
 Route::get('/client/downloadReservation/{id}',  [ReservationController::class, 'downloadReservation']);
 
@@ -144,15 +181,14 @@ Route::post('/modifiermotdepass' , [AuthController::class, 'modifiermotdepass'])
 
 // Cars Manager
 
-Route::get('/manager/dashboard' , [ManagerController::class, 'ManagerDashboard'])->name('manager.dashboard');
-Route::get('/manager/clients', [ClientController::class, 'dashboard'])->name('manager.clients');
+// Route::get('/manager/dashboard' , [ManagerController::class, 'ManagerDashboard'])->name('manager.dashboard');
+// Route::get('/manager/clients', [ClientController::class, 'dashboard'])->name('manager.clients');
 
-Route::get('/manager/cars' , [CarController::class, 'ManagerIndex'])->name('manager.cars');
-Route::get('/manager/marque' , [CarCompanyController::class, 'index'])->name('marque.cars');
-Route::get('/manager/module' , [ModelCarController::class, 'index'])->name('module.cars');
-Route::post('/module/add' , [ModelCarController::class, 'store']);
-Route::post('/module/update' , [ModelCarController::class, 'update']);
-Route::get('/module/delete/{id}' , [ModelCarController::class, 'delete']);
+// Route::get('/manager/cars' , [CarController::class, 'ManagerIndex'])->name('manager.cars');
+// Route::get('/manager/module' , [ModelCarController::class, 'index'])->name('module.cars');
+// Route::post('/module/add' , [ModelCarController::class, 'store']);
+// Route::post('/module/update' , [ModelCarController::class, 'update']);
+// Route::get('/module/delete/{id}' , [ModelCarController::class, 'delete']);
 
 
 Route::post('/marque/add' , [CarCompanyController::class, 'store']);

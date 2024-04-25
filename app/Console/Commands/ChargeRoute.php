@@ -34,7 +34,7 @@ class ChargeRoute extends Command
 
         foreach ($routeCollection as $route) {
             $routeName = $route->getName();
-             if ($routeName && !in_array($routeName, ['sanctum.csrf-cookie', 'ignition.healthCheck', 'ignition.executeSolution', 'ignition.updateConfig'])) {
+            if ($routeName && !in_array($routeName, ['sanctum.csrf-cookie', 'ignition.healthCheck', 'ignition.executeSolution', 'ignition.updateConfig']) && strpos($routeName, 'manager.') === 0) {
                 $allRouteNames[] = $routeName;
             }
         }
