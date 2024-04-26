@@ -88,11 +88,11 @@ Route::group([], function () {
 // Admin____________________________________________________________________________________
 Route::group(['middleware' => ['admin']], function () {
 
-        Route::get('/admin/roles' , [AdminController::class, 'Role'])->name('admin.roles');
-        Route::post('/admin/roles/add' , [AdminController::class, 'createRole']);
+        Route::get('/admin/permissions' , [AdminController::class, 'Role'])->name('admin.roles');
+        Route::post('/admin/Permissions/add' , [AdminController::class, 'createRole']);
         
-        Route::post('/admin/roles/update' , [AdminController::class, 'updateRole']);
-        Route::get('/admin/roles/destroy/{id}' , [AdminController::class, 'destroyRole']);
+        Route::post('/admin/Permissions/update' , [AdminController::class, 'updateRole']);
+        Route::get('/admin/Permissions/destroy/{id}' , [AdminController::class, 'destroyRole']);
 
         Route::get('/getroles/{id}' , [AdminController::class, 'getPermission' ]);
 
