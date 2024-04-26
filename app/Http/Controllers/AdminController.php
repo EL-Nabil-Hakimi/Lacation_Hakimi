@@ -29,6 +29,7 @@ class AdminController extends Controller
    
     public function createRole(Request $request)
     {
+        
         $request->validate([
             "name" => "required|unique:roles",
             "per_id" => "required"
