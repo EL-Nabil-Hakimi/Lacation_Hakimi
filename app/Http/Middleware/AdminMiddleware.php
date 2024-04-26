@@ -19,7 +19,7 @@ class AdminMiddleware
         if (Session::get('role_id') == 1) {
             return $next($request);
         } else {
-            return redirect('/login');
+            return redirect()->back();
         }
     }
     

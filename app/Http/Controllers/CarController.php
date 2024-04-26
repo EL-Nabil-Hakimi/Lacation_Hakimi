@@ -114,6 +114,7 @@ class CarController extends Controller
             'imagecar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
+        
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
             }
