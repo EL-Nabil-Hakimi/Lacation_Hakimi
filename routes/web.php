@@ -88,7 +88,7 @@ Route::group([], function () {
 // Admin____________________________________________________________________________________
 Route::group(['middleware' => ['admin']], function () {
 
-        Route::get('/admin/permissions' , [AdminController::class, 'Role'])->name('admin.admin_roles');
+        Route::get('/admin/permissions' , [AdminController::class, 'Role'])->name('admin.roles');
         Route::post('/admin/Permissions/add' , [AdminController::class, 'createRole']);
         
         Route::post('/admin/Permissions/update' , [AdminController::class, 'updateRole']);
