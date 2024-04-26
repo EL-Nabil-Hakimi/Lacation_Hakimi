@@ -88,7 +88,7 @@ Route::group([], function () {
 // Admin____________________________________________________________________________________
 Route::group(['middleware' => ['admin']], function () {
 
-        Route::get('/admin/permissions' , [AdminController::class, 'Role'])->name('admin.roles');
+        Route::get('/admin/permissions' , [AdminController::class, 'Role'])->name('admin.admin_roles');
         Route::post('/admin/Permissions/add' , [AdminController::class, 'createRole']);
         
         Route::post('/admin/Permissions/update' , [AdminController::class, 'updateRole']);
@@ -109,8 +109,8 @@ Route::group(['middleware' => ['admin']], function () {
         Route::get('/profileshow', [ManagerController::class, 'profileshow']);
 
         Route::get('/admin/clients', [ClientController::class, 'dashboard'])->name('admin.clients');
-        Route::get('/admin/modules', [AdminController::class, 'modules'])->name('admin.modules');
 
+        Route::get('/admin/module' , [ModelCarController::class, 'index'])->name('admin.module_cars');
         // reservation
 
         Route::get('/admin/reservation', [ReservationController::class, 'AdminReservation'])->name('admin.reservation');
@@ -122,9 +122,11 @@ Route::group(['middleware' => ['admin']], function () {
         Route::get('/banuser/{id}' , [AuthController::class, 'ban']);
         Route::get('/restoruser/{id}' , [AuthController::class, 'restore']);
 
-        Route::get('/admin/module' , [ModelCarController::class, 'index'])->name('module.cars');
         Route::post('/module/add' , [ModelCarController::class, 'store']);
         Route::get('/module/delete/{id}' , [ModelCarController::class, 'delete']);
+
+        Route::get('/admin/marque' , [CarCompanyController::class, 'index'])->name('admin.marque.cars');
+
 
         Route::resources(['admin' => AdminController::class]);
 
