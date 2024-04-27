@@ -1,22 +1,27 @@
-on: push
+on:
+  push:
+    branches:
+      - main
+
 name: 🚀 Deploy website on push
+
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: labo-snce.com
-        username: u820736800.mycar.coders-strike.tech
-        password: ${{ secrets.ftp_password }}
-    - name: Run migrations
-      run: php artisan migrate
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
 
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: labo-snce.com
+          username: u820736800.mycar.coders-strike.tech
+          password: ${{ secrets.ftp_password }}
 
+      - name: Display synced files
+        run: ls -laR
 
- 
+      - name: Run migrations
+        run: php artisan migrate
