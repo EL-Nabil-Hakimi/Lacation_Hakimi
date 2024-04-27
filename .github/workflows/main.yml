@@ -22,7 +22,3 @@ jobs:
 
       - name: Display synced files
         run: ls -laR
-        
-
-      - name: Run migrations
-        run: php artisan migrate
