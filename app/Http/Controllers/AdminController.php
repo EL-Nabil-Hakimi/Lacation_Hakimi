@@ -24,12 +24,12 @@ class AdminController extends Controller
         $roles = Roles::with('permissions')->whereNot('id', 1)->whereNot('id' , 3)->paginate(10);
         $permissions = PermissionsName::all();
         
-        return view('admin.layout.permission.role' , compact('roles' , 'permissions'));
+        return view('admin.layout.roles.role' , compact('roles' , 'permissions'));
     }
    
     public function createRole(Request $request)
     {
-        
+
         $request->validate([
             "name" => "required|unique:roles",
             "per_id" => "required"
