@@ -29,7 +29,8 @@ class ReservationController extends Controller
         }
     }
     
-    public function addreservation(Request $request, $id){
+    public function addreservation(Request $request, $id)
+    {
         
 
         $request->validate([
@@ -111,28 +112,28 @@ class ReservationController extends Controller
     }
 
     public function downloadReservation($id)
-{
-    $res = Reservation::with('car')->with('user')->where('id', $id)->get();
+    {
+        $res = Reservation::with('car')->with('user')->where('id', $id)->get();
 
-    $date1 = Carbon::parse($res[0]->date_debut);
-    $date2 = Carbon::parse($res[0]->date_fin);
-    $totalDays = $date1->diffInDays($date2);
-    $totalCost = $totalDays * $res[0]->car->prix_par_jour;
-    $image = asset('images/cars/'.$res[0]->car->image);
+        $date1 = Carbon::parse($res[0]->date_debut);
+        $date2 = Carbon::parse($res[0]->date_fin);
+        $totalDays = $date1->diffInDays($date2);
+        $totalCost = $totalDays * $res[0]->car->prix_par_jour;
+        $image = asset('images/cars/'.$res[0]->car->image);
 
-    $htmlContent = view('Client.tecket' ,compact('res' , 'totalDays' , 'totalCost' , 'image'))->render();
+        $htmlContent = view('Client.tecket' ,compact('res' , 'totalDays' , 'totalCost' , 'image'))->render();
 
-    $options = new Options();
-    $options->set('isHtml5ParserEnabled', true);
-    $dompdf = new Dompdf($options);
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $dompdf = new Dompdf($options);
 
-    $dompdf->loadHtml($htmlContent);
+        $dompdf->loadHtml($htmlContent);
 
-    $dompdf->setPaper('A4', 'portrait');
+        $dompdf->setPaper('A4', 'portrait');
 
-    $dompdf->render();
+        $dompdf->render();
 
-    return $dompdf->stream('document.pdf');
+        return $dompdf->stream('document.pdf');
     }
 
     

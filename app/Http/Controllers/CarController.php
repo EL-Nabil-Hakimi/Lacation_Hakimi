@@ -16,7 +16,6 @@ class CarController extends Controller
     //
 
 
-
     
     public function ManagerIndex()
     {

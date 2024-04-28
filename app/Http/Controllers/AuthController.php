@@ -216,48 +216,48 @@ class AuthController extends Controller
             }
         
     }
-        public function modifiermotdepass(Request $request)
-        {
-            $validator = Validator::make($request->all(), [
-                'oldmdp' => 'required|string',
-                'newmdp' => 'required|string|min:8',
-            ], [
-                'oldmdp.required' => 'Le champ ancien mot de passe est requis.',
-                'newmdp.required' => 'Le champ nouveau mot de passe est requis.',
-                'newmdp.min' => 'Le mot de passe doit avoir au moins :min caractères.',
-            ]);
+    public function modifiermotdepass(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'oldmdp' => 'required|string',
+            'newmdp' => 'required|string|min:8',
+        ], [
+            'oldmdp.required' => 'Le champ ancien mot de passe est requis.',
+            'newmdp.required' => 'Le champ nouveau mot de passe est requis.',
+            'newmdp.min' => 'Le mot de passe doit avoir au moins :min caractères.',
+        ]);
 
-            $user = User::findOrFail($request->id);
+        $user = User::findOrFail($request->id);
 
-            if($user && Hash::check($request->oldmdp, $user->password)){
-                    $user->password = Hash::make($request->newmdp);
-                    $user->update();
-                    return redirect()->back()->with("msgss" , "Le Mot De pass a ete changer avec succes");
-                    
-            }
-
-            else{
-                return redirect()->back()->with("msgss" , "L'ancein Mot de pass incorrect");
-
-            }
+        if($user && Hash::check($request->oldmdp, $user->password)){
+                $user->password = Hash::make($request->newmdp);
+                $user->update();
+                return redirect()->back()->with("msgss" , "Le Mot De pass a ete changer avec succes");
+                
         }
+
+        else{
+            return redirect()->back()->with("msgss" , "L'ancein Mot de pass incorrect");
+
+        }
+    }
   
 
 
-        public function ban($id)
-        {
-            $user = User::findOrFail($id);
-            $user->ban = 1; 
-            $user->save();
-            return redirect()->back()->with('success', 'Utilisateur bloque avec succès.');
-        }
-        public function restore($id)
-        {
-            $user = User::findOrFail($id);
-            $user->ban = null; 
-            $user->save();
-            return redirect()->back()->with('success', 'Utilisateur debloque avec succès.');
-        }
+    public function ban($id)
+    {
+        $user = User::findOrFail($id);
+        $user->ban = 1; 
+        $user->save();
+        return redirect()->back()->with('success', 'Utilisateur bloque avec succès.');
+    }
+    public function restore($id)
+    {
+        $user = User::findOrFail($id);
+        $user->ban = null; 
+        $user->save();
+        return redirect()->back()->with('success', 'Utilisateur debloque avec succès.');
+    }
     
 
 }

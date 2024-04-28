@@ -74,7 +74,6 @@
 @endif
 
 
-
     <meta charset="utf-8">
     <title>My Car</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">

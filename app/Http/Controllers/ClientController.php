@@ -46,8 +46,7 @@ class ClientController extends Controller
         return view('Client.about');
     }
     public function cars()
-    {
-    
+    {    
         $cars = Car::with('marque')->with('model')->where('accepte' , 1)->where('disponibilite' , 1)->latest()->paginate(9);
         $count_cars = $cars->count();
 
@@ -123,7 +122,8 @@ class ClientController extends Controller
 
     //    partie d'admine
     
-    public function dashboard(){
+    public function dashboard()
+    {
 
         $clients = $this->user->with('client')->where('role_id' , 3)->latest()->get();
         // foreach($clients as $client){
@@ -299,7 +299,8 @@ class ClientController extends Controller
 
 
     
-    public function searchCarByModle(Request $request){
+    public function searchCarByModle(Request $request)
+    {
         $cars = Car::with('marque', 'model')
         ->where('accepte', 1)
         ->where('disponibilite', 1);
