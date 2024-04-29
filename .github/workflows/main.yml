@@ -14,3 +14,5 @@ jobs:
         server: labo-snce.com
         username: u820736800.mycar.coders-strike.tech
         password: ${{ secrets.ftp_password }}
+
+        
