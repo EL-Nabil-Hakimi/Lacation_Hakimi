@@ -14,3 +14,5 @@ jobs:
         server: elhakimi.com
         username: u749559678.mycars.elhakimi.com
         password: ${{ secrets.ftp_password }}
+
+        
