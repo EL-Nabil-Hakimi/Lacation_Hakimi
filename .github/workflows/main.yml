@@ -11,6 +11,6 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: labo-snce.com
-        username: u820736800.mycar.coders-strike.tech
+        server: elhakimi.com
+        username: u749559678.mycars.elhakimi.com
         password: ${{ secrets.ftp_password }}

@@ -33,7 +33,7 @@ class ValidationManager
             if ($permissionCheck) {
                 $permissionId = $permissionCheck->id;
 
-                $permission = permissions::where('permission_id', $permissionId)
+                $permission = Permissions::where('permission_id', $permissionId)
                                          ->where('role_id', $roleId)
                                          ->first();
 
